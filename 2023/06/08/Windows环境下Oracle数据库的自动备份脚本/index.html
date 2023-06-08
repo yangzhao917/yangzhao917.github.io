@@ -9,20 +9,20 @@
   <meta name="description" content="1.创建批处理文件（.bat）12345678910111213141516171819202122@echo off   echo &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;   echo  Windows环境下Oracle数据库的自动备份脚本  echo  1. 使用当前日期命名备份文件。  echo  2. 自动删除7天前的备份。  ec">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows环境下Oracle数据库的自动备份脚本">
-<meta property="og:url" content="https://yangzhao917.github.io/2022/11/21/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:url" content="https://yangzhao917.github.io/2023/06/08/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="澄澈少年的网络小站">
 <meta property="og:description" content="1.创建批处理文件（.bat）12345678910111213141516171819202122@echo off   echo &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;   echo  Windows环境下Oracle数据库的自动备份脚本  echo  1. 使用当前日期命名备份文件。  echo  2. 自动删除7天前的备份。  ec">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthbk65cj30dm0hgab4.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthy57kkj30ng0igwfp.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctjsyknyj30we0e4aat.jpg">
-<meta property="og:image" content="https://yangzhao917.github.io/">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctk84ta5j30vu0dojsh.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctopmrrjj313l0u00vy.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctpjo282j31230u0juz.jpg">
-<meta property="article:published_time" content="2022-11-21T06:33:52.155Z">
-<meta property="article:modified_time" content="2023-06-08T05:51:26.988Z">
+<meta property="article:published_time" content="2023-06-08T06:05:15.000Z">
+<meta property="article:modified_time" content="2023-06-08T06:08:22.632Z">
 <meta property="article:author" content="澄澈少年">
+<meta property="article:tag" content="Oracle">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthbk65cj30dm0hgab4.jpg">
   
@@ -85,8 +85,8 @@
       <div class="outer">
         <section id="main"><article id="post-Windows环境下Oracle数据库的自动备份脚本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/11/21/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/" class="article-date">
-  <time class="dt-published" datetime="2022-11-21T06:33:52.155Z" itemprop="datePublished">2022-11-21</time>
+    <a href="/2023/06/08/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2023-06-08T06:05:15.000Z" itemprop="datePublished">2023-06-08</time>
 </a>
     
   </div>
@@ -108,14 +108,13 @@
         <h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthbk65cj30dm0hgab4.jpg" align='left' style="zoom:50%;" >
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthbk65cj30dm0hgab4.jpg" align='left' style="zoom:50%;" referrerpolicy="no-referrer" >
 
 <h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8cthy57kkj30ng0igwfp.jpg" referrerpolicy="no-referrer">
 
 <h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctjsyknyj30we0e4aat.jpg" referrerpolicy="no-referrer">
 
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="/" alt="image-20221121161651087"></p>
-<img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctk84ta5j30vu0dojsh.jpg" referrerpolicy="no-referrer">
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctk84ta5j30vu0dojsh.jpg" referrerpolicy="no-referrer">
 
 <img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8ctopmrrjj313l0u00vy.jpg" referrerpolicy="no-referrer">
 
@@ -133,25 +132,23 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://yangzhao917.github.io/2022/11/21/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/" data-id="climq1x3o0002uxz0dmrkbhg8" data-title="Windows环境下Oracle数据库的自动备份脚本" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://yangzhao917.github.io/2023/06/08/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/" data-id="climqnuj500013hz04jk25asu" data-title="Windows环境下Oracle数据库的自动备份脚本" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2022/12/22/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%88%86%E9%A1%B5%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Oracle数据库中分页排序问题
-        
-      </div>
-    </a>
   
+    <a href="/2023/06/08/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%88%86%E9%A1%B5%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Oracle数据库中分页排序问题</div>
+    </a>
   
 </nav>
 
@@ -167,15 +164,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li></ul>
     </div>
   </div>
 
@@ -188,15 +199,15 @@
       <ul>
         
           <li>
+            <a href="/2023/06/08/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/">Windows环境下Oracle数据库的自动备份脚本</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/08/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%88%86%E9%A1%B5%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/">Oracle数据库中分页排序问题</a>
+          </li>
+        
+          <li>
             <a href="/2023/06/08/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/22/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%88%86%E9%A1%B5%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98/">Oracle数据库中分页排序问题</a>
-          </li>
-        
-          <li>
-            <a href="/2022/11/21/Windows%E7%8E%AF%E5%A2%83%E4%B8%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/">Windows环境下Oracle数据库的自动备份脚本</a>
           </li>
         
       </ul>
