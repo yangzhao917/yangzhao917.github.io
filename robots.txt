@@ -14,4 +14,4 @@ Disallow: /fancybox/
 
 # 记得替换成你的域名
 Sitemap: http://gotojava.cn/sitemap.xml
-Sitemap: http://gotojava.cn/baidusitemap.xml主动推送
+Sitemap: http://gotojava.cn/baidusitemap.xml
