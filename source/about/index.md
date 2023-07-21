@@ -11,6 +11,8 @@ layout: "about"
 
 - 知乎：[@澄澈少年](https://www.zhihu.com/people/charles-yang-55)
 
+- 微博：[@澄澈少年_](https://weibo.com/u/5577475936)
+
 ## 朋友们
 
 - [倾旋的博客](https://payloads.online/)
