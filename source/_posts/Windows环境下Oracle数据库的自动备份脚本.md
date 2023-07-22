@@ -1,8 +1,11 @@
 ---
 title: Windows环境下Oracle数据库的自动备份脚本
+categories:
+  - 数据库
+tags:
+  - Oracle
+abbrlink: a639d743
 date: 2023-06-08 14:05:15
-categories: ['数据库']
-tags: ['Oracle']
 ---
 
 <meta name="referrer" content="no-referrer" />

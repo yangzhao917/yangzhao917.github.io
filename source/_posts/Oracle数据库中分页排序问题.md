@@ -1,8 +1,11 @@
 ---
 title: Oracle数据库中分页排序问题
+categories:
+  - 数据库
+tags:
+  - Oracle
+abbrlink: e057bf2e
 date: 2023-06-08 14:00:55
-categories: ['数据库']
-tags: ['Oracle']
 ---
 <meta name="referrer" content="no-referrer" />
 
