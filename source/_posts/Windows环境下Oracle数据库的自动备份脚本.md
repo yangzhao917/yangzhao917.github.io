@@ -1,7 +1,7 @@
 ---
-title: Windows环境下Oracle数据库的自动备份脚本
+title: WindowsServer-Oracle数据库自动备份
 categories:
-  - 数据库
+  - 技术分享
 tags:
   - Oracle
 abbrlink: a639d743

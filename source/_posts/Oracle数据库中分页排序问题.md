@@ -1,7 +1,7 @@
 ---
-title: Oracle数据库中分页排序问题
+title: 达梦查询分页排序问题
 categories:
-  - 数据库
+  - 技术分享
 tags:
   - Oracle
 abbrlink: e057bf2e
