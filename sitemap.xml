@@ -82,24 +82,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://gotojava.cn/series/index.html</loc>
-    
-    <lastmod>2023-08-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/project/index.html</loc>
-    
-    <lastmod>2023-08-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://gotojava.cn/</loc>
@@ -117,13 +99,6 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/MySQL/</loc>
-    <lastmod>2023-08-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/tags/Linux/</loc>
     <lastmod>2023-08-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -132,6 +107,13 @@
   
   <url>
     <loc>https://gotojava.cn/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2023-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/MySQL/</loc>
     <lastmod>2023-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
