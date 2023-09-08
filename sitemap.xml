@@ -153,11 +153,4 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://gotojava.cn/categories/Linux/</loc>
-    <lastmod>2023-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 </urlset>
