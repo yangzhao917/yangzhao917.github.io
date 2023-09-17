@@ -73,6 +73,9 @@ deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-ent
 
 2. 上传`openssh`和`zlib`
 
+| [ICloud获取](https://www.icloud.com.cn/iclouddrive/0a6Z5YjRTUOVDwyyjh69fLAoQ) | [百度网盘获取](https://pan.baidu.com/s/1N74CdsrofonJvyEmS87voA?pwd=ges3) |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+
 ```shell
 root@wsupport-PC:/home/wsupport/Downloads# ls
 install_package  openssh-9.4p1.tar.gz  zlib-1.2.13.tar.gz
