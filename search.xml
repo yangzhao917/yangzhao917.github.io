@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>达梦查询分页排序问题</title>
+    <url>/article/e057bf2e.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
+<li>环境：达梦7</li>
+</ul>
+<p>查询SQL如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
+<p>发现数据库的查询结果数据是正确的</p>
+<p><img src="https://p.ipic.vip/86usxs.png"></p>
+<p>但页面返回的数据排序是有问题的</p>
+<p><img src="https://p.ipic.vip/0y1d5u.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="https://p.ipic.vip/y6xi3a.png"></p>
+<p>那么拼接后的SQL就是这样</p>
+<p><img src="https://p.ipic.vip/gr2ey6.png"></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/oqsl8p.png"></p>
+<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/c3flxs.png" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/github_34013496/article/details/74938788">Oracle数据库中分页排序</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL系列-MySQL安装与配置</title>
+    <url>/article/8df25a04.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。</p>
+<span id="more"></span>
+
+<h2 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h2><p>本文使用的版本是<code>MySQL 5.7.43</code>，可通过🔗<a href="https://downloads.mysql.com/archives/installer/">官网</a>获取最新版本，也可以直接通过我的网盘获取。</p>
+<p>🔗<a href="https://www.icloud.com.cn/iclouddrive/0fdMqhG1ZbQzXTa-xT6Gq4jyQ#MySQL">ICloud的网盘</a>：</p>
+<ul>
+<li><p>基于32位的<code>mysql-installer-community-5.7.42.0</code>安装版</p>
+</li>
+<li><p>基于64位的<code>mysql-5.7.43-winx64</code></p>
+</li>
+<li><p>RPM版本的<code>mysql-5.7.41-1.el7.x86_64.rpm-bundle.tar</code></p>
+</li>
+</ul>
+<h2 id="Windows的安装"><a href="#Windows的安装" class="headerlink" title="Windows的安装"></a>Windows的安装</h2><blockquote>
+<p>Windows环境：Windows7旗舰版Service Pack 1</p>
+</blockquote>
+<ul>
+<li>将MySQL放到安装目录中</li>
+</ul>
+<p>此系统为了我的虚拟机，只有一个盘符<code>C:</code>，所以我会放到<code>C:\Program Files</code>目录下。对于MySQL的图形化<code>.msi</code>的安装版本，会默认将安装到<code>C:\Program Files\MySQL</code>目录下。</p>
+<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
+<li>添加系统环境变量<code>MYSQL57_HOME</code></li>
+</ul>
+<p><img src="https://p.ipic.vip/7ymqcl.png" alt="image-20230727220925088"></p>
+<blockquote>
+<p>变量名：MYSQL57_HOME</p>
+<p>变量值：C:\Program Files\mysql-5.7.43-winx64</p>
+</blockquote>
+<ul>
+<li>修改系统环境变量<code>Path</code></li>
+</ul>
+<p><img src="https://p.ipic.vip/3q10x9.png" alt="image-20230727221424288"></p>
+<p>修改Path系统变量，在末尾添加<code>;%MYSQL57_HOME%\bin;</code></p>
+<blockquote>
+<p>%环境变量名%表示引用一个已定义的环境变量</p>
+<p>“;”号表示分割符，用于分隔上一个环境变量的值</p>
+</blockquote>
+<ul>
+<li>测试环境变量</li>
+</ul>
+<p><img src="https://p.ipic.vip/8lm2cb.png" alt="image-20230727222026852"></p>
+<p>看到这个说明环境变量配置成功</p>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>在MySQL安装目录创建MySQL配置文件<code>my.ini</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir=C:\\Program Files\mysql-5.7.43-winx64</span><br><span class="line"></span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=C:\\Program Files\mysql-5.7.43-winx64\data</span><br><span class="line"></span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections=200</span><br><span class="line"></span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br></pre></td></tr></table></figure>
+
+<p>从 MySQL 5.7.6 开始，ZIP存档的MySQL不再包含<code>data</code>目录，这个目录需要我们自己创建和通过MySQL初始化。</p>
+<p>如果您想在不同位置使用数据目录，则应将该 <code>data</code>目录的全部内容复制到新位置。例如，如果您想用作<code>E:\mydata</code>数据目录，则必须做两件事：</p>
+<ol>
+<li>将整个<code>data</code>目录及其所有内容从默认位置（例如<code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>）移动到 <code>E:\mydata</code>；</li>
+<li>每次启动服务器时，使用<a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_datadir"><code>--datadir</code></a>选项指定新的数据目录位置。</li>
+</ol>
+<h3 id="初始化和安装"><a href="#初始化和安装" class="headerlink" title="初始化和安装"></a>初始化和安装</h3><p>❗以下命令都需要cmd以<strong>管理员身份运行</strong></p>
+<ol>
+<li>初始化数据库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 初始化时生成随机密码，且密码将被标记为已过期，在首次登陆后需要进行密码的修改</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize</span><br><span class="line"></span><br><span class="line"># 初始化时不会生成随机密码，在第一次登陆时使用回车确认即可</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize-insecure</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动服务器&#x2F;停止服务器</li>
+</ol>
+<ul>
+<li>启动服务器</li>
+</ul>
+<blockquote>
+<p>C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld –console</p>
+<p>或 mysqld，因为已经配置了环境变量所以这里可以简写为mysqld</p>
+</blockquote>
+<p><img src="https://p.ipic.vip/acv25p.png" alt="image-20230727230811586"></p>
+<p>如果省略该<a href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_console"><code>--console</code></a>选项，服务器会将诊断输出写入数据目录中的错误日志（<code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>默认情况下）。错误日志是带有扩展名的文件<code>.err</code>，可以使用<a href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_log-error"><code>--log-error</code></a> 选项进行设置。</p>
+<ol start="3">
+<li>安装为服务</li>
+</ol>
+<ul>
+<li>类型为自动启动，服务名默认MySQL(推荐)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install</span><br><span class="line">Service successfully installed.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类型为手动启动，服务名为MySQLServer57</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install-manual MySQLServer57</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>启动服务</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc start mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 2  START_PENDING</span><br><span class="line">                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x1f40</span><br><span class="line">        PID                : 2192</span><br><span class="line">        FLAGS              :</span><br></pre></td></tr></table></figure>
+
+<p>查看服务状态</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc query mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 1  STOPPED</span><br><span class="line">        WIN32_EXIT_CODE    : 1077  (0x435)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x0</span><br><span class="line">        WAIT_HINT          : 0x0</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装后配置"><a href="#安装后配置" class="headerlink" title="安装后配置"></a>安装后配置</h3><p>在进行MySQL的初始化操作后，会在MySQL的配置的<code>datadir</code>目录下生成一个以<code>主机名.err</code>的日志文件，在日志文件中查找<code>password</code>关键字来获取MySQL的初始密码。</p>
+<p><img src="https://p.ipic.vip/dfgkiy.png" alt="image-20230728005557780"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Windows\system32&gt;mysql -u root -p</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.43</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2023, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可通过mysql本地客户端工具连接mysql后，修改初始密码。</p>
+<h4 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; alter user root@localhost identified by &#x27;123456&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="允许远程访问"><a href="#允许远程访问" class="headerlink" title="允许远程访问"></a>允许远程访问</h4><p>用户默认会有登陆的授权访问限制，只有允许的IP才能访问。所以可以通过修改用户的host字段来修改IP访问限制。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 打开mysql数据库</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update user set host=&#x27;%&#x27; where user = &#x27;root&#x27;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line"># 刷新权限表</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="番外篇"><a href="#番外篇" class="headerlink" title="番外篇"></a>番外篇</h3><h4 id="卸载MySQL"><a href="#卸载MySQL" class="headerlink" title="卸载MySQL"></a>卸载MySQL</h4><ol>
+<li>停止MySQL</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqladmin shutdown</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>停止服务</li>
+</ol>
+<blockquote>
+<p>可先通过sc query mysql来查询服务状态</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc stop mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 3  STOP_PENDING</span><br><span class="line">                                (STOPPABLE, PAUSABLE, ACCEPTS_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x5265c00</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除服务</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc delete mysql</span><br><span class="line">[SC] DeleteService 成功</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除MySQL相关目录文件及环境变量等信息</li>
+</ol>
+<p>本文中MySQL安装在C:\Program Files\mysql-5.7.43-winx64目录下，那么在做完上述操作后，我只需要将<code>mysql-5.7.43-winx64</code>目录删除即可。然后再到系统环境变量中删除MySQL的相关环境变量就行。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sc query mysql</td>
+<td align="left">查看服务状态</td>
+</tr>
+<tr>
+<td align="left">sc delete mysql</td>
+<td align="left">删除服务</td>
+</tr>
+<tr>
+<td align="left">sc stop mysql</td>
+<td align="left">停止服务</td>
+</tr>
+<tr>
+<td align="left">sc start mysql</td>
+<td align="left">启动服务</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MySQL是一个跨平台的关系型数据库，以上记录了Windows7下的安装方式，对于Windows10、WindowsServer、CentOS和其他Linux操作系统来说，方法和思路都是类似的。在具体的操作上会略有不同。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html">在 Microsoft Windows 上安装 MySQL</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UOS升级OpenSSH</title>
+    <url>/article/947b9fd7.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程</p>
+<span id="more"></span>
+
+<p>服务器使用的是统信的UOS，使用方式和Ubuntu的使用方式很像。</p>
+<ul>
+<li>操作系统版本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Uos</span><br><span class="line">Description:	UnionTech OS Server 20 Enterprise</span><br><span class="line">Release:	20</span><br><span class="line">Codename:	fou</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>升级前的OpenSSH版本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ ssh -V</span><br><span class="line">OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h2><ol>
+<li>使用root用户修改<code>/etc/apt/sources.list</code>文件</li>
+</ol>
+<blockquote>
+<p>vi &#x2F;etc&#x2F;apt&#x2F;sources.list</p>
+</blockquote>
+<ul>
+<li>政务网</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb [by-hash=force] http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>互联网</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>更新源</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line">命中:1 http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise fou/sp3 InRelease</span><br><span class="line">正在读取软件包列表... 完成</span><br><span class="line">正在分析软件包的依赖关系树       </span><br><span class="line">正在读取状态信息... 完成       </span><br><span class="line">有 140 个软件包可以升级。请执行 ‘apt list --upgradable’ 来查看它们。</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新OpenSSH"><a href="#更新OpenSSH" class="headerlink" title="更新OpenSSH"></a>更新OpenSSH</h2><ol>
+<li>安装<code>libssl-dev</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install libssl-dev -y</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>上传<code>openssh</code>和<code>zlib</code></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://www.icloud.com.cn/iclouddrive/0a6Z5YjRTUOVDwyyjh69fLAoQ">ICloud获取</a></th>
+<th align="center"><a href="https://pan.baidu.com/s/1N74CdsrofonJvyEmS87voA?pwd=ges3">百度网盘获取</a></th>
+</tr>
+</thead>
+</table>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1.tar.gz  zlib-1.2.13.tar.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压源码包</span></span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf openssh-9.4p1.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf zlib-1.2.13.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1	openssh-9.4p1.tar.gz  zlib-1.2.13  zlib-1.2.13.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>编译安装</li>
+</ol>
+<ul>
+<li>安装zlib</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装open-ssh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# cd openssh-9.4p1</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="升级验证"><a href="#升级验证" class="headerlink" title="升级验证"></a>升级验证</h2><p>再次查看OpenSSH的版本，发现已经升级成功，由原来的<code>7.9p1 Debian-10+deb10u1</code>升级到了<code>9.4p1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:~# ssh -V</span><br><span class="line">OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WindowsServer-Oracle数据库自动备份</title>
+    <url>/article/a639d743.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="https://p.ipic.vip/g9lxm9.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="https://p.ipic.vip/l4oxuf.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="https://p.ipic.vip/v0l07u.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="https://p.ipic.vip/28gm9z.jpg"></p>
+<p><img src="https://p.ipic.vip/puyk76.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="https://p.ipic.vip/dyq03q.jpg"></p>
+<blockquote>
+<p>点击“完成”，完成定时任务的创建。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/johnhery/p/9941963.html">%date<del>0,4%和 %time</del>0,2%等用法详解</a></li>
+<li><a href="https://www.cnblogs.com/login2012/p/5794572.html">Windows环境下Oracle数据库的自动备份脚本</a></li>
+<li><a href="https://blog.csdn.net/YBaog/article/details/100023073">Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用rsyslog归集系统日志</title>
+    <url>/article/1836dc99.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
+<span id="more"></span>
+
+<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
+<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
+</blockquote>
+<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
+<p>测试服务器IP：<code>172.25.16.29</code></p>
+<p>测试客户端IP：<code>172.25.16.34</code></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
+<p>启动UDP传输并进行端口监听</p>
+</blockquote>
+<p>修改<code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
+<p><img src="https://p.ipic.vip/2gibno.png" alt="image-20230825160221797"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建default.conf配置文件</p>
+</blockquote>
+<p>在<code>/etc/rsyslog.d/</code>目录下创建<code>default.conf</code>文件，并加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>     </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改<code>/etc/rsyslog.conf</code>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>日期生成</p>
+</blockquote>
+<p><img src="https://p.ipic.vip/u7b8gh.png" alt="image-20230825210852478"></p>
+<p><img src="https://p.ipic.vip/g5wqwx.png" alt="image-20230825160343801"></p>
+<blockquote>
+<p>客户端生成日志</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/acd176.png" alt="image-20230825161141448"></p>
+<blockquote>
+<p>服务端监控输出</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/cmoe20.png" alt="image-20230825161233634"></p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
+    <url>/article/9fdf7a25.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<span id="more"></span>
+
+<p>通过SSH终端工具连接时报以下问题：</p>
+<p><img src="https://p.ipic.vip/t3qfun.png" alt="image-20230908200743172"></p>
+<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
+<ol>
+<li>设置口令复杂度；</li>
+<li>设置口令重复使用次数限制；</li>
+<li>设置密码过期时间</li>
+<li>限制本地登陆和远程登陆次数；</li>
+<li>禁用root远程SSH登陆；</li>
+<li>升级OpenSSH；</li>
+</ol>
+<p>本次登陆使用的是普通账号，报的是<code>userauth failed</code>。而不是密码错误的信息。</p>
+<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
+<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
+<p><img src="https://p.ipic.vip/mlyph3.png" alt="image-20230908202026877"></p>
+<blockquote>
+<p>通过<code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+</blockquote>
+<p><img src="https://p.ipic.vip/t7b2yy.png" alt="image-20230908202134973"></p>
+<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
+<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/acppm9.png" alt="image-20230908202445787"></p>
+<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/ypo8gu.png" alt="image-20230908202644624"></p>
+<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用软件记录</title>
+    <url>/article/2878e73f.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<blockquote>
+<p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
+<li>Windows：✨<a href="https://msdn.itellyou.cn/">MSDN-itellyou</a></li>
+</ul>
+<blockquote>
+<p>推荐使用LTSC版本的操作系统，系统比较纯净，但需要<a href="https://www.icloud.com.cn/iclouddrive/009dT5FmvFW1dVjWVR8XkFnSA#HEU_KMS_Activator">激活</a></p>
+</blockquote>
+<ul>
+<li>Linux：<a href="https://www.centos.org/download/">CentOS</a></li>
+</ul>
+<blockquote>
+<p>比较推荐直接去一些软件源上下载，这里举例<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/releases/23.04/release/">清华源</a></p>
+</blockquote>
+<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
+<li><strong>视频会议</strong>：✨<a href="https://meeting.tencent.com/">腾讯会议</a></li>
+<li><strong>文件解压缩：</strong><a href="https://ezip.awehunt.com/">MacZip</a></li>
+<li><strong>待办提醒</strong>：苹果提醒事项</li>
+<li><strong>电子邮件</strong>：苹果邮件</li>
+<li><strong>聊天工具</strong>：<a href="https://weixin.qq.com/">微信</a>、<a href="https://work.weixin.qq.com/">企业微信</a></li>
+<li>翻译：<a href="https://cidian.youdao.com/download-app/?keyfrom=dict_web_product">有道词典</a></li>
+<li>VPN：✨<a href="https://ric.asiway.org/?shortlink=0gesgjiu&c=cs-articles&pid=activity&af_xp=custom&source_caller=ui">LetsVPN</a>、<a href="https://vpn.muc.edu.cn/portal/#!/login">EasyConnect</a></li>
+<li><strong>备忘录</strong>：苹果备忘录</li>
+<li>日程管理：苹果日历</li>
+<li>写作工具：✨<a href="https://www.icloud.com.cn/iclouddrive/07dw7bzS6ec_XBnGQdwoXgcPw#Typora_1.6.7_osx">Typora</a></li>
+<li>图床：<a href="https://apps.apple.com/cn/app/id1101244278?mt=12">iPic</a></li>
+<li>输入法：<a href="https://pinyin.sogou.com/mac/">搜狗输入法</a></li>
+<li>软件包管理：<a href="https://brew.sh/">Homebrew</a></li>
+</ul>
+<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
+<li><strong>代码编辑器</strong>：✨<a href="https://www.jetbrains.com/">IDEA</a>、✨<a href="https://code.visualstudio.com/">VSCode</a></li>
+<li>Git：<a href="https://git-scm.com/download">Git</a>、<a href="https://formulae.brew.sh/formula/subversion#default">Svn</a></li>
+<li><strong>浏览器</strong>：<a href="http://www.firefox.com.cn/">Firefox</a>、✨<a href="https://www.google.cn/chrome/index.html">Google Chrome</a></li>
+<li><strong>虚拟化</strong>：<a href="https://www.docker.com/">Docker</a>、✨<a href="https://www.icloud.com.cn/iclouddrive/051LwYlz9I5q-75mQjuesqPDg#ParallelsDesktop-18.1.1-53328_M_osx">Parallels Desktop</a></li>
+<li>终端工具：✨<a href="http://www.hostbuf.com/t/988.html">FinalShell</a></li>
+<li>数据库工具：<a href="https://dbeaver.io/download/">DBeaver</a>、RDM、✨Navicat、<a href="https://www.dameng.com/DM8.html">达梦数据库</a></li>
+<li>远程工具：<a href="https://apps.apple.com/tw/app/microsoft-remote-desktop/id1295203466">Microsoft Remote Desktop</a></li>
+<li>数据库设计工具：✨<a href="https://gitee.com/robergroup/pdmaner/releases">PDManer</a></li>
+<li>接口测试工具：<a href="https://www.postman.com/downloads/">Postman</a>、<a href="https://jmeter.apache.org/">Jemter</a></li>
+</ul>
+<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
+<li>文件查找搜索：✨<a href="https://www.voidtools.com/zh-cn/">Everything</a></li>
+</ul>
+<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
+<li>✨腾讯杂项在线工具：<a href="https://tool.browser.qq.com/">杂项工具箱</a></li>
+<li>✨画图工具：<a href="https://www.processon.com/">ProcessOn</a></li>
+<li>✨<a href="https://weread.qq.com/">微信读书</a></li>
+</ul>
+<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
+<li>✨<a href="https://chrome.google.com/webstore/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg">AdGuard AdBlocker</a>拦截广告</li>
+<li>✨<a href="https://chrome.google.com/webstore/detail/take-webpage-screenshots/mcbpblocgmgfnpjjppndjkmgjaogfceg">FireShot</a> 捕捉网页截图</li>
+<li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
+<li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+</search>
