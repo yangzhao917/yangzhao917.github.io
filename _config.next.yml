@@ -98,12 +98,14 @@ open_graph:
 menu:
   home: / || fa fa-home
   about: /about/ || fa fa-user
+  archives: /archives/ || fa fa-archive
+  links: /links/ || fa fa-link
   # tags: /tags/ || fa fa-tags
   # categories: /categories/ || fa fa-th
-  archives: /archives/ || fa fa-archive
   # schedule: /schedule/ || fa fa-calendar
-  sitemap: /sitemap.xml || fa fa-sitemap
+  # sitemap: /sitemap.xml || fa fa-sitemap
   # commonweal: /404/ || fa fa-heartbeat
+
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -177,7 +179,7 @@ links_settings:
   layout: block
 
 links:
-  倾旋的博客: https://payloads.online/
+  # 倾旋的博客: https://payloads.online/
 
 # Table of Contents in the Sidebar
 # Front-matter variable (nonsupport wrap expand_all).
