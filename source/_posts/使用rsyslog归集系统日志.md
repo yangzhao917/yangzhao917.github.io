@@ -1,7 +1,7 @@
 ---
 title: 使用rsyslog归集系统日志
 categories:
-  - 技术分享
+  - 工具
 tags:
   - Linux
 abbrlink: 1836dc99

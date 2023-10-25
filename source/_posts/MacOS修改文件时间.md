@@ -1,9 +1,9 @@
 ---
 title: MacOS修改文件时间属性
 categories:
-  - 技术分享
+  - 工具
 tags:
-  - OS
+  - MacOS
 abbrlink: 43757ee8
 date: 2023-10-08 21:50:38
 ---

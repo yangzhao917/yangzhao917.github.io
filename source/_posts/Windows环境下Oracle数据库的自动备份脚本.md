@@ -1,7 +1,7 @@
 ---
 title: WindowsServer-Oracle数据库自动备份
 categories:
-  - 技术分享
+  - 工具
 tags:
   - Oracle
 abbrlink: a639d743
