@@ -1,13 +1,12 @@
 ---
 title: 使用rsyslog归集系统日志
 categories:
-  - 工具
+  - 工具分享
 tags:
-  - Linux
+  - 运维
 abbrlink: 1836dc99
 date: 2023-08-25 02:33:57
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录
@@ -30,7 +29,7 @@ date: 2023-08-25 02:33:57
 
 > 启动UDP传输并进行端口监听
 
-修改`/etc/rsyslog.conf`文件，如果没有则添加如下内容
+修改 `/etc/rsyslog.conf`文件，如果没有则添加如下内容
 
 ![image-20230825160221797](https://p.ipic.vip/2gibno.png)
 
@@ -41,7 +40,7 @@ $UDPServerRun 514
 
 > 创建default.conf配置文件
 
-在`/etc/rsyslog.d/`目录下创建`default.conf`文件，并加入如下内容：
+在 `/etc/rsyslog.d/`目录下创建 `default.conf`文件，并加入如下内容：
 
 ```shell
 # Use default timestamp format  # 使用自定义的格式
@@ -75,7 +74,7 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 # %app-name%：客户端执行的程序名
 # %msg%：消息体
 $template myFormat,"%$now% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n"
-$ActionFileDefaultTemplate myFormat     
+$ActionFileDefaultTemplate myFormat   
 # 根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建
 $template RemoteLogs,"/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%$YEAR%-%$MONTH%-%$DAY%.log"
 # 排除本地主机IP日志记录，只记录远程主机日志
@@ -92,7 +91,7 @@ systemctl restart rsyslog
 
 ## 客户端配置
 
-修改`/etc/rsyslog.conf`配置文件
+修改 `/etc/rsyslog.conf`配置文件
 
 ```shell
 # 若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下

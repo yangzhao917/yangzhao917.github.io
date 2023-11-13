@@ -3,11 +3,10 @@ title: UOS升级OpenSSH
 categories:
   - 技术分享
 tags:
-  - Linux
+  - 运维
 abbrlink: 947b9fd7
 date: 2023-09-14 14:46:11
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程
@@ -36,7 +35,7 @@ OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019
 
 ## 更新apt源
 
-1. 使用root用户修改`/etc/apt/sources.list`文件
+1. 使用root用户修改 `/etc/apt/sources.list`文件
 
 > vi /etc/apt/sources.list
 
@@ -58,23 +57,23 @@ deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-ent
 # apt update
 命中:1 http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise fou/sp3 InRelease
 正在读取软件包列表... 完成
-正在分析软件包的依赖关系树       
-正在读取状态信息... 完成       
+正在分析软件包的依赖关系树     
+正在读取状态信息... 完成     
 有 140 个软件包可以升级。请执行 ‘apt list --upgradable’ 来查看它们。
 ```
 
 ## 更新OpenSSH
 
-1. 安装`libssl-dev`
+1. 安装 `libssl-dev`
 
 ```shell
 # apt install libssl-dev -y
 ```
 
-2. 上传`openssh`和`zlib`
+2. 上传 `openssh`和 `zlib`
 
 | [ICloud获取](https://www.icloud.com.cn/iclouddrive/0a6Z5YjRTUOVDwyyjh69fLAoQ) | [百度网盘获取](https://pan.baidu.com/s/1N74CdsrofonJvyEmS87voA?pwd=ges3) |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| :------------------------------------------------------------------------: | :-------------------------------------------------------------------: |
 
 ```shell
 root@wsupport-PC:/home/wsupport/Downloads# ls
@@ -107,10 +106,9 @@ root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# make && make install
 
 ## 升级验证
 
-再次查看OpenSSH的版本，发现已经升级成功，由原来的`7.9p1 Debian-10+deb10u1`升级到了`9.4p1`
+再次查看OpenSSH的版本，发现已经升级成功，由原来的 `7.9p1 Debian-10+deb10u1`升级到了 `9.4p1`
 
 ```
 root@wsupport-PC:~# ssh -V
 OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019
 ```
-

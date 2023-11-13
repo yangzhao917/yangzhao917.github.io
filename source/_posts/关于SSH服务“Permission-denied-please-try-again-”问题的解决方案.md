@@ -3,11 +3,10 @@ title: '关于SSH服务“Permission denied, please try again.”问题的解决
 categories:
   - 技术分享
 tags:
-  - Linux
+  - 运维
 abbrlink: 9fdf7a25
 date: 2023-09-08 22:06:33
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。
@@ -27,7 +26,7 @@ date: 2023-09-08 22:06:33
 5. 禁用root远程SSH登陆；
 6. 升级OpenSSH；
 
-本次登陆使用的是普通账号，报的是`userauth failed`。而不是密码错误的信息。
+本次登陆使用的是普通账号，报的是 `userauth failed`。而不是密码错误的信息。
 
 而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。
 
@@ -35,7 +34,7 @@ date: 2023-09-08 22:06:33
 
 ![image-20230908202026877](https://p.ipic.vip/mlyph3.png)
 
-> 通过`tail -100f /var/log/auth.log`查看认证日志
+> 通过 `tail -100f /var/log/auth.log`查看认证日志
 
 ![image-20230908202134973](https://p.ipic.vip/t7b2yy.png)
 

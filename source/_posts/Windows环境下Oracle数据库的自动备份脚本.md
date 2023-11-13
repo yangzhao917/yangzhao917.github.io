@@ -1,20 +1,19 @@
 ---
-title: WindowsServer-Oracle数据库自动备份
+title: Windows环境Oracle数据库自动备份的实现
 categories:
-  - 工具
+  - 工具分享
 tags:
   - Oracle
 abbrlink: a639d743
 date: 2023-06-08 14:05:15
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 <!--more-->
 
 ## 1.创建批处理文件（.bat）
 
-``` bash
+```bash
 @echo off   
 echo ================================================   
 echo  Windows环境下Oracle数据库的自动备份脚本  
@@ -71,7 +70,6 @@ exit
 
 ## 参考
 
-- <a href="https://www.cnblogs.com/johnhery/p/9941963.html">%date~0,4%和 %time~0,2%等用法详解</a>
-- <a href="https://www.cnblogs.com/login2012/p/5794572.html">Windows环境下Oracle数据库的自动备份脚本</a>
-- <a href="https://blog.csdn.net/YBaog/article/details/100023073">Windows Server 2012 / 2016 定时任务设置和无法执行的解决方法</a>
-
+- `<a href="https://www.cnblogs.com/johnhery/p/9941963.html">`%date~0,4%和 %time~0,2%等用法详解`</a>`
+- `<a href="https://www.cnblogs.com/login2012/p/5794572.html">`Windows环境下Oracle数据库的自动备份脚本`</a>`
+- `<a href="https://blog.csdn.net/YBaog/article/details/100023073">`Windows Server 2012 / 2016 定时任务设置和无法执行的解决方法`</a>`

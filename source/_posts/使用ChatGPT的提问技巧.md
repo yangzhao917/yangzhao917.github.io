@@ -1,16 +1,16 @@
 ---
 title: 使用ChatGPT的提问技巧
 categories:
-  - 工具
+  - 工具分享
 tags:
   - ChatGPT
 abbrlink: 698aa78f
 date: 2023-11-12 19:43:24
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 本人将介绍一些ChatGPT的提问技巧，帮助我们更好的使用ChatGPT解决实际问题。
+
 <!--more-->
 
 ## 什么是ChatGPT？
