@@ -55,7 +55,7 @@ favicon:
   medium: /images/favicon-32x32-next.png
   apple_touch_icon: /images/apple-touch-icon-next.png
   safari_pinned_tab: /images/logo.svg
-  android_manifest: /manifest.json
+  # android_manifest: /manifest.json
 
 # Custom Logo (Warning: Do not support scheme Mist)
 custom_logo: #/uploads/custom-logo.png
@@ -100,8 +100,8 @@ menu:
   about: /about/ || fa fa-user
   archives: /archives/ || fa fa-archive
   links: /links/ || fa fa-link
-  # tags: /tags/ || fa fa-tags
-  # categories: /categories/ || fa fa-th
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
   # schedule: /schedule/ || fa fa-calendar
   # sitemap: /sitemap.xml || fa fa-sitemap
   # commonweal: /404/ || fa fa-heartbeat
@@ -266,7 +266,7 @@ symbols_count_time:
 tag_icon: false
 
 # Donate (Sponsor) settings
-# Front-matter variable (nonsupport animation).
+# Front-matter variaj ble (nonsupport animation).
 reward_settings:
   # If true, a donate button will be displayed in every article by default.
   enable: false
