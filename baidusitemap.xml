@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://gotojava.cn/article/b01acda2.html</loc>
+    <lastmod>2023-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://gotojava.cn/article/698aa78f.html</loc>
+    <lastmod>2023-11-23</lastmod>
+  </url>
+  <url>
     <loc>https://gotojava.cn/article/2878e73f.html</loc>
     <lastmod>2023-11-23</lastmod>
   </url>
@@ -34,10 +42,6 @@
   </url>
   <url>
     <loc>https://gotojava.cn/article/9fdf7a25.html</loc>
-    <lastmod>2023-11-13</lastmod>
-  </url>
-  <url>
-    <loc>https://gotojava.cn/article/698aa78f.html</loc>
     <lastmod>2023-11-13</lastmod>
   </url>
 </urlset> 
