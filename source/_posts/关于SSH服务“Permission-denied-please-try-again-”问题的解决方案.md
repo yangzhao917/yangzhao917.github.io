@@ -3,7 +3,7 @@ title: '关于SSH服务“Permission denied, please try again.”问题的解决
 categories:
   - 技术分享
 tags:
-  - 运维
+  - UOS
 abbrlink: 9fdf7a25
 date: 2023-09-08 22:06:33
 ---

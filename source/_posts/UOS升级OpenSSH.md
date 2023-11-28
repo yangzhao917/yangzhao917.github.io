@@ -3,7 +3,7 @@ title: UOS升级OpenSSH
 categories:
   - 技术分享
 tags:
-  - 运维
+  - UOS
 abbrlink: 947b9fd7
 date: 2023-09-14 14:46:11
 ---
@@ -57,8 +57,8 @@ deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-ent
 # apt update
 命中:1 http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise fou/sp3 InRelease
 正在读取软件包列表... 完成
-正在分析软件包的依赖关系树     
-正在读取状态信息... 完成     
+正在分析软件包的依赖关系树   
+正在读取状态信息... 完成   
 有 140 个软件包可以升级。请执行 ‘apt list --upgradable’ 来查看它们。
 ```
 

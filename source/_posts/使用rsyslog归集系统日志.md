@@ -3,7 +3,7 @@ title: 使用rsyslog归集系统日志
 categories:
   - 工具分享
 tags:
-  - 运维
+  - UOS
 abbrlink: 1836dc99
 date: 2023-08-25 02:33:57
 ---
