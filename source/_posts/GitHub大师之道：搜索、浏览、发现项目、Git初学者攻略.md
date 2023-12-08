@@ -101,7 +101,6 @@ pdf2doc in:name,description,readme forks:100..500
 
 <aside>
 💡 实际上github.com的域名会跳转变成”github.dev“。然后当前的仓库就加载到了在线的VSCode中。
-
 </aside>
 
 - 在线运行项目
@@ -117,8 +116,9 @@ pdf2doc in:name,description,readme forks:100..500
 [https://github.com/trending](https://github.com/trending)
 
 <aside>
-💡 GitHub Trending是**一个展示GitHub上当前最受欢迎项目的功能**。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
+💡 GitHub Trending是<b>一个展示GitHub上当前最受欢迎项目的功能</b>。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
 </aside>
+
 
 - https://github.com/521xueweihan/HelloGitHub
 
@@ -131,8 +131,9 @@ pdf2doc in:name,description,readme forks:100..500
 ![Untitled](https://p.ipic.vip/dt7883.jpg)
 
 <aside>
-💡 GitHub Awesome 是**一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目**。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
+💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
 </aside>
+
 
 - 找例子
 
@@ -161,7 +162,6 @@ pdf2doc in:name,description,readme forks:100..500
 
 <aside>
 💡 该项目旨在简化和指导初学者做出首次贡献的方式。如果您想做出第一次贡献，请按照以下步骤操作。
-
 </aside>
 
 [https://github.com/firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions)
