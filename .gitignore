@@ -3,5 +3,5 @@
 node_modules/
 public/
 .deploy*/
-_config.yml
-_config_next.yml
+# _config.yml
+# _config_next.yml
