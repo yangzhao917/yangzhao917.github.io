@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>澄澈少年的博客</title>
   <icon>https://gotojava.cn/images/favicon_200x200.png</icon>
-  
+  <subtitle>知是行之始，行是知之至。</subtitle>
   <link href="https://gotojava.cn/atom.xml" rel="self"/>
   
   <link href="https://gotojava.cn/"/>
-  <updated>2023-12-08T20:30:35.680Z</updated>
+  <updated>2023-12-09T21:25:39.571Z</updated>
   <id>https://gotojava.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://gotojava.cn/article/b0b9894c.html"/>
     <id>https://gotojava.cn/article/b0b9894c.html</id>
     <published>2023-12-08T20:22:22.000Z</published>
-    <updated>2023-12-08T20:30:35.680Z</updated>
+    <updated>2023-12-09T21:25:39.571Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
