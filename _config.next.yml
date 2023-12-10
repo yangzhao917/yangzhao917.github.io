@@ -13,7 +13,7 @@
 cache:
   enable: false
 
-# Remove unnecessary files after hexo generate.
+# 在hexo生成后删除不需要的文件
 minify: true
 
 # Define custom file paths.
@@ -338,9 +338,9 @@ calendar:
 # See: https://theme-next.js.org/docs/theme-settings/miscellaneous
 # ---------------------------------------------------------------
 
-# Preload styles and preconnect CDN for fonts and plugins.
+# 预加载样式和预连接CDN字体和插件
 # For more information: https://www.w3.org/TR/resource-hints/#preconnect
-preconnect: true
+preconnect: false
 
 # 设置文章/页面的文本对齐方式。
 text_align:
