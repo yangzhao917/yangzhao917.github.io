@@ -474,7 +474,7 @@ font:
 
 # 如果为true, site-subtitle将被添加到索引页的标题中。
 # Remember to set up your site-subtitle in Hexo `_config.yml` (e.g. subtitle: Subtitle)
-index_with_subtitle: false
+index_with_subtitle: true
 
 # 自动添加外部URL与Base64加密和解密。
 exturl: false
