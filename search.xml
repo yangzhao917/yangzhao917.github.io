@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略</title>
     <url>/article/d6bf6e8c.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -39,7 +9,7 @@
 <span id="more"></span>
 
 
-<h2 id="搜索小技巧"><a href="#搜索小技巧" class="headerlink" title="搜索小技巧"></a>搜索小技巧</h2><p><img src="https://p.ipic.vip/p4j3ih.png" alt="Untitled"></p>
+<h2 id="搜索小技巧"><a href="#搜索小技巧" class="headerlink" title="搜索小技巧"></a>搜索小技巧</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png" alt="Untitled"></p>
 <ul>
 <li>Watch：表示有多少人关注这个项目；</li>
 <li>Star：表示有多少人给这个项目点赞，如果你给这个项目点赞，这个项目会出现在你的点赞列表中。点赞数越多，代表这个项目在社区的热度就越高；</li>
@@ -49,7 +19,7 @@
 <blockquote>
 <p>语法：in:name</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/ac52jq.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pdf2excel in:name</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -58,7 +28,7 @@
 <blockquote>
 <p>语法：in:description</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/r7sgmi.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -67,7 +37,7 @@
 <blockquote>
 <p>语法：in:readme</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/rusohg.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:in:readme</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -76,7 +46,7 @@
 <blockquote>
 <p>语法：in:readme,description</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/nilood.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description,readme</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -85,7 +55,7 @@
 <blockquote>
 <p>语法：stars:≥100</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/ikv5zk.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2md，stars数量大于等于100的项目</span><br><span class="line">pdf2md in:name,description,readme stars:&gt;=100</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -94,7 +64,7 @@
 <blockquote>
 <p>语法：forks:数量</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/e8n313.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量大于等于100的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:&gt;=100</span><br><span class="line"></span><br><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量100到500区间的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:100..500</span><br></pre></td></tr></table></figure>
 
 <h2 id="浏览小技巧"><a href="#浏览小技巧" class="headerlink" title="浏览小技巧"></a>浏览小技巧</h2><ul>
@@ -109,7 +79,7 @@
 <li>在线运行项目</li>
 </ul>
 <p>在项目地址前面加入”gitpod.io&#x2F;”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~</p>
-<p><img src="https://p.ipic.vip/74np6m.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191052.jpg" alt="Untitled"></p>
 <h2 id="如何寻找优质项目"><a href="#如何寻找优质项目" class="headerlink" title="如何寻找优质项目"></a>如何寻找优质项目</h2><ul>
 <li>GitHub Trending</li>
 </ul>
@@ -129,7 +99,7 @@
 <ul>
 <li>awesome</li>
 </ul>
-<p><img src="https://p.ipic.vip/dt7883.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191056.jpg" alt="Untitled"></p>
 <aside>
 💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
 </aside>
@@ -141,21 +111,21 @@
 <blockquote>
 <p>语法：关键词 sample</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/y0mya3.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191058.jpg" alt="Untitled"></p>
 <ul>
 <li>找模板</li>
 </ul>
 <blockquote>
 <p>语法：xxx starter&#x2F;boilerplat</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/o1ymzi.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg" alt="Untitled"></p>
 <ul>
 <li>找教程</li>
 </ul>
 <blockquote>
 <p>语法：xxx tutorial</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/zaykw5.jpg" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg" alt="Untitled"></p>
 <h2 id="指导初学者"><a href="#指导初学者" class="headerlink" title="指导初学者"></a>指导初学者</h2><ul>
 <li>指导初学者做出首次贡献的方式</li>
 </ul>
@@ -232,15 +202,15 @@
 <p>获取随机密码登陆</p>
 </blockquote>
 <p>MySQL在安装完成后，会生成一个随机密码，我们通过root用户➕随机密码便可以登陆MySQL服务器。随机密码会生成在 <code>/var/log/mysqld.log</code>中。我们可以通过 <code>tail -100f /var/log/mysqld.log | grep -i &quot;password”</code>来获取随机密码。</p>
-<p><img src="https://p.ipic.vip/8vii5t.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191105.png" alt="Untitled"></p>
 <blockquote>
 <p>使用skip_grant_tables跳过密码验证</p>
 </blockquote>
 <p>也可以通过修改MySQL的配置文件my.cnf，通过跳过密码校验，来免登陆MySQL修改密码。通过在&#x2F;etc&#x2F;my.cnf配置文件中，添加 <code>skip_grant_tables</code>来实现跳过密码校验。</p>
-<p><img src="https://p.ipic.vip/glg5tc.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191107.png" alt="Untitled"></p>
 <p>修改完成后，需要通过 <code>systemctl restart mysqld</code>重启MySQL服务，使配置文件的内容生效。</p>
 <p>通过mysql  -u root -p来登陆MySQL服务器，因为我们跳过了密码校验，所以在提示：“Enter password”时，回车即可。像下面这样：</p>
-<p><img src="https://p.ipic.vip/ovm29j.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191110.png" alt="Untitled"></p>
 <aside>
 ⚠️ 如果需要恢复密码验证，则移除”`skip_grant_tables`”这行内容，重启MySQL服务就可以了。
 
@@ -307,7 +277,7 @@
 
 </aside>
 
-<p><img src="https://p.ipic.vip/ytm1qd.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191111.png" alt="Untitled"></p>
 <table>
 <thead>
 <tr>
@@ -399,7 +369,7 @@
 <ul>
 <li>test是我们自己创建的测试库，结构如下：</li>
 </ul>
-<p><img src="https://p.ipic.vip/6vmgcn.png" alt="Untitled"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191112.png" alt="Untitled"></p>
 <p>db.opt：用来保存数据库的配置信息，比如该库的默认字符集编码和字符集排序规则。</p>
 <blockquote>
 <p>InnoDB引擎</p>
@@ -527,6 +497,36 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MacOS常用软件记录</title>
     <url>/article/2878e73f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -610,20 +610,20 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
 
 <p>发现数据库的查询结果数据是正确的</p>
-<p><img src="https://p.ipic.vip/86usxs.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
 <p>但页面返回的数据排序是有问题的</p>
-<p><img src="https://p.ipic.vip/0y1d5u.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
 <h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
-<p><img src="https://p.ipic.vip/y6xi3a.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
 <p>那么拼接后的SQL就是这样</p>
-<p><img src="https://p.ipic.vip/gr2ey6.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://p.ipic.vip/oqsl8p.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
 <p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
 <h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://p.ipic.vip/c3flxs.png" alt="image.png"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序<code>&lt;/a&gt;</code></li>
 </ul>
@@ -726,12 +726,12 @@
 <h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="https://p.ipic.vip/g9lxm9.jpg"></p>
-<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="https://p.ipic.vip/l4oxuf.jpg"></p>
-<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="https://p.ipic.vip/v0l07u.jpg"></p>
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="https://p.ipic.vip/28gm9z.jpg"></p>
-<p><img src="https://p.ipic.vip/puyk76.jpg"></p>
-<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="https://p.ipic.vip/dyq03q.jpg"></p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
 <blockquote>
 <p>点击“完成”，完成定时任务的创建。</p>
 </blockquote>
@@ -773,7 +773,7 @@
 <h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
 <li>添加系统环境变量 <code>MYSQL57_HOME</code></li>
 </ul>
-<p><img src="https://p.ipic.vip/7ymqcl.png" alt="image-20230727220925088"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191133.png" alt="image-20230727220925088"></p>
 <blockquote>
 <p>变量名：MYSQL57_HOME</p>
 <p>变量值：C:\Program Files\mysql-5.7.43-winx64</p>
@@ -781,7 +781,7 @@
 <ul>
 <li>修改系统环境变量 <code>Path</code></li>
 </ul>
-<p><img src="https://p.ipic.vip/3q10x9.png" alt="image-20230727221424288"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191134.png" alt="image-20230727221424288"></p>
 <p>修改Path系统变量，在末尾添加 <code>;%MYSQL57_HOME%\bin;</code></p>
 <blockquote>
 <p>%环境变量名%表示引用一个已定义的环境变量</p>
@@ -790,7 +790,7 @@
 <ul>
 <li>测试环境变量</li>
 </ul>
-<p><img src="https://p.ipic.vip/8lm2cb.png" alt="image-20230727222026852"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191135.png" alt="image-20230727222026852"></p>
 <p>看到这个说明环境变量配置成功</p>
 <h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>在MySQL安装目录创建MySQL配置文件 <code>my.ini</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir=C:\\Program Files\mysql-5.7.43-winx64</span><br><span class="line"></span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=C:\\Program Files\mysql-5.7.43-winx64\data</span><br><span class="line"></span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections=200</span><br><span class="line"></span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br></pre></td></tr></table></figure>
@@ -817,7 +817,7 @@
 <p>C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld –console</p>
 <p>或 mysqld，因为已经配置了环境变量所以这里可以简写为mysqld</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/acv25p.png" alt="image-20230727230811586"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191136.png" alt="image-20230727230811586"></p>
 <p>如果省略该<a href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_console"><code>--console</code></a>选项，服务器会将诊断输出写入数据目录中的错误日志（<code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>默认情况下）。错误日志是带有扩展名的文件 <code>.err</code>，可以使用<a href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_log-error"><code>--log-error</code></a> 选项进行设置。</p>
 <ol start="3">
 <li>安装为服务</li>
@@ -841,7 +841,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc query mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 1  STOPPED</span><br><span class="line">        WIN32_EXIT_CODE    : 1077  (0x435)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x0</span><br><span class="line">        WAIT_HINT          : 0x0</span><br></pre></td></tr></table></figure>
 
 <h3 id="安装后配置"><a href="#安装后配置" class="headerlink" title="安装后配置"></a>安装后配置</h3><p>在进行MySQL的初始化操作后，会在MySQL的配置的 <code>datadir</code>目录下生成一个以 <code>主机名.err</code>的日志文件，在日志文件中查找 <code>password</code>关键字来获取MySQL的初始密码。</p>
-<p><img src="https://p.ipic.vip/dfgkiy.png" alt="image-20230728005557780"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191137.png" alt="image-20230728005557780"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Windows\system32&gt;mysql -u root -p</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.43</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2023, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
 
 <p>可通过mysql本地客户端工具连接mysql后，修改初始密码。</p>
@@ -940,7 +940,7 @@
 
 </aside>
 
-<h2 id="如何提问才能得到更高质量的答案？"><a href="#如何提问才能得到更高质量的答案？" class="headerlink" title="如何提问才能得到更高质量的答案？"></a>如何提问才能得到更高质量的答案？</h2><p><img src="https://p.ipic.vip/34cvnz.png" alt="Untitled"></p>
+<h2 id="如何提问才能得到更高质量的答案？"><a href="#如何提问才能得到更高质量的答案？" class="headerlink" title="如何提问才能得到更高质量的答案？"></a>如何提问才能得到更高质量的答案？</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191028.png" alt="Untitled"></p>
 <p>盲区</p>
 <p>问法一：我想了解XXX，我应该向你问哪些问题？</p>
 <p>比如：我想快速了解人工智能行业，我应该向你问哪些问题？</p>
@@ -969,7 +969,7 @@
 <p>问法四：你觉得XXX应该怎么做？</p>
 <h3 id="未知区"><a href="#未知区" class="headerlink" title="未知区"></a>未知区</h3><p>问法一：如果xxx，这会对社会产生什么影响？</p>
 <p>比如：如果中国家庭都用上了ChatGPT，这对中国家教行业会有什么影响？</p>
-<h2 id="达克效应"><a href="#达克效应" class="headerlink" title="达克效应"></a>达克效应</h2><p><img src="https://p.ipic.vip/ip0t6g.png" alt="Untitled"></p>
+<h2 id="达克效应"><a href="#达克效应" class="headerlink" title="达克效应"></a>达克效应</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191031.png" alt="Untitled"></p>
 <aside>
 💡 达克效应是指在认知能力低下的人更容易高估自己的技能水平，同时也更容易低估他人的技能水平的现象。相对地，高水平的人可能低估自己的能力，因为他们可能认为别人对该领域的能力水平与他们自己相近。
 
@@ -1013,51 +1013,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
-    <url>/article/9fdf7a25.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
-<span id="more"></span>
-
-<p>通过SSH终端工具连接时报以下问题：</p>
-<p><img src="https://p.ipic.vip/t3qfun.png" alt="image-20230908200743172"></p>
-<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
-<ol>
-<li>设置口令复杂度；</li>
-<li>设置口令重复使用次数限制；</li>
-<li>设置密码过期时间</li>
-<li>限制本地登陆和远程登陆次数；</li>
-<li>禁用root远程SSH登陆；</li>
-<li>升级OpenSSH；</li>
-</ol>
-<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
-<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
-<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
-<p><img src="https://p.ipic.vip/mlyph3.png" alt="image-20230908202026877"></p>
-<blockquote>
-<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
-</blockquote>
-<p><img src="https://p.ipic.vip/t7b2yy.png" alt="image-20230908202134973"></p>
-<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
-<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p.ipic.vip/acppm9.png" alt="image-20230908202445787"></p>
-<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p.ipic.vip/ypo8gu.png" alt="image-20230908202644624"></p>
-<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
-]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
-      <tags>
-        <tag>UOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用rsyslog归集系统日志</title>
     <url>/article/1836dc99.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1075,7 +1030,7 @@
 <p>启动UDP传输并进行端口监听</p>
 </blockquote>
 <p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
-<p><img src="https://p.ipic.vip/2gibno.png" alt="image-20230825160221797"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -1100,26 +1055,150 @@
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
 <p>日期生成</p>
 </blockquote>
-<p><img src="https://p.ipic.vip/u7b8gh.png" alt="image-20230825210852478"></p>
-<p><img src="https://p.ipic.vip/g5wqwx.png" alt="image-20230825160343801"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
 <blockquote>
 <p>客户端生成日志</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://p.ipic.vip/acd176.png" alt="image-20230825161141448"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
 <blockquote>
 <p>服务端监控输出</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://p.ipic.vip/cmoe20.png" alt="image-20230825161233634"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
 ]]></content>
       <categories>
         <category>工具分享</category>
       </categories>
       <tags>
         <tag>UOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
+    <url>/article/9fdf7a25.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<span id="more"></span>
+
+<p>通过SSH终端工具连接时报以下问题：</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
+<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
+<ol>
+<li>设置口令复杂度；</li>
+<li>设置口令重复使用次数限制；</li>
+<li>设置密码过期时间</li>
+<li>限制本地登陆和远程登陆次数；</li>
+<li>禁用root远程SSH登陆；</li>
+<li>升级OpenSSH；</li>
+</ol>
+<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
+<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
+<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
+<blockquote>
+<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
+<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
+<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
+<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
+<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>UOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -1301,18 +1380,18 @@
 <h3 id="邮件主题-1"><a href="#邮件主题-1" class="headerlink" title="邮件主题"></a>邮件主题</h3><ul>
 <li>不要使用“万金油”邮件主题</li>
 </ul>
-<p>反例：<img src="https://p.ipic.vip/lu6stu.png" alt="image-20231123182550920"></p>
+<p>反例：<img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190843.png" alt="image-20231123182550920"></p>
 <ul>
 <li>主题与内容相符</li>
 </ul>
 <p>回复邮件时需要注意，主题要与邮件内容相符，特别注意在回复邮件时或转发邮件时，要根据邮件内容修改主题。</p>
-<p><img src="https://p.ipic.vip/avz5jg.png" alt="image-20231123182758899"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190845.png" alt="image-20231123182758899"></p>
 <ul>
 <li>主题不是正文</li>
 </ul>
 <p>不要把邮件正文内容写在主题中, 除非只有简单的一句话。以下是不恰当的邮件主题：</p>
-<p><img src="https://p.ipic.vip/8agowy.png" alt="image-20231123183151947"></p>
-<p><img src="https://p.ipic.vip/xu5cth.png" alt="image-20231123183211769"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190847.png" alt="image-20231123183151947"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190849.png" alt="image-20231123183211769"></p>
 <h3 id="特别注意不要使用感叹号"><a href="#特别注意不要使用感叹号" class="headerlink" title="特别注意不要使用感叹号"></a>特别注意不要使用感叹号</h3><blockquote>
 <p>感叹号：主要用在感叹句的句末，表示强烈的感情。感叹句是以抒发感情为主的句子，它所抒发的感情有赞颂、喜悦、愤怒、叹息、惊讶、伤悼等，句末都要用感叹号。《百度百科》</p>
 </blockquote>
@@ -1373,85 +1452,6 @@
       </categories>
       <tags>
         <tag>文化与礼仪</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
-
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
-<ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
-</ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
-<ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
-</ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
-</ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
-]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
       </tags>
   </entry>
 </search>
