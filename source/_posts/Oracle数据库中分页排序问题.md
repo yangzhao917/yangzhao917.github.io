@@ -42,21 +42,21 @@ duty_date ASC
 
 发现数据库的查询结果数据是正确的
 
-![](https://p.ipic.vip/86usxs.png)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png)
 
 但页面返回的数据排序是有问题的
 
-![](https://p.ipic.vip/0y1d5u.png)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png)
 
 ## 问题分析
 
 通过跟踪和调试，发现处理的逻辑拼接了以下代码
 
-![](https://p.ipic.vip/y6xi3a.png)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png)
 
 那么拼接后的SQL就是这样
 
-![](https://p.ipic.vip/gr2ey6.png)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png)
 
 ```sql
 SELECT
@@ -90,7 +90,7 @@ WHERE
 	AND template.rn<= 20
 ```
 
-![](https://p.ipic.vip/oqsl8p.png)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png)
 
 也就是查询后的数据的**ROWNUM**的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。
 
@@ -124,7 +124,7 @@ FROM
 	) AS tmp
 ```
 
-![image.png](https://p.ipic.vip/c3flxs.png)
+![image.png](http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png)
 
 ## 参考
 

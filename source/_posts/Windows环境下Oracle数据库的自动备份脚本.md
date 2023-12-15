@@ -46,25 +46,25 @@ exit
 
 ### 2.2创建计划任务
 
-![](https://p.ipic.vip/g9lxm9.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg)
 
 ### 2.3选择计划任务的执行循环周期
 
-![](https://p.ipic.vip/l4oxuf.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg)
 
 ### 2.4选择计划任务的执行时间
 
-![](https://p.ipic.vip/v0l07u.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg)
 
 ### 2.5选择程序位置
 
-![](https://p.ipic.vip/28gm9z.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg)
 
-![](https://p.ipic.vip/puyk76.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg)
 
 ### 2.6确认任务摘要
 
-![](https://p.ipic.vip/dyq03q.jpg)
+![](http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg)
 
 > 点击“完成”，完成定时任务的创建。
 

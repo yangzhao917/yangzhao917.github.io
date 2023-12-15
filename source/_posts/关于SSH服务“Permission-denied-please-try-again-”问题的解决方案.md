@@ -15,7 +15,7 @@ date: 2023-09-08 22:06:33
 
 通过SSH终端工具连接时报以下问题：
 
-![image-20230908200743172](https://p.ipic.vip/t3qfun.png)
+![image-20230908200743172](http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png)
 
 这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：
 
@@ -32,11 +32,11 @@ date: 2023-09-08 22:06:33
 
 通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的
 
-![image-20230908202026877](https://p.ipic.vip/mlyph3.png)
+![image-20230908202026877](http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png)
 
 > 通过 `tail -100f /var/log/auth.log`查看认证日志
 
-![image-20230908202134973](https://p.ipic.vip/t7b2yy.png)
+![image-20230908202134973](http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png)
 
 发现是SSH可以验证成功的，但是客户端的登陆被禁止。
 
@@ -46,7 +46,7 @@ date: 2023-09-08 22:06:33
 pam_tally2 --user wsupport
 ```
 
-![image-20230908202445787](https://p.ipic.vip/acppm9.png)
+![image-20230908202445787](http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png)
 
 发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置
 
@@ -54,6 +54,6 @@ pam_tally2 --user wsupport
 pam_tally2 --user wsupport  --reset
 ```
 
-![image-20230908202644624](https://p.ipic.vip/ypo8gu.png)
+![image-20230908202644624](http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png)
 
 重新尝试SSH登陆后，发现可以正常登陆。

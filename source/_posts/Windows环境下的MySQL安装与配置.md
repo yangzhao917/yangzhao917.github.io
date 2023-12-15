@@ -35,7 +35,7 @@ date: 2023-07-27 21:35:31
 
 - 添加系统环境变量 `MYSQL57_HOME`
 
-![image-20230727220925088](https://p.ipic.vip/7ymqcl.png)
+![image-20230727220925088](http://qiniu-image.gotojava.cn/blog/2023-12-15-191133.png)
 
 > 变量名：MYSQL57_HOME
 >
@@ -43,7 +43,7 @@ date: 2023-07-27 21:35:31
 
 - 修改系统环境变量 `Path`
 
-![image-20230727221424288](https://p.ipic.vip/3q10x9.png)
+![image-20230727221424288](http://qiniu-image.gotojava.cn/blog/2023-12-15-191134.png)
 
 修改Path系统变量，在末尾添加 `;%MYSQL57_HOME%\bin;`
 
@@ -53,7 +53,7 @@ date: 2023-07-27 21:35:31
 
 - 测试环境变量
 
-![image-20230727222026852](https://p.ipic.vip/8lm2cb.png)
+![image-20230727222026852](http://qiniu-image.gotojava.cn/blog/2023-12-15-191135.png)
 
 看到这个说明环境变量配置成功
 
@@ -116,7 +116,7 @@ C:\Program Files\mysql-5.7.43-winx64\bin>mysqld --initialize-insecure
 >
 > 或 mysqld，因为已经配置了环境变量所以这里可以简写为mysqld
 
-![image-20230727230811586](https://p.ipic.vip/acv25p.png)
+![image-20230727230811586](http://qiniu-image.gotojava.cn/blog/2023-12-15-191136.png)
 
 如果省略该[`--console`](https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_console)选项，服务器会将诊断输出写入数据目录中的错误日志（`C:\Program Files\MySQL\MySQL Server 5.7\data`默认情况下）。错误日志是带有扩展名的文件 `.err`，可以使用[`--log-error`](https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_log-error) 选项进行设置。
 
@@ -170,7 +170,7 @@ SERVICE_NAME: mysql
 
 在进行MySQL的初始化操作后，会在MySQL的配置的 `datadir`目录下生成一个以 `主机名.err`的日志文件，在日志文件中查找 `password`关键字来获取MySQL的初始密码。
 
-![image-20230728005557780](https://p.ipic.vip/dfgkiy.png)
+![image-20230728005557780](http://qiniu-image.gotojava.cn/blog/2023-12-15-191137.png)
 
 ```
 C:\Windows\system32>mysql -u root -p

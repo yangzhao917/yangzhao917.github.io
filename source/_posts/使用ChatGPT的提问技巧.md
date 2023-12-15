@@ -51,7 +51,7 @@ ChatGPT不仅可以解答我们的各种疑问，还可以基于我们的需要�
 
 ## 如何提问才能得到更高质量的答案？
 
-![Untitled](https://p.ipic.vip/34cvnz.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191028.png)
 
 盲区
 
@@ -117,7 +117,7 @@ ChatGPT不仅可以解答我们的各种疑问，还可以基于我们的需要�
 
 ## 达克效应
 
-![Untitled](https://p.ipic.vip/ip0t6g.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191031.png)
 
 <aside>
 💡 达克效应是指在认知能力低下的人更容易高估自己的技能水平，同时也更容易低估他人的技能水平的现象。相对地，高水平的人可能低估自己的能力，因为他们可能认为别人对该领域的能力水平与他们自己相近。

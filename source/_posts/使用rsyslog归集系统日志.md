@@ -31,7 +31,7 @@ date: 2023-08-25 02:33:57
 
 修改 `/etc/rsyslog.conf`文件，如果没有则添加如下内容
 
-![image-20230825160221797](https://p.ipic.vip/2gibno.png)
+![image-20230825160221797](http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png)
 
 ```
 $ModLoad imudp
@@ -116,9 +116,9 @@ systemctl restart rsyslog
 
 > 日期生成
 
-![image-20230825210852478](https://p.ipic.vip/u7b8gh.png)
+![image-20230825210852478](http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png)
 
-![image-20230825160343801](https://p.ipic.vip/g5wqwx.png)
+![image-20230825160343801](http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png)
 
 > 客户端生成日志
 
@@ -126,7 +126,7 @@ systemctl restart rsyslog
 logger "rsyslog test"
 ```
 
-![image-20230825161141448](https://p.ipic.vip/acd176.png)
+![image-20230825161141448](http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png)
 
 > 服务端监控输出
 
@@ -134,4 +134,4 @@ logger "rsyslog test"
 tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log
 ```
 
-![image-20230825161233634](https://p.ipic.vip/cmoe20.png)
+![image-20230825161233634](http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png)

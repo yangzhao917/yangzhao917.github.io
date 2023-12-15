@@ -17,7 +17,7 @@ GitHub是一个全球性的代码托管平台，上面托管了非常多的优�
 
 ## 搜索小技巧
 
-![Untitled](https://p.ipic.vip/p4j3ih.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png)
 
 - Watch：表示有多少人关注这个项目；
 - Star：表示有多少人给这个项目点赞，如果你给这个项目点赞，这个项目会出现在你的点赞列表中。点赞数越多，代表这个项目在社区的热度就越高；
@@ -27,7 +27,7 @@ GitHub是一个全球性的代码托管平台，上面托管了非常多的优�
 > 语法：in:name
 > 
 
-![Untitled](https://p.ipic.vip/ac52jq.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png)
 
 ```
 pdf2excel in:name
@@ -38,7 +38,7 @@ pdf2excel in:name
 > 语法：in:description
 > 
 
-![Untitled](https://p.ipic.vip/r7sgmi.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg)
 
 ```
 Java教程 in:description
@@ -49,7 +49,7 @@ Java教程 in:description
 > 语法：in:readme
 > 
 
-![Untitled](https://p.ipic.vip/rusohg.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png)
 
 ```
 Java教程 in:in:readme
@@ -60,7 +60,7 @@ Java教程 in:in:readme
 > 语法：in:readme,description
 > 
 
-![Untitled](https://p.ipic.vip/nilood.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg)
 
 ```
 Java教程 in:description,readme
@@ -71,7 +71,7 @@ Java教程 in:description,readme
 > 语法：stars:≥100
 > 
 
-![Untitled](https://p.ipic.vip/ikv5zk.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg)
 
 ```
 # 搜索项目名称，项目说明，项目文档中包含pdf2md，stars数量大于等于100的项目
@@ -83,7 +83,7 @@ pdf2md in:name,description,readme stars:>=100
 > 语法：forks:数量
 > 
 
-![Untitled](https://p.ipic.vip/e8n313.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg)
 
 ```
 # 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量大于等于100的项目
@@ -107,7 +107,7 @@ pdf2doc in:name,description,readme forks:100..500
 
 在项目地址前面加入”gitpod.io/”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~
 
-![Untitled](https://p.ipic.vip/74np6m.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191052.jpg)
 
 ## 如何寻找优质项目
 
@@ -128,7 +128,7 @@ pdf2doc in:name,description,readme forks:100..500
 
 - awesome
 
-![Untitled](https://p.ipic.vip/dt7883.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191056.jpg)
 
 <aside>
 💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
@@ -140,21 +140,21 @@ pdf2doc in:name,description,readme forks:100..500
 > 语法：关键词 sample
 > 
 
-![Untitled](https://p.ipic.vip/y0mya3.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191058.jpg)
 
 - 找模板
 
 > 语法：xxx starter/boilerplat
 > 
 
-![Untitled](https://p.ipic.vip/o1ymzi.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg)
 
 - 找教程
 
 > 语法：xxx tutorial
 > 
 
-![Untitled](https://p.ipic.vip/zaykw5.jpg)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg)
 
 ## 指导初学者
 

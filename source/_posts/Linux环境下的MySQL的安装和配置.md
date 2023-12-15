@@ -134,19 +134,19 @@ mariadb-libs-5.5.56-2.el7.x86_64
 
 MySQL在安装完成后，会生成一个随机密码，我们通过root用户➕随机密码便可以登陆MySQL服务器。随机密码会生成在 `/var/log/mysqld.log`中。我们可以通过 `tail -100f /var/log/mysqld.log | grep -i "password”`来获取随机密码。
 
-![Untitled](https://p.ipic.vip/8vii5t.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191105.png)
 
 > 使用skip_grant_tables跳过密码验证
 
 也可以通过修改MySQL的配置文件my.cnf，通过跳过密码校验，来免登陆MySQL修改密码。通过在/etc/my.cnf配置文件中，添加 `skip_grant_tables`来实现跳过密码校验。
 
-![Untitled](https://p.ipic.vip/glg5tc.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191107.png)
 
 修改完成后，需要通过 `systemctl restart mysqld`重启MySQL服务，使配置文件的内容生效。
 
 通过mysql  -u root -p来登陆MySQL服务器，因为我们跳过了密码校验，所以在提示：“Enter password”时，回车即可。像下面这样：
 
-![Untitled](https://p.ipic.vip/ovm29j.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191110.png)
 
 <aside>
 ⚠️ 如果需要恢复密码验证，则移除”`skip_grant_tables`”这行内容，重启MySQL服务就可以了。
@@ -244,7 +244,7 @@ Threads: 1  Questions: 116  Slow queries: 0  Opens: 175  Flush tables: 1  Open t
 
 </aside>
 
-![Untitled](https://p.ipic.vip/ytm1qd.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191111.png)
 
 | 文件名称                                                                                           | 作用                                                                                           |
 | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -271,7 +271,7 @@ Threads: 1  Questions: 116  Slow queries: 0  Opens: 175  Flush tables: 1  Open t
 
 - test是我们自己创建的测试库，结构如下：
 
-![Untitled](https://p.ipic.vip/6vmgcn.png)
+![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191112.png)
 
 db.opt：用来保存数据库的配置信息，比如该库的默认字符集编码和字符集排序规则。
 
