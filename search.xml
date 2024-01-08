@@ -751,6 +751,36 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MacOS常用软件记录</title>
     <url>/article/2878e73f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -812,36 +842,6 @@
 <li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
 <li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
 </ul>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>工具分享</category>
@@ -968,6 +968,38 @@
       </categories>
       <tags>
         <tag>UOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows环境Oracle数据库自动备份的实现</title>
+    <url>/article/a639d743.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
+<blockquote>
+<p>点击“完成”，完成定时任务的创建。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -1131,103 +1163,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows环境Oracle数据库自动备份的实现</title>
-    <url>/article/a639d743.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
-<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
-<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
-<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
-<blockquote>
-<p>点击“完成”，完成定时任务的创建。</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用rsyslog归集系统日志</title>
-    <url>/article/1836dc99.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
-<span id="more"></span>
-
-<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
-<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
-</blockquote>
-<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
-<p>测试服务器IP：<code>172.25.16.29</code></p>
-<p>测试客户端IP：<code>172.25.16.34</code></p>
-<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
-<p>启动UDP传输并进行端口监听</p>
-</blockquote>
-<p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>创建default.conf配置文件</p>
-</blockquote>
-<p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重启服务端rsyslog服务</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重启服务端rsyslog服务</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
-<p>日期生成</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
-<blockquote>
-<p>客户端生成日志</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
-<blockquote>
-<p>服务端监控输出</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>UOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用ChatGPT的提问技巧</title>
     <url>/article/698aa78f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1332,45 +1267,65 @@
       </tags>
   </entry>
   <entry>
-    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
-    <url>/article/9fdf7a25.html</url>
+    <title>使用rsyslog归集系统日志</title>
+    <url>/article/1836dc99.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
 <span id="more"></span>
 
-<p>通过SSH终端工具连接时报以下问题：</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
-<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
-<ol>
-<li>设置口令复杂度；</li>
-<li>设置口令重复使用次数限制；</li>
-<li>设置密码过期时间</li>
-<li>限制本地登陆和远程登陆次数；</li>
-<li>禁用root远程SSH登陆；</li>
-<li>升级OpenSSH；</li>
-</ol>
-<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
-<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
-<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
-<blockquote>
-<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
+<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
 </blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
-<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
-<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
+<p>测试服务器IP：<code>172.25.16.29</code></p>
+<p>测试客户端IP：<code>172.25.16.34</code></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
+<p>启动UDP传输并进行端口监听</p>
+</blockquote>
+<p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
-<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>创建default.conf配置文件</p>
+</blockquote>
+<p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
-<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>日期生成</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
+<blockquote>
+<p>客户端生成日志</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
+<blockquote>
+<p>服务端监控输出</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
 ]]></content>
       <categories>
-        <category>技术分享</category>
+        <category>工具分享</category>
       </categories>
       <tags>
         <tag>UOS</tag>
@@ -1708,6 +1663,51 @@
       </categories>
       <tags>
         <tag>文化与礼仪</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
+    <url>/article/9fdf7a25.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<span id="more"></span>
+
+<p>通过SSH终端工具连接时报以下问题：</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
+<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
+<ol>
+<li>设置口令复杂度；</li>
+<li>设置口令重复使用次数限制；</li>
+<li>设置密码过期时间</li>
+<li>限制本地登陆和远程登陆次数；</li>
+<li>禁用root远程SSH登陆；</li>
+<li>升级OpenSSH；</li>
+</ol>
+<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
+<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
+<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
+<blockquote>
+<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
+<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
+<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
+<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
+<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>UOS</tag>
       </tags>
   </entry>
 </search>
