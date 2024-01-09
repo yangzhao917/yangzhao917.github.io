@@ -3,7 +3,7 @@ title: 使用ChatGPT的提问技巧
 categories:
   - 工具分享
 tags:
-  - ChatGPT
+  - AIGC
 abbrlink: 698aa78f
 date: 2023-11-12 19:43:24
 ---

@@ -2,18 +2,14 @@
 title: GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略
 categories:
   - 工具分享
-tags:
-  - 效率与技巧
 abbrlink: d6bf6e8c
 date: 2023-12-07 22:44:52
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 GitHub是一个全球性的代码托管平台，上面托管了非常多的优秀项目和学习资料。但是对于庞大的资源内容掌握一些搜索方法和技巧来提高搜索效率是十分有必要的。下面是我经过验证的一些不错的技巧和相关资料，希望能对你有所帮助。
 
 <!--more-->
-
 
 ## 搜索小技巧
 
@@ -25,7 +21,6 @@ GitHub是一个全球性的代码托管平台，上面托管了非常多的优�
 - 根据项目名称搜索
 
 > 语法：in:name
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png)
 
@@ -36,7 +31,6 @@ pdf2excel in:name
 - 根据项目描述搜索
 
 > 语法：in:description
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg)
 
@@ -47,7 +41,6 @@ Java教程 in:description
 - 根据项目帮助文档搜索
 
 > 语法：in:readme
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png)
 
@@ -58,7 +51,6 @@ Java教程 in:in:readme
 - 根据项目描述、项目文档组合搜索
 
 > 语法：in:readme,description
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg)
 
@@ -69,7 +61,6 @@ Java教程 in:description,readme
 - 根据starts点赞量搜索，点赞量越高代表项目比较收欢迎
 
 > 语法：stars:≥100
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg)
 
@@ -81,7 +72,6 @@ pdf2md in:name,description,readme stars:>=100
 - 根据forks克隆数量搜索，克隆数量越高代表项目比较收欢迎
 
 > 语法：forks:数量
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg)
 
@@ -119,7 +109,6 @@ pdf2doc in:name,description,readme forks:100..500
 💡 GitHub Trending是<b>一个展示GitHub上当前最受欢迎项目的功能</b>。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
 </aside>
 
-
 - https://github.com/521xueweihan/HelloGitHub
 
 <aside>
@@ -134,25 +123,21 @@ pdf2doc in:name,description,readme forks:100..500
 💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
 </aside>
 
-
 - 找例子
 
 > 语法：关键词 sample
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191058.jpg)
 
 - 找模板
 
 > 语法：xxx starter/boilerplat
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg)
 
 - 找教程
 
 > 语法：xxx tutorial
-> 
 
 ![Untitled](http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg)
 
@@ -169,4 +154,3 @@ pdf2doc in:name,description,readme forks:100..500
 - 最浅显易懂的Git教程
 
 [Git教程-廖雪峰老师的经典教程](https://www.liaoxuefeng.com/wiki/896043488029600)
-

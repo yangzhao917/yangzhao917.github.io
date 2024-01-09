@@ -275,10 +275,10 @@ while (matcher.find()) { // 是否有匹配成功的内容
 
 如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。
 
-![image-20240106224628057](https://qiniu-image.gotojava.cn/image-20240106224628057.png)
+![image-20240106224628057](https://qiniu-image.gotojava.cn/blog/image-20240106224628057-20240109211112575.png)
 
-![image-20240106224709864](https://qiniu-image.gotojava.cn/image-20240106224709864.png)
+![image-20240106224709864](https://qiniu-image.gotojava.cn/blog/image-20240106224709864-20240109211121630.png)
 
-![image-20240106224721804](https://qiniu-image.gotojava.cn/image-20240106224721804.png)
+![image-20240106224721804](https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png)
 
 代码、注释、说明都给了很清晰的说明，简直太贴心了。
