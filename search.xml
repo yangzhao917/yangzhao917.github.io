@@ -382,9 +382,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO dept(deptno, dname, loc) VALUES(#&#123;deptno&#125;, #&#123;dname&#125;, #&#123;loc&#125;)&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> <span class="string">&quot;#\\&#123;\\w+\\&#125;+&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译正则表达式</span></span><br><span class="line"><span class="type">Pattern</span> <span class="variable">compile</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"><span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> compile.matcher(sql);</span><br><span class="line"><span class="keyword">while</span> (matcher.find()) &#123; <span class="comment">// 是否有匹配成功的内容</span></span><br><span class="line">		System.out.println(matcher.group().replaceAll(<span class="string">&quot;#|\\&#123;|\\&#125;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="自动生成正则"><a href="#自动生成正则" class="headerlink" title="自动生成正则"></a>自动生成正则</h2><p>如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。</p>
-<p><img src="https://qiniu-image.gotojava.cn/image-20240106224628057.png" alt="image-20240106224628057"></p>
-<p><img src="https://qiniu-image.gotojava.cn/image-20240106224709864.png" alt="image-20240106224709864"></p>
-<p><img src="https://qiniu-image.gotojava.cn/image-20240106224721804.png" alt="image-20240106224721804"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224628057-20240109211112575.png" alt="image-20240106224628057"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224709864-20240109211121630.png" alt="image-20240106224709864"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png" alt="image-20240106224721804"></p>
 <p>代码、注释、说明都给了很清晰的说明，简直太贴心了。</p>
 ]]></content>
       <categories>
@@ -745,6 +745,36 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MacOS常用软件记录</title>
     <url>/article/2878e73f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -806,36 +836,6 @@
 <li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
 <li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
 </ul>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>工具分享</category>
