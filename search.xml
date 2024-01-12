@@ -395,6 +395,36 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
     <url>/article/2306cec7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -806,36 +836,6 @@
 <li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
 <li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
 </ul>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>工具分享</category>
