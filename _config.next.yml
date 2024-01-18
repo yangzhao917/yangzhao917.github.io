@@ -707,9 +707,9 @@ disqusjs:
 # Changyan
 # For more information: https://changyan.kuaizhan.com
 changyan:
-  enable: false
-  appid:
-  appkey:
+  enable: true
+  appid: cyx4YOMc2
+  appkey: c9f99755e44e7d0b11e09ecba039d8ae
   # Show comments count
   count: true
 
