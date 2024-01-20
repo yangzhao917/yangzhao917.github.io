@@ -24,7 +24,7 @@ hexo.extend.filter.register('theme_inject', injects => {
   injects.postMeta.raw('changyan', `
   {% if post.comments %}
   <span class="post-meta-item">
-    ${iconText('far fa-comment', 'changyan')}
+    ${iconText('far fa-comment', '评论数')}
     <a title="{{ post.title }}" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
       <span id="sourceId::{{ gitalk_md5(post.path) }}" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>

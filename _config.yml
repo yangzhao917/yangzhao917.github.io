@@ -5,7 +5,7 @@
 # Site
 title: '澄澈少年的网络日记'
 subtitle: '知是行之始，行是知之至。'
-description: '开发者、网络安全爱好者，我的博客会记录一些我的学习过程和部分研究成果。'
+description: ''
 keywords: 'mysql,java,javascript,python,linux,git,AIGC,网络,编程,互联网,网络安全,运维,澄澈少年的博客,澄澈少年'
 author: '澄澈少年'
 language: zh-CN
@@ -36,12 +36,12 @@ baidusitemap:
 sitemap:
   path: sitemap.xml
 
-# 百度提交
-baidu_url_submit:
-  count: 10                    # 提交最新的多少个链接
-  host: gotojava.cn            # 在百度站长平台中添加的域名
-  token: bF1uqWNi6O7VRomz      # 秘钥
-  path: baidu_urls.txt         # 文本文档的地址， 新链接会保存在此文本文档里
+# 百度提交，插件名称：hexo-baidu-url-submit
+# baidu_url_submit:
+#   count: 1                    # 提交最新的多少个链接
+#   host: gotojava.cn            # 在百度站长平台中添加的域名
+#   token: bF1uqWNi6O7VRomz      # 秘钥
+#   path: baidu_urls.txt         # 文本文档的地址， 新链接会保存在此文本文档里
 
 # Directory
 source_dir: source
@@ -165,8 +165,8 @@ deploy:
   repo: https://github.com/yangzhao917/yangzhao917.github.io.git
   branch: blog-page
   token: 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
-- type: 'baidu_url_submitter'
-  message: "{{ now('YYYY-MM-DD HH:mm:ss') }} "
+# - type: 'baidu_url_submitter'
+  # message: "{{ now('YYYY-MM-DD HH:mm:ss') }} "
 
 # Feed Atom
 feed:
