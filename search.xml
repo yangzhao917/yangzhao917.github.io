@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略</title>
+    <url>/article/d6bf6e8c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>GitHub是一个全球性的代码托管平台，上面托管了非常多的优秀项目和学习资料。但是对于庞大的资源内容掌握一些搜索方法和技巧来提高搜索效率是十分有必要的。下面是我经过验证的一些不错的技巧和相关资料，希望能对你有所帮助。</p>
+<span id="more"></span>
+
+<h2 id="搜索小技巧"><a href="#搜索小技巧" class="headerlink" title="搜索小技巧"></a>搜索小技巧</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png" alt="Untitled"></p>
+<ul>
+<li>Watch：表示有多少人关注这个项目；</li>
+<li>Star：表示有多少人给这个项目点赞，如果你给这个项目点赞，这个项目会出现在你的点赞列表中。点赞数越多，代表这个项目在社区的热度就越高；</li>
+<li>Fork：表示有多少人拷贝或者克隆了这个项目。如果我们Fork了这个项目，就可以在Fork的基础上再进行优化，优化后的项目在得到原作者认可的情况下，可以再次提交给作者。</li>
+<li>根据项目名称搜索</li>
+</ul>
+<blockquote>
+<p>语法：in:name</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pdf2excel in:name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据项目描述搜索</li>
+</ul>
+<blockquote>
+<p>语法：in:description</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据项目帮助文档搜索</li>
+</ul>
+<blockquote>
+<p>语法：in:readme</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:in:readme</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据项目描述、项目文档组合搜索</li>
+</ul>
+<blockquote>
+<p>语法：in:readme,description</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description,readme</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据starts点赞量搜索，点赞量越高代表项目比较收欢迎</li>
+</ul>
+<blockquote>
+<p>语法：stars:≥100</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2md，stars数量大于等于100的项目</span><br><span class="line">pdf2md in:name,description,readme stars:&gt;=100</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据forks克隆数量搜索，克隆数量越高代表项目比较收欢迎</li>
+</ul>
+<blockquote>
+<p>语法：forks:数量</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg" alt="Untitled"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量大于等于100的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:&gt;=100</span><br><span class="line"></span><br><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量100到500区间的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:100..500</span><br></pre></td></tr></table></figure>
+
+<h2 id="浏览小技巧"><a href="#浏览小技巧" class="headerlink" title="浏览小技巧"></a>浏览小技巧</h2><ul>
+<li>在线查看项目</li>
+</ul>
+<p>在仓库详情按下【.】键，神奇的事情发生了，当前仓库的内容会被当做资源在一个在线的VSCode中打开，方便我们浏览项目的内容，包括在VSCode中代码搜索、快捷跳转、安装插件增强编辑器功能等。</p>
+<aside>
+💡 实际上github.com的域名会跳转变成”github.dev“。然后当前的仓库就加载到了在线的VSCode中。
+</aside>
+
+<ul>
+<li>在线运行项目</li>
+</ul>
+<p>在项目地址前面加入”gitpod.io&#x2F;”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191052.jpg" alt="Untitled"></p>
+<h2 id="如何寻找优质项目"><a href="#如何寻找优质项目" class="headerlink" title="如何寻找优质项目"></a>如何寻找优质项目</h2><ul>
+<li>GitHub Trending</li>
+</ul>
+<p><a href="https://github.com/trending">https://github.com/trending</a></p>
+<aside>
+💡 GitHub Trending是<b>一个展示GitHub上当前最受欢迎项目的功能</b>。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
+</aside>
+
+<ul>
+<li><a href="https://github.com/521xueweihan/HelloGitHub">https://github.com/521xueweihan/HelloGitHub</a></li>
+</ul>
+<aside>
+💡 分享 GitHub 上有趣、入门级的开源项目。
+</aside>
+
+<ul>
+<li>awesome</li>
+</ul>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191056.jpg" alt="Untitled"></p>
+<aside>
+💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
+</aside>
+
+<ul>
+<li>找例子</li>
+</ul>
+<blockquote>
+<p>语法：关键词 sample</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191058.jpg" alt="Untitled"></p>
+<ul>
+<li>找模板</li>
+</ul>
+<blockquote>
+<p>语法：xxx starter&#x2F;boilerplat</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg" alt="Untitled"></p>
+<ul>
+<li>找教程</li>
+</ul>
+<blockquote>
+<p>语法：xxx tutorial</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg" alt="Untitled"></p>
+<h2 id="指导初学者"><a href="#指导初学者" class="headerlink" title="指导初学者"></a>指导初学者</h2><ul>
+<li>指导初学者做出首次贡献的方式</li>
+</ul>
+<aside>
+💡 该项目旨在简化和指导初学者做出首次贡献的方式。如果您想做出第一次贡献，请按照以下步骤操作。
+</aside>
+
+<p><a href="https://github.com/firstcontributions/first-contributions">https://github.com/firstcontributions/first-contributions</a></p>
+<ul>
+<li>最浅显易懂的Git教程</li>
+</ul>
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600">Git教程-廖雪峰老师的经典教程</a></p>
+]]></content>
+      <categories>
+        <category>工具分享</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Java基础-正则的基本使用</title>
     <url>/article/e26f95fb.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -253,146 +393,6 @@
       <tags>
         <tag>Java</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略</title>
-    <url>/article/d6bf6e8c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>GitHub是一个全球性的代码托管平台，上面托管了非常多的优秀项目和学习资料。但是对于庞大的资源内容掌握一些搜索方法和技巧来提高搜索效率是十分有必要的。下面是我经过验证的一些不错的技巧和相关资料，希望能对你有所帮助。</p>
-<span id="more"></span>
-
-<h2 id="搜索小技巧"><a href="#搜索小技巧" class="headerlink" title="搜索小技巧"></a>搜索小技巧</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png" alt="Untitled"></p>
-<ul>
-<li>Watch：表示有多少人关注这个项目；</li>
-<li>Star：表示有多少人给这个项目点赞，如果你给这个项目点赞，这个项目会出现在你的点赞列表中。点赞数越多，代表这个项目在社区的热度就越高；</li>
-<li>Fork：表示有多少人拷贝或者克隆了这个项目。如果我们Fork了这个项目，就可以在Fork的基础上再进行优化，优化后的项目在得到原作者认可的情况下，可以再次提交给作者。</li>
-<li>根据项目名称搜索</li>
-</ul>
-<blockquote>
-<p>语法：in:name</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pdf2excel in:name</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>根据项目描述搜索</li>
-</ul>
-<blockquote>
-<p>语法：in:description</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>根据项目帮助文档搜索</li>
-</ul>
-<blockquote>
-<p>语法：in:readme</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:in:readme</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>根据项目描述、项目文档组合搜索</li>
-</ul>
-<blockquote>
-<p>语法：in:readme,description</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description,readme</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>根据starts点赞量搜索，点赞量越高代表项目比较收欢迎</li>
-</ul>
-<blockquote>
-<p>语法：stars:≥100</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2md，stars数量大于等于100的项目</span><br><span class="line">pdf2md in:name,description,readme stars:&gt;=100</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>根据forks克隆数量搜索，克隆数量越高代表项目比较收欢迎</li>
-</ul>
-<blockquote>
-<p>语法：forks:数量</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg" alt="Untitled"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量大于等于100的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:&gt;=100</span><br><span class="line"></span><br><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量100到500区间的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:100..500</span><br></pre></td></tr></table></figure>
-
-<h2 id="浏览小技巧"><a href="#浏览小技巧" class="headerlink" title="浏览小技巧"></a>浏览小技巧</h2><ul>
-<li>在线查看项目</li>
-</ul>
-<p>在仓库详情按下【.】键，神奇的事情发生了，当前仓库的内容会被当做资源在一个在线的VSCode中打开，方便我们浏览项目的内容，包括在VSCode中代码搜索、快捷跳转、安装插件增强编辑器功能等。</p>
-<aside>
-💡 实际上github.com的域名会跳转变成”github.dev“。然后当前的仓库就加载到了在线的VSCode中。
-</aside>
-
-<ul>
-<li>在线运行项目</li>
-</ul>
-<p>在项目地址前面加入”gitpod.io&#x2F;”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191052.jpg" alt="Untitled"></p>
-<h2 id="如何寻找优质项目"><a href="#如何寻找优质项目" class="headerlink" title="如何寻找优质项目"></a>如何寻找优质项目</h2><ul>
-<li>GitHub Trending</li>
-</ul>
-<p><a href="https://github.com/trending">https://github.com/trending</a></p>
-<aside>
-💡 GitHub Trending是<b>一个展示GitHub上当前最受欢迎项目的功能</b>。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
-</aside>
-
-<ul>
-<li><a href="https://github.com/521xueweihan/HelloGitHub">https://github.com/521xueweihan/HelloGitHub</a></li>
-</ul>
-<aside>
-💡 分享 GitHub 上有趣、入门级的开源项目。
-</aside>
-
-<ul>
-<li>awesome</li>
-</ul>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191056.jpg" alt="Untitled"></p>
-<aside>
-💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
-</aside>
-
-<ul>
-<li>找例子</li>
-</ul>
-<blockquote>
-<p>语法：关键词 sample</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191058.jpg" alt="Untitled"></p>
-<ul>
-<li>找模板</li>
-</ul>
-<blockquote>
-<p>语法：xxx starter&#x2F;boilerplat</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg" alt="Untitled"></p>
-<ul>
-<li>找教程</li>
-</ul>
-<blockquote>
-<p>语法：xxx tutorial</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg" alt="Untitled"></p>
-<h2 id="指导初学者"><a href="#指导初学者" class="headerlink" title="指导初学者"></a>指导初学者</h2><ul>
-<li>指导初学者做出首次贡献的方式</li>
-</ul>
-<aside>
-💡 该项目旨在简化和指导初学者做出首次贡献的方式。如果您想做出第一次贡献，请按照以下步骤操作。
-</aside>
-
-<p><a href="https://github.com/firstcontributions/first-contributions">https://github.com/firstcontributions/first-contributions</a></p>
-<ul>
-<li>最浅显易懂的Git教程</li>
-</ul>
-<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600">Git教程-廖雪峰老师的经典教程</a></p>
-]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
   </entry>
   <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
@@ -1446,83 +1446,141 @@
       </tags>
   </entry>
   <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
+    <title>断舍离：迈向简约生活的第一步</title>
+    <url>/article/1bc91136.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
+<p>《断舍离》是山下英子老师从瑜伽的修行哲学”断行“、”舍行“、”离行“中提炼出”断舍离“的思维方式并用于日常生活的”整理“上。那么到底什么是断舍离？断舍离又是怎么去整理生活的？本文将追随山下英子老师，学习探索断舍离的简约之道。</p>
 <span id="more"></span>
 
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
+<p>这次从上海回家乡的火车上，闲来无事，就翻阅了一下随身带的一本断舍离，其实在接触《断舍离》这本书之前，就对这本书有所耳闻，但一直没有机会拜读。这次刚好回家乡的路途时间较长，有足足22个小时的火车，刚好有机会学习一下。也算是缘分到了。</p>
+<p>翻开《断舍离》一书，就被书中的一行蓝底白色所吸引：”<strong>放手一个无用之物，就腾出一点空间。处理一件多余之物，就减少一份负担。然后，翻开人生新篇章</strong>。“。看到这句话的时候，内心有一种触动感。就像我们身处在一间采光良好，空间很大的房间里时，屋子里很干净、物品的摆放也很整齐，我相信多数人都会感到舒服。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/%E6%95%B4%E6%B4%81%E6%98%8E%E4%BA%AE%E7%9A%84%E5%B1%8B%E5%AD%90.jpg" alt="整洁明亮的屋子-图片来自互联网"></p>
+<p>但反之，如果你身处在一间杂物堆积、垃圾遍地的屋子里时，也会感觉到心被堵了。这种压迫感的环境逐渐让在这里生活的人变得思维迟钝、行动迟缓，然后渐渐变得封闭、不想外出，进而演变成近似愤懑抑郁的状态。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/%E6%9D%82%E7%89%A9%E5%A0%86%E7%A7%AF%E7%9A%84%E5%B1%8B%E5%AD%90.jpg" alt="杂物堆积的屋子-图片来自互联网"></p>
+<p>虽然新媒体和商家也在极力宣传着一些整理、收纳的方式方法，但其本质在于减少物品占用的空间体积、废物利用…治标不治本。而断舍离所倡导的是一种生活上的“新陈代谢”的思维方式。</p>
+<h2 id="断舍离是什么"><a href="#断舍离是什么" class="headerlink" title="断舍离是什么"></a>断舍离是什么</h2><p>那么什么是断舍离呢？”断舍离”是指通过<strong>断绝不必要的联系</strong>、<strong>舍弃多余的物质与情感负担</strong>，以及<strong>清理整理个人生活和心灵空间</strong>，达到简化生活、追求轻松自在的目的。橱柜里、餐架上或者冰箱中囤积的无用之物，家里随处堆积的废品破烂，还包括精神层面上那些不适宜的过剩观念，或是让自己陷入自我否定、自我谴责境地的消极思维或情感纪念物。只有放手这些东西，才能解放自己、解放人生。即：<em><strong>斩“断”物欲</strong></em>、<em>“<strong>舍”弃废物</strong></em>、<em><strong>脱“离”执念</strong></em>。</p>
+<h2 id="我们为什么无法放手"><a href="#我们为什么无法放手" class="headerlink" title="我们为什么无法放手"></a>我们为什么无法放手</h2><p>一、随着5G社会的发展，短视频、新媒体行业的兴起，加速了信息的流速。商家的大肆宣传，打折、促销、直播带货的低价锚点效应不断的刺激着我们的消费欲。使我们很难逃脱资本给我们量身打造的”买买买“的陷阱。记得每次出去逛街，总能看到一些卖衣服商家的小姐姐在门口大肆吆喝着：”68一件、100元两件，赶快进店看一看吧“。持着闲来无事看一看的心态，总是不由自主的走进店铺进行试选，导购的小姐姐热情似火的介绍和推荐以及熟练的话术让我不由自主的着了道。碰到特别合适的总忍不住剁个手。结账的时候常常也会感到肉疼，但还是扫码付款一气呵成。我相信此类的场景大家也都会遇到过。</p>
+<p>二、时代遗留的价值观，比如：”这个东西还能用“、”或许以后能用到，就先留下来吧“，而不是”<strong>这个东西是真的需要吗</strong>“。或者因商家打折、促销而多买的日用品、消耗品，回到家时，却发现了囤积占了很多的体积空间，扔了感觉心疼、浪费，有些可能甚至一次都没有使用过。</p>
+<p>三、现在由于工作繁忙、生活压力过大、待在家中的时间短、不会认真的做家务。还有很多是对家庭和家务有情绪，不想待在家中，只想埋头工作。看到家里乱七八糟，心情特别差、更是不愿意待在家中，陷入了不良循环。</p>
+<p>四、对于一些特别念旧的人，总是会收集和珍藏很多现在不用的旧物，小心翼翼地保留着以前的相册或是奖杯奖牌，以及带有过往纪念性质的信件、照片等小物件。总是沉湎过去的快乐时光，而忽略了对当下现实的投入。</p>
+<p>五、”生于忧患、死于安乐“是古人在与猛兽为群时，为了保证自己能生存下来在经历漫长的岁月中所总结的良言警句。对于现代生活的我们有很好的预警左右，也能让我们时刻保持警惕、以应对可能发生的安全威胁。但如果不停的为将来的事情所忧虑，不停地为将来储备东西。眼睛只盯着”某些东西没有，自己将来必定会发愁“的心态，也会导致我们囤积过多的日用品和消耗品。</p>
+<p><strong>断舍离，不是要求我们随意地”弃“，而是把”舍“作为解决问题的方法之一。</strong>在进行取舍时，我们应该挑选出有质量的东西或者我们十分喜爱的，专注于那些与自己生活关联度高的物品上，处理掉不需要的物品。将物品压缩到能够建立和保持社会性从而选择适合的量即可，才能从最本真的意义上珍惜事物、热爱生活，并不是随意地、不走心地囤东西、扔东西。对于多囤积的物品，我们可以选择适当性的赠予邻居，从而建立我们和邻居之间的社交性往来、促进邻里关系。</p>
+<h2 id="断舍离是怎么工作的"><a href="#断舍离是怎么工作的" class="headerlink" title="断舍离是怎么工作的"></a>断舍离是怎么工作的</h2><p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125021841658.png" alt="断舍离的工作机制"></p>
+<p>我们知道了断舍离是通过“舍弃”来减压我们的生活环境，达到简化生活、追求轻松自在的目的。那么断舍离又是如何去“舍”的呢？下面我们将通过“八个技巧”、“五个收纳指南”来学习断舍离、掌握断舍离的要点。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125022204695.png" alt="断舍离的工作机制-八个技巧"></p>
+<h3 id="八个技巧"><a href="#八个技巧" class="headerlink" title="八个技巧"></a>八个技巧</h3><p><strong>一、认识现状</strong></p>
+<p>假如我们要去爬一座海拔很高的山，首先要做的是准备登山用具、掌握登山所必须的知识、计划山路路线、进行食物储备、准备通讯设备、预备登山物资等等，而不是盲目的就去了。家务的整理也是一样的，我们首先需要做的，<em><strong>就是掌握家里物品的数量和质量，观察东西有没有存在过剩的情况</strong></em>。</p>
+<p>从三个阶段来评估住所的现状：</p>
+<ol>
+<li>收纳空间的物品量合理，没有过度过量，偶尔出现“凌乱”摆放的情况；</li>
+<li>收纳空间已经满载，甚至出现物品“溢出、过剩”情况；</li>
+<li>东西已经好多年没有整理过，出现了“堆积”的情况；</li>
+</ol>
+<p>首先确认物品的“量”，接下来再判断居住空间的“质”处于什么水平。</p>
+<p>就像我这次回家，家里的衣橱中的柜子里存放着我学生时代的教材书籍和实验用的设备。父母因为不懂，也不敢随意处理，生怕我需要用的时候找不到。但我已经工作3年了，这些东西早已经过了”保质期“。后来清理了一座小山，才把柜子全部清空，只留下了一些必要的荣誉证书作为纪念。</p>
+<p><strong>二、停止自我否定</strong></p>
+<p>女性把“收拾家务”直接等同于“理所当然应会的家务劳动”，简单地把家务整理分成“会收拾”和“不会收拾”，理解成能力问题。男性则简单直接理解为“不收拾”，并没有添加什么个人情绪在其中。</p>
+<p>女性既受到了“没有收拾干净的环境”的损害，又不得不自虐自嘲为“不会收拾家务的女人”，心理上受到的伤害也越发地深刻。只有摆脱这种自罚性的思维倾向，不再去否定自我，才能实现思维观念上的断舍离。</p>
+<p><strong>三、描绘家的具体构想</strong></p>
+<p>收拾东西并不是我们最终的目的，我们真正想要的是<strong>实现“健康舒适的居住空间”</strong>。当我们的目的明确以后收拾东西仅仅只是实现“健康舒适的居住空间”这个目的手段而已。那么首先应该做的是明确描绘住所的蓝图，收拾整理完后，我想在这里进行怎样的生活？<strong>这个模糊的念头可以帮助我们回到人生的原点”我究竟想要怎样的生活？“，也会变成我们实践断舍离的源动力。</strong></p>
+<p><strong>四、拿出杂物、俯瞰</strong></p>
+<p>把握自己现在的居所物品过剩、无法收纳的现状后，把杂物全部摆出来，放在地板上、桌上等水平面的位置。然后从高处对杂物总量进行俯瞰，俯瞰的目的是可以让我们知道需要整理的工作量大约有多少。</p>
+<p>在开始实施断舍离时，<em><strong>要在计划的时间内从少量的、小单位的着手</strong></em>。单位越小，将物品从收纳柜取出来所花的时间就越少。也不会打击对于断舍离的热情，同时能得到正向的反馈。这种小单位量的断舍离持续下去，不久就会变成大单位量的断舍离。</p>
+<p><strong>五、扔掉“怎么看都是垃圾·废品”的东西</strong></p>
+<p>扔掉过期保质的生鲜食品、没有食欲的食物，损坏的、不能使用的、已经忘却的、将来也用不上的东西开始处理。</p>
+<p><strong>六、以自我·时间为判断基准，考虑自身与物品的“关联度”，再进行取舍</strong></p>
+<img src="https://qiniu-image.gotojava.cn/blog/image-20240125052516460.png" width="400">
 
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<p>以“自我轴”为基准进行取舍时，只需要考虑“<strong>这个东西我想不想用</strong>”。</p>
+<p>有些东西一年可能才用的上一回，对于这些东西，<strong>不要从频率，而要从和自己的“关联度”的视角进行判断</strong>。</p>
+<p>物品与自己的关联度会随着时间而变化，同一件物品，不同的人会有不同的评判，也有不同的关联度。这是所有人、事、物三者关系网成立的大前提。在这个大前提下，那些同时满足必要、合适、愉快三个维度的物品很快就能被锁定。并且可以摆脱人、事、物单纯理解为非对即错、非善即恶的二元思维，逐渐形成多元性、尊重他人的意识。</p>
+<p><strong>七、以“必要·合适·愉快”为标准进行取舍</strong></p>
+<p>这个东西对我来说是必要的吗？是否适合我？使用起来是不是心情愉快？那么对于”现在“的我来说，那些”<strong>不需要、不合适、不愉快的东西应该处理掉。</strong>“</p>
+<p>不需要的东西：东西使用起来很便利，虽然没有坏，但是丢了也不发愁；</p>
+<p>不合适的东西：以前很重要，但是对现在的我不合适；</p>
+<p>不愉快的东西：长时间使用，但会有莫名的违和感和不愉快情绪；</p>
+<p><strong>八、收纳在杂物最适合化之后进行</strong></p>
 <ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+<li><p>“收拾”就是对庞大的杂物量进行压缩和收纳的作业</p>
+</li>
+<li><p>“整理·分类” + “扫除”，总称为“打扫”。</p>
+</li>
 </ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<p>在断舍离的大前提下，最正确的“打扫”程序是首先清除那些垃圾、废品，以及不需要、不合适、不愉快的杂物，之后再转而进行杂物收纳，进行“清扫、擦拭、磨刷”。因为如果不按这个顺序做的话，把垃圾、废品或者不需要、不合适、不愉快的杂物重新塞进收纳箱，就完全失去了打扫的意义。而且、塞进柜子之后，这些杂物依然是以”机能不全“的状态藏在家中，”大扫除”并没有任何实际的意义。</p>
+<h3 id="五个收纳指南"><a href="#五个收纳指南" class="headerlink" title="五个收纳指南"></a>五个收纳指南</h3><p><strong>一、三分法</strong></p>
+<p>大分类 ➡️ 中分类 ➡️ 小分类，<strong>分类的关键是三类不能交叉</strong>，交叉会产生范畴错误，错误越多越会导致找东西花时间，思维也发生混乱。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125025928515.png" alt="三分法-厨房例子"></p>
+<p><strong>二、7•5•1法</strong></p>
+<p>“7·5·1法”指的是进行杂物收纳时，对收纳空间的物量进行大致的估测。根据不同的收纳情况，将杂物总量压缩到收纳空间的”7成“、”5成“、”1成“。</p>
 <ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+<li><p>“看不见的收纳空间”，占7成</p>
+<p>衣柜、壁橱、抽屉等关上门就“看不见的收纳空间”所放杂物的量基本上占整体空间的7成。</p>
+<p>留下3成的目的在于想取柜子最里面的东西时，有操作的空间，避免把前面的东西拿出来再重新去取，减少麻烦。</p>
+</li>
+<li><p>“看的见的收纳空间”，占5成</p>
+<p>带玻璃门的柜子或橱柜关上门依然能“看得见的收纳空间”所放杂物的量基本上占整体空间的5成。5成的空间可以尽量保持一定的美观。</p>
+</li>
+<li><p>“展示性的收纳空间”，占1成</p>
+<p>可以看到的开放性空间，如桌面、橱柜的水平面、门口的鞋柜等“展示性的收纳空间”上所放杂物的量基本上占整体空间的1成。</p>
+</li>
 </ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
+<p><strong>三、1 out 1 in 法（一出一进法）</strong></p>
+<p><strong>遵守“处理一个、收纳一个”的原则。先出再进</strong>。因为先取出一个，再放入新东西，就不会出现失效的可能。让自己产生”决不能再随意买一些乱七八糟的东西“的觉悟。在面对可入手的诱惑时，让我们产生一丝心理上的犹豫。</p>
+<p><strong>四、one touch法（一键式法）</strong></p>
+<p>在进行杂物整理收纳时，打开收纳柜的们，取出里面的箱子，再打开盖子，这个动作会过于繁琐和麻烦。使用过后再收纳也会同样花时间，所以就随意扔在桌子上了。但如果把动作压缩到2步：打开门 ➡️ 拿出来（放回去），以 one touch（一键式）取出来，减少繁琐的收纳操作，更省心、省力，也不会感到太麻烦。</p>
+<p><strong>五、自立·自由·自在法</strong></p>
+<p>自立：毛巾、T恤等布艺制品立着叠放入收纳浅盒中；</p>
+<p>自由：根据杯子的形状种类排列，方便自由拿取；</p>
+<p>自在：底裤、袜子等小件衣物团着折叠扔进收纳盒中，自在滚动；</p>
+<p>从切实能出成绩的小地方着手，全力集中在“达成事件”上，一点点地增加成就感，给自己的“自信心账户”一点点地转账存钱。小地方获得的小成功不断累加，能给人以勇气和信心去面对自己的老大难问题。</p>
+<h3 id="断舍离的步骤"><a href="#断舍离的步骤" class="headerlink" title="断舍离的步骤"></a>断舍离的步骤</h3><ol>
+<li>认识现状；</li>
+<li>选择取舍；</li>
+<li>收纳整理；</li>
 </ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+<h3 id="居所断舍离的要点"><a href="#居所断舍离的要点" class="headerlink" title="居所断舍离的要点"></a>居所断舍离的要点</h3><ul>
+<li>衣柜的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125042251090.png" alt="衣柜的断舍离"></p>
+<ul>
+<li>壁橱的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031043646.png" alt="壁橱的断舍离"></p>
+<ul>
+<li>厨房的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031110234.png" alt="厨房的断舍离"></p>
+<ul>
+<li>餐具柜的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031148638.png" alt="餐具柜的断舍离"></p>
+<ul>
+<li>冰箱的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031223642.png" alt="冰箱的断舍离"></p>
+<ul>
+<li>书架的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031248948.png" alt="书架的断舍离"></p>
+<ul>
+<li>厕所的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031316007.png" alt="厕所的断舍离"></p>
+<ul>
+<li>家门口的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031340614.png" alt="家门口的断舍离"></p>
+<ul>
+<li>客厅、餐厅的断舍离</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031403493.png" alt="客厅、餐厅的断舍离"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>断舍离是通过断绝不必要的联系、舍弃多余的物质与情感负担，以及清理整理个人生活和心灵空间，达到简化生活、追求轻松自在的目的。通过对杂物的选择和取舍，了解自身、获得对自我的肯定。</p>
+<p>最后祝愿朋友们在新的一年，越来越好！</p>
 ]]></content>
       <categories>
-        <category>技术分享</category>
+        <category>杂文随笔</category>
       </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
   </entry>
   <entry>
     <title>电子邮件礼仪</title>
@@ -1767,5 +1825,84 @@
       <categories>
         <category>杂文随笔</category>
       </categories>
+  </entry>
+  <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
   </entry>
 </search>
