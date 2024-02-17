@@ -137,7 +137,7 @@
 <p><a href="https://www.liaoxuefeng.com/wiki/896043488029600">Git教程-廖雪峰老师的经典教程</a></p>
 ]]></content>
       <categories>
-        <category>工具分享</category>
+        <category>杂文随笔</category>
       </categories>
   </entry>
   <entry>
@@ -178,22 +178,22 @@
 </tr>
 <tr>
 <td><code>\d</code></td>
-<td>匹配任意数字字符，相当于<code>[0-9]</code>。</td>
+<td>匹配任意数字字符，相当于 <code>[0-9]</code>。</td>
 <td></td>
 </tr>
 <tr>
 <td><code>\D</code></td>
-<td>匹配任意非数字字符，相当于<code>[^0-9]</code>。</td>
+<td>匹配任意非数字字符，相当于 <code>[^0-9]</code>。</td>
 <td></td>
 </tr>
 <tr>
 <td><code>\w</code></td>
-<td>匹配任意字母、数字或下划线字符，相当于<code>[a-zA-Z0-9_]</code>。</td>
+<td>匹配任意字母、数字或下划线字符，相当于 <code>[a-zA-Z0-9_]</code>。</td>
 <td></td>
 </tr>
 <tr>
 <td><code>\W</code></td>
-<td>匹配任意非字母、数字或下划线字符，相当于<code>[^a-zA-Z0-9_]</code>。</td>
+<td>匹配任意非字母、数字或下划线字符，相当于 <code>[^a-zA-Z0-9_]</code>。</td>
 <td></td>
 </tr>
 <tr>
@@ -316,32 +316,23 @@
 </tbody></table>
 <h2 id="常用正则"><a href="#常用正则" class="headerlink" title="常用正则"></a>常用正则</h2><ul>
 <li><p><strong>匹配邮箱地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配URL：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配日期：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配手机号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配身份证号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配IP地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配用户名（字母开头，允许字母数字下划线，长度6-20）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配密码（包含大小写字母和数字，长度8-16）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配 HTML 标签：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>匹配中文字符：</strong></p>
 <figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">\u</span>4e00-<span class="keyword">\u</span>9fa5]</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -355,8 +346,7 @@
 <figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 将给定的输入分成这个规则的匹配。</span><br><span class="line">public String[] split(CharSequence input)</span><br></pre></td></tr></table></figure>
 
 <p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>Matcher：正则表达式匹配，实现了正则表达式的处理类，对象的实例化依靠Pattern类完成；</p>
 <ul>
 <li>获取matcher对象</li>
@@ -387,9 +377,6 @@
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png" alt="image-20240106224721804"></p>
 <p>代码、注释、说明都给了很清晰的说明，简直太贴心了。</p>
 ]]></content>
-      <categories>
-        <category>开发者</category>
-      </categories>
       <tags>
         <tag>Java</tag>
       </tags>
@@ -737,9 +724,6 @@
 <h3 id="ERROR-1820（HY000）"><a href="#ERROR-1820（HY000）" class="headerlink" title="ERROR 1820（HY000）"></a>ERROR 1820（HY000）</h3><p>错误提示：You must reset your password using ALTER USER statement before executing this statement.</p>
 <p>解决方案：<a href="https://blog.csdn.net/Wing_kin666/article/details/110921440">MySQL 报错：ERROR 1820 (HY000): You must reset your password using ALTER USER statement before-CSDN博客</a></p>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>
@@ -768,7 +752,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>工具分享</category>
+        <category>杂文随笔</category>
       </categories>
       <tags>
         <tag>MacOS</tag>
@@ -838,7 +822,7 @@
 </ul>
 ]]></content>
       <categories>
-        <category>工具分享</category>
+        <category>杂文随笔</category>
       </categories>
       <tags>
         <tag>MacOS</tag>
@@ -876,9 +860,6 @@
 <li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序<code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
         <tag>Oracle</tag>
       </tags>
@@ -902,7 +883,7 @@
 <ol start="2">
 <li>在 windows 下，请参考使用 <a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/putty.html">putty 从 windows 连接到 linux 实例</a>。通常分为两步，秘钥格式的转换，以及连接。</li>
 </ol>
-<p>连接时，请使用<code>ec2-user</code>账户进行登陆，对于 <code>publicdns-hostname-or-ipv4-address</code> 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 <code>Ipv4</code> 同样是可以去连接的。</p>
+<p>连接时，请使用 <code>ec2-user</code>账户进行登陆，对于 <code>publicdns-hostname-or-ipv4-address</code> 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 <code>Ipv4</code> 同样是可以去连接的。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119043653371.png" alt="image-20240119043653371"></p>
 <p>在连接之前，首先要确定，我们的实例地址是可以连接的。这个可以通过 <code>ping</code> 来确认。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119044001526.png" alt="image-20240119044001526"></p>
@@ -917,10 +898,10 @@
 </ul>
 ]]></content>
       <categories>
-        <category>技术分享</category>
+        <category>杂文随笔</category>
       </categories>
       <tags>
-        <tag>AWS</tag>
+        <tag>Amazon</tag>
       </tags>
   </entry>
   <entry>
@@ -997,11 +978,8 @@
 <h2 id="升级验证"><a href="#升级验证" class="headerlink" title="升级验证"></a>升级验证</h2><p>再次查看OpenSSH的版本，发现已经升级成功，由原来的 <code>7.9p1 Debian-10+deb10u1</code>升级到了 <code>9.4p1</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:~# ssh -V</span><br><span class="line">OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
-        <tag>UOS</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1029,9 +1007,6 @@
 <li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
       <tags>
         <tag>Oracle</tag>
       </tags>
@@ -1189,9 +1164,6 @@
 <li><a href="https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html">在 Microsoft Windows 上安装 MySQL</a></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>
@@ -1329,11 +1301,8 @@
 <p>问法六：[名人名字]，在您所在的领域，您认为目前有哪些令人兴奋或值得关注的行业动态？</p>
 ]]></content>
       <categories>
-        <category>工具分享</category>
+        <category>杂文随笔</category>
       </categories>
-      <tags>
-        <tag>AIGC</tag>
-      </tags>
   </entry>
   <entry>
     <title>使用rsyslog归集系统日志</title>
@@ -1393,11 +1362,8 @@
 
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
 ]]></content>
-      <categories>
-        <category>工具分享</category>
-      </categories>
       <tags>
-        <tag>UOS</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1438,11 +1404,8 @@
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
 <p>重新尝试SSH登陆后，发现可以正常登陆。</p>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
-        <tag>UOS</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1653,9 +1616,6 @@
 </ol>
 <p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
 ]]></content>
-      <categories>
-        <category>技术分享</category>
-      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>

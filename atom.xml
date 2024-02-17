@@ -40,7 +40,7 @@
     <link href="https://gotojava.cn/article/306847ba.html"/>
     <id>https://gotojava.cn/article/306847ba.html</id>
     <published>2024-01-18T19:56:12.000Z</published>
-    <updated>2024-01-19T05:28:01.287Z</updated>
+    <updated>2024-02-17T08:29:22.594Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -49,10 +49,10 @@
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="AWS" scheme="https://gotojava.cn/tags/AWS/"/>
+    <category term="Amazon" scheme="https://gotojava.cn/tags/Amazon/"/>
     
   </entry>
   
@@ -78,14 +78,12 @@
     <link href="https://gotojava.cn/article/e26f95fb.html"/>
     <id>https://gotojava.cn/article/e26f95fb.html</id>
     <published>2024-01-05T21:55:50.000Z</published>
-    <updated>2024-01-09T13:12:51.598Z</updated>
+    <updated>2024-02-17T08:28:02.049Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
-    
-    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Java" scheme="https://gotojava.cn/tags/Java/"/>
@@ -97,14 +95,12 @@
     <link href="https://gotojava.cn/article/b0b9894c.html"/>
     <id>https://gotojava.cn/article/b0b9894c.html</id>
     <published>2023-12-08T20:22:22.000Z</published>
-    <updated>2023-12-15T19:11:53.100Z</updated>
+    <updated>2024-02-17T08:31:20.015Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
-    
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -116,7 +112,7 @@
     <link href="https://gotojava.cn/article/d6bf6e8c.html"/>
     <id>https://gotojava.cn/article/d6bf6e8c.html</id>
     <published>2023-12-07T14:44:52.000Z</published>
-    <updated>2024-01-09T10:28:21.273Z</updated>
+    <updated>2024-02-17T08:30:06.616Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -125,7 +121,7 @@
     
     
     
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
+    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
     
     
   </entry>
@@ -154,7 +150,7 @@
     <link href="https://gotojava.cn/article/2306cec7.html"/>
     <id>https://gotojava.cn/article/2306cec7.html</id>
     <published>2023-11-13T05:55:23.000Z</published>
-    <updated>2023-12-15T19:11:53.107Z</updated>
+    <updated>2024-02-17T08:31:00.330Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -162,8 +158,6 @@
 &lt;p&gt;本文记录MySQL5.7在CentOS7环境下的安装和配置过程。&lt;/p&gt;</summary>
     
     
-    
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -175,7 +169,7 @@
     <link href="https://gotojava.cn/article/698aa78f.html"/>
     <id>https://gotojava.cn/article/698aa78f.html</id>
     <published>2023-11-12T11:43:24.000Z</published>
-    <updated>2024-01-09T10:26:29.103Z</updated>
+    <updated>2024-02-17T08:22:04.171Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -184,10 +178,8 @@
     
     
     
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
+    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
     
-    
-    <category term="AIGC" scheme="https://gotojava.cn/tags/AIGC/"/>
     
   </entry>
   
@@ -196,7 +188,7 @@
     <link href="https://gotojava.cn/article/43757ee8.html"/>
     <id>https://gotojava.cn/article/43757ee8.html</id>
     <published>2023-10-08T13:50:38.000Z</published>
-    <updated>2023-12-15T19:11:53.108Z</updated>
+    <updated>2024-02-17T08:19:10.283Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -205,7 +197,7 @@
     
     
     
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
+    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
     
     
     <category term="MacOS" scheme="https://gotojava.cn/tags/MacOS/"/>
@@ -217,7 +209,7 @@
     <link href="https://gotojava.cn/article/947b9fd7.html"/>
     <id>https://gotojava.cn/article/947b9fd7.html</id>
     <published>2023-09-14T06:46:11.000Z</published>
-    <updated>2023-12-15T19:11:53.109Z</updated>
+    <updated>2024-02-17T08:30:51.733Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -226,10 +218,8 @@
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
-    
-    <category term="UOS" scheme="https://gotojava.cn/tags/UOS/"/>
+    <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
     
   </entry>
   
@@ -238,7 +228,7 @@
     <link href="https://gotojava.cn/article/9fdf7a25.html"/>
     <id>https://gotojava.cn/article/9fdf7a25.html</id>
     <published>2023-09-08T14:06:33.000Z</published>
-    <updated>2023-12-15T19:11:53.098Z</updated>
+    <updated>2024-02-17T08:28:08.619Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -247,10 +237,8 @@
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
-    
-    <category term="UOS" scheme="https://gotojava.cn/tags/UOS/"/>
+    <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
     
   </entry>
   
@@ -259,7 +247,7 @@
     <link href="https://gotojava.cn/article/1836dc99.html"/>
     <id>https://gotojava.cn/article/1836dc99.html</id>
     <published>2023-08-24T18:33:57.000Z</published>
-    <updated>2023-12-15T19:11:53.102Z</updated>
+    <updated>2024-02-17T08:27:57.823Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -268,10 +256,8 @@
     
     
     
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
     
-    
-    <category term="UOS" scheme="https://gotojava.cn/tags/UOS/"/>
+    <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
     
   </entry>
   
@@ -280,7 +266,7 @@
     <link href="https://gotojava.cn/article/8df25a04.html"/>
     <id>https://gotojava.cn/article/8df25a04.html</id>
     <published>2023-07-27T13:35:31.000Z</published>
-    <updated>2023-12-15T19:11:53.110Z</updated>
+    <updated>2024-02-17T08:30:33.103Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -288,8 +274,6 @@
 &lt;p&gt;💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。&lt;/p&gt;</summary>
     
     
-    
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -301,7 +285,7 @@
     <link href="https://gotojava.cn/article/2878e73f.html"/>
     <id>https://gotojava.cn/article/2878e73f.html</id>
     <published>2023-07-21T10:34:55.000Z</published>
-    <updated>2023-12-15T19:11:53.107Z</updated>
+    <updated>2024-02-17T08:19:02.100Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -312,7 +296,7 @@
     
     
     
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
+    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
     
     
     <category term="MacOS" scheme="https://gotojava.cn/tags/MacOS/"/>
@@ -324,14 +308,12 @@
     <link href="https://gotojava.cn/article/a639d743.html"/>
     <id>https://gotojava.cn/article/a639d743.html</id>
     <published>2023-06-08T06:05:15.000Z</published>
-    <updated>2023-12-15T19:11:53.111Z</updated>
+    <updated>2024-02-17T08:30:23.360Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
-    
-    <category term="工具分享" scheme="https://gotojava.cn/categories/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
@@ -343,14 +325,12 @@
     <link href="https://gotojava.cn/article/e057bf2e.html"/>
     <id>https://gotojava.cn/article/e057bf2e.html</id>
     <published>2023-06-08T06:00:55.000Z</published>
-    <updated>2023-12-15T19:11:53.109Z</updated>
+    <updated>2024-02-17T08:31:08.713Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
-    
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
