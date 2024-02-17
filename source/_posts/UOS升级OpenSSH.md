@@ -1,9 +1,7 @@
 ---
 title: UOS升级OpenSSH
-categories:
-  - 技术分享
 tags:
-  - UOS
+  - Linux
 abbrlink: 947b9fd7
 date: 2023-09-14 14:46:11
 ---

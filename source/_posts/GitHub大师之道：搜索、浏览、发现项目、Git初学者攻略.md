@@ -1,7 +1,7 @@
 ---
 title: GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略
 categories:
-  - 工具分享
+  - 杂文随笔
 abbrlink: d6bf6e8c
 date: 2023-12-07 22:44:52
 ---

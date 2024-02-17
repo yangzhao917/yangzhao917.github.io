@@ -1,13 +1,12 @@
 ---
 title: SSH 连接不到 EC2 Linux 实例原因排查
 categories:
-  - 技术分享
+  - 杂文随笔
 tags:
-  - AWS
+  - Amazon
 abbrlink: 306847ba
 date: 2024-01-19 03:56:12
 ---
-
 <meta name="referrer" content="no-referrer" />
 
 Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展计算能力的按需计算服务。本文用于记录MacOS环境下连接EC2实例的排查过程。
@@ -28,7 +27,7 @@ Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展�
 
 2. 在 windows 下，请参考使用 [putty 从 windows 连接到 linux 实例](https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/putty.html)。通常分为两步，秘钥格式的转换，以及连接。
 
-连接时，请使用`ec2-user`账户进行登陆，对于 `publicdns-hostname-or-ipv4-address` 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 `Ipv4` 同样是可以去连接的。
+连接时，请使用 `ec2-user`账户进行登陆，对于 `publicdns-hostname-or-ipv4-address` 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 `Ipv4` 同样是可以去连接的。
 
 ![image-20240119043653371](https://qiniu-image.gotojava.cn/blog/image-20240119043653371.png)
 
@@ -36,13 +35,9 @@ Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展�
 
 ![image-20240119044001526](https://qiniu-image.gotojava.cn/blog/image-20240119044001526.png)
 
-
-
 如果发现连接可达，但是SSH连接无法建立的时候，可以通过配置AWS的配置安全组来解决。配置一条SSH的安全组规则就可以了。（这种情况通常是最常见的）
 
 ![image-20240119044450513](https://qiniu-image.gotojava.cn/blog/image-20240119044450513.png)
-
-
 
 虽然上面使用命令解决了SSH连接实例的问题，但是每次连接还是很麻烦的，最后找到了一个比较友好的MacOS下的一个开源工具 [Tabby](https://tabby.sh/) ，可以很好解决秘钥连接的问题。国产的 FinalShell 工具也是支持的，但是我没有验证成功。下图是 Tabby的截图，颜值还是不错的~
 
@@ -50,5 +45,5 @@ Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展�
 
 参考文档：
 
-- [启动&连接EC2指导-新版](https://pan.baidu.com/s/1VIGY-7oBVbdyUeBWQUhWUg?pwd=8888)（pdf）
+- [启动&amp;连接EC2指导-新版](https://pan.baidu.com/s/1VIGY-7oBVbdyUeBWQUhWUg?pwd=8888)（pdf）
 - [SSH 连接不到 EC2 Linux 实例原因排查](https://pan.baidu.com/s/1VIGY-7oBVbdyUeBWQUhWUg?pwd=8888)（pdf）

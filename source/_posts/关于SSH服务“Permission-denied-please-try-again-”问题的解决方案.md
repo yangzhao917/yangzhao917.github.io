@@ -1,9 +1,7 @@
 ---
 title: '关于SSH服务“Permission denied, please try again.”问题的解决方案'
-categories:
-  - 技术分享
 tags:
-  - UOS
+  - Linux
 abbrlink: 9fdf7a25
 date: 2023-09-08 22:06:33
 ---

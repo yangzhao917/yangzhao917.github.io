@@ -1,7 +1,5 @@
 ---
 title: Linux环境下的MySQL的安装和配置
-categories:
-  - 技术分享
 tags:
   - MySQL
 abbrlink: 2306cec7

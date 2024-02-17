@@ -1,7 +1,5 @@
 ---
 title: 深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景
-categories:
-  - 技术分享
 tags:
   - MySQL
 abbrlink: b0b9894c
