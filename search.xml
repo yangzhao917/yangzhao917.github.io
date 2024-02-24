@@ -141,36 +141,6 @@
       </categories>
   </entry>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>杂文随笔</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java基础-正则的基本使用</title>
     <url>/article/e26f95fb.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -409,76 +379,6 @@
 ]]></content>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MacOS常用软件记录</title>
-    <url>/article/2878e73f.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<blockquote>
-<p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
-</blockquote>
-<span id="more"></span>
-
-<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
-<li>Windows：✨<a href="https://msdn.itellyou.cn/">MSDN-itellyou</a></li>
-</ul>
-<blockquote>
-<p>推荐使用LTSC版本的操作系统，系统比较纯净，但需要<a href="https://www.icloud.com.cn/iclouddrive/009dT5FmvFW1dVjWVR8XkFnSA#HEU_KMS_Activator">激活</a></p>
-</blockquote>
-<ul>
-<li>Linux：<a href="https://www.centos.org/download/">CentOS</a></li>
-</ul>
-<blockquote>
-<p>比较推荐直接去一些软件源上下载，这里举例<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/releases/23.04/release/">清华源</a></p>
-</blockquote>
-<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
-<li><strong>视频会议</strong>：✨<a href="https://meeting.tencent.com/">腾讯会议</a></li>
-<li><strong>文件解压缩：</strong><a href="https://ezip.awehunt.com/">MacZip</a></li>
-<li><strong>待办提醒</strong>：苹果提醒事项</li>
-<li><strong>电子邮件</strong>：苹果邮件</li>
-<li><strong>聊天工具</strong>：<a href="https://weixin.qq.com/">微信</a>、<a href="https://work.weixin.qq.com/">企业微信</a></li>
-<li>翻译：<a href="https://cidian.youdao.com/download-app/?keyfrom=dict_web_product">有道词典</a></li>
-<li>VPN：✨<a href="https://ric.asiway.org/?shortlink=0gesgjiu&c=cs-articles&pid=activity&af_xp=custom&source_caller=ui">LetsVPN</a>、<a href="https://vpn.muc.edu.cn/portal/#!/login">EasyConnect</a></li>
-<li><strong>备忘录</strong>：苹果备忘录</li>
-<li>日程管理：苹果日历</li>
-<li>写作工具：✨<a href="https://www.icloud.com.cn/iclouddrive/07dw7bzS6ec_XBnGQdwoXgcPw#Typora_1.6.7_osx">Typora</a></li>
-<li>图床：<a href="https://apps.apple.com/cn/app/id1101244278?mt=12">iPic</a></li>
-<li>输入法：<a href="https://pinyin.sogou.com/mac/">搜狗输入法</a></li>
-<li>软件包管理：<a href="https://brew.sh/">Homebrew</a></li>
-</ul>
-<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
-<li><strong>代码编辑器</strong>：✨<a href="https://www.jetbrains.com/">IDEA</a>、✨<a href="https://code.visualstudio.com/">VSCode</a></li>
-<li>Git：<a href="https://git-scm.com/download">Git</a>、<a href="https://formulae.brew.sh/formula/subversion#default">Svn</a></li>
-<li><strong>浏览器</strong>：<a href="http://www.firefox.com.cn/">Firefox</a>、✨<a href="https://www.google.cn/chrome/index.html">Google Chrome</a></li>
-<li><strong>虚拟化</strong>：<a href="https://www.docker.com/">Docker</a>、✨<a href="https://www.icloud.com.cn/iclouddrive/051LwYlz9I5q-75mQjuesqPDg#ParallelsDesktop-18.1.1-53328_M_osx">Parallels Desktop</a></li>
-<li>终端工具：✨<a href="http://www.hostbuf.com/t/988.html">FinalShell</a></li>
-<li>数据库工具：<a href="https://dbeaver.io/download/">DBeaver</a>、RDM、✨Navicat、<a href="https://www.dameng.com/DM8.html">达梦数据库</a></li>
-<li>远程工具：<a href="https://apps.apple.com/tw/app/microsoft-remote-desktop/id1295203466">Microsoft Remote Desktop</a></li>
-<li>数据库设计工具：✨<a href="https://gitee.com/robergroup/pdmaner/releases">PDManer</a></li>
-<li>接口测试工具：<a href="https://www.postman.com/downloads/">Postman</a>、<a href="https://jmeter.apache.org/">Jemter</a></li>
-</ul>
-<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
-<li>文件查找搜索：✨<a href="https://www.voidtools.com/zh-cn/">Everything</a></li>
-</ul>
-<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
-<li>✨腾讯杂项在线工具：<a href="https://tool.browser.qq.com/">杂项工具箱</a></li>
-<li>✨画图工具：<a href="https://www.processon.com/">ProcessOn</a></li>
-<li>✨<a href="https://weread.qq.com/">微信读书</a></li>
-</ul>
-<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
-<li>✨<a href="https://chrome.google.com/webstore/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg">AdGuard AdBlocker</a>拦截广告</li>
-<li>✨<a href="https://chrome.google.com/webstore/detail/take-webpage-screenshots/mcbpblocgmgfnpjjppndjkmgjaogfceg">FireShot</a> 捕捉网页截图</li>
-<li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
-<li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂文随笔</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
       </tags>
   </entry>
   <entry>
@@ -829,6 +729,142 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>杂文随笔</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MacOS常用软件记录</title>
+    <url>/article/2878e73f.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<blockquote>
+<p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
+<li>Windows：✨<a href="https://msdn.itellyou.cn/">MSDN-itellyou</a></li>
+</ul>
+<blockquote>
+<p>推荐使用LTSC版本的操作系统，系统比较纯净，但需要<a href="https://www.icloud.com.cn/iclouddrive/009dT5FmvFW1dVjWVR8XkFnSA#HEU_KMS_Activator">激活</a></p>
+</blockquote>
+<ul>
+<li>Linux：<a href="https://www.centos.org/download/">CentOS</a></li>
+</ul>
+<blockquote>
+<p>比较推荐直接去一些软件源上下载，这里举例<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/releases/23.04/release/">清华源</a></p>
+</blockquote>
+<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
+<li><strong>视频会议</strong>：✨<a href="https://meeting.tencent.com/">腾讯会议</a></li>
+<li><strong>文件解压缩：</strong><a href="https://ezip.awehunt.com/">MacZip</a></li>
+<li><strong>待办提醒</strong>：苹果提醒事项</li>
+<li><strong>电子邮件</strong>：苹果邮件</li>
+<li><strong>聊天工具</strong>：<a href="https://weixin.qq.com/">微信</a>、<a href="https://work.weixin.qq.com/">企业微信</a></li>
+<li>翻译：<a href="https://cidian.youdao.com/download-app/?keyfrom=dict_web_product">有道词典</a></li>
+<li>VPN：✨<a href="https://ric.asiway.org/?shortlink=0gesgjiu&c=cs-articles&pid=activity&af_xp=custom&source_caller=ui">LetsVPN</a>、<a href="https://vpn.muc.edu.cn/portal/#!/login">EasyConnect</a></li>
+<li><strong>备忘录</strong>：苹果备忘录</li>
+<li>日程管理：苹果日历</li>
+<li>写作工具：✨<a href="https://www.icloud.com.cn/iclouddrive/07dw7bzS6ec_XBnGQdwoXgcPw#Typora_1.6.7_osx">Typora</a></li>
+<li>图床：<a href="https://apps.apple.com/cn/app/id1101244278?mt=12">iPic</a></li>
+<li>输入法：<a href="https://pinyin.sogou.com/mac/">搜狗输入法</a></li>
+<li>软件包管理：<a href="https://brew.sh/">Homebrew</a></li>
+</ul>
+<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
+<li><strong>代码编辑器</strong>：✨<a href="https://www.jetbrains.com/">IDEA</a>、✨<a href="https://code.visualstudio.com/">VSCode</a></li>
+<li>Git：<a href="https://git-scm.com/download">Git</a>、<a href="https://formulae.brew.sh/formula/subversion#default">Svn</a></li>
+<li><strong>浏览器</strong>：<a href="http://www.firefox.com.cn/">Firefox</a>、✨<a href="https://www.google.cn/chrome/index.html">Google Chrome</a></li>
+<li><strong>虚拟化</strong>：<a href="https://www.docker.com/">Docker</a>、✨<a href="https://www.icloud.com.cn/iclouddrive/051LwYlz9I5q-75mQjuesqPDg#ParallelsDesktop-18.1.1-53328_M_osx">Parallels Desktop</a></li>
+<li>终端工具：✨<a href="http://www.hostbuf.com/t/988.html">FinalShell</a></li>
+<li>数据库工具：<a href="https://dbeaver.io/download/">DBeaver</a>、RDM、✨Navicat、<a href="https://www.dameng.com/DM8.html">达梦数据库</a></li>
+<li>远程工具：<a href="https://apps.apple.com/tw/app/microsoft-remote-desktop/id1295203466">Microsoft Remote Desktop</a></li>
+<li>数据库设计工具：✨<a href="https://gitee.com/robergroup/pdmaner/releases">PDManer</a></li>
+<li>接口测试工具：<a href="https://www.postman.com/downloads/">Postman</a>、<a href="https://jmeter.apache.org/">Jemter</a></li>
+</ul>
+<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
+<li>文件查找搜索：✨<a href="https://www.voidtools.com/zh-cn/">Everything</a></li>
+</ul>
+<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
+<li>✨腾讯杂项在线工具：<a href="https://tool.browser.qq.com/">杂项工具箱</a></li>
+<li>✨画图工具：<a href="https://www.processon.com/">ProcessOn</a></li>
+<li>✨<a href="https://weread.qq.com/">微信读书</a></li>
+</ul>
+<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
+<li>✨<a href="https://chrome.google.com/webstore/detail/adguard-adblocker/bgnkhhnnamicmpeenaelnjfhikgbkllg">AdGuard AdBlocker</a>拦截广告</li>
+<li>✨<a href="https://chrome.google.com/webstore/detail/take-webpage-screenshots/mcbpblocgmgfnpjjppndjkmgjaogfceg">FireShot</a> 捕捉网页截图</li>
+<li>✨<a href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">GitZip for github</a> 下载GitHub部分文件</li>
+<li>✨<a href="https://www.wappalyzer.com/apps/?utm_source=popup&utm_medium=extension&utm_campaign=wappalyzer">Wappalyzer</a> <em>分析网站所使用的组件</em></li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂文随笔</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>达梦查询分页排序问题</title>
+    <url>/article/e057bf2e.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
+<li>环境：达梦7</li>
+</ul>
+<p>查询SQL如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
+<p>发现数据库的查询结果数据是正确的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
+<p>但页面返回的数据排序是有问题的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
+<p>那么拼接后的SQL就是这样</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
+<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序<code>&lt;/a&gt;</code></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSH 连接不到 EC2 Linux 实例原因排查</title>
     <url>/article/306847ba.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -866,42 +902,6 @@
       </categories>
       <tags>
         <tag>Amazon</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>达梦查询分页排序问题</title>
-    <url>/article/e057bf2e.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
-<li>环境：达梦7</li>
-</ul>
-<p>查询SQL如下</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
-
-<p>发现数据库的查询结果数据是正确的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
-<p>但页面返回的数据排序是有问题的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
-<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
-<p>那么拼接后的SQL就是这样</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
-<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序<code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
