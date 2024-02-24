@@ -220,7 +220,7 @@ footer:
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
   # Set to `false` to disable the copyright statement.
-  copyright: "澄澈少年的博客"
+  copyright: "澄澈少年的网络日志"
 
   # Powered by Hexo & NexT
   powered: false
@@ -228,7 +228,7 @@ footer:
   # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
     enable: true
-    icp: "鄂ICP备18000030号-2"
+    icp: "鄂ICP备18000030号"
     # The digit in the num of gongan beian.
     gongan_id:
     # The full num of gongan beian.

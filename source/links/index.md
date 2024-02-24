@@ -5,4 +5,4 @@ layout: "links"
 ---
 - [倾旋的博客](https://payloads.online/)
 
-> 网络安全爱好者、安全工具开发者，现阶段在进行有效性验证/攻击模拟相关的安全研究工作，我的博客会记录一些我的学习过程和部分安全技术研究成果。
+- [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)

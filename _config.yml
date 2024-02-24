@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: '澄澈少年的网络日记'
+title: '澄澈少年的网络日志'
 subtitle: '知是行之始，行是知之至。'
 description: ''
-keywords: '澄澈少年的网络日记, 澄澈少年, GOTOJAVA.CN'
+keywords: '澄澈少年的网络日志, 澄澈少年, GOTOJAVA.CN'
 author: '澄澈少年'
 language: zh-CN
 timezone: ''
@@ -31,8 +31,8 @@ Plugins:
 - hexo-generator-sitemap
 - hexo-generator-feed
 
-baidusitemap:
-  path: baidusitemap.xml
+# baidusitemap:
+#   path: baidusitemap.xml
 sitemap:
   path: sitemap.xml
 
