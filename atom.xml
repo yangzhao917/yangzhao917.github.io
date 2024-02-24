@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>澄澈少年的网络日记</title>
+  <title>澄澈少年的网络日志</title>
   <icon>https://gotojava.cn/images/favicon_200x200.png</icon>
   <subtitle>知是行之始，行是知之至。</subtitle>
   <link href="https://gotojava.cn/atom.xml" rel="self"/>
