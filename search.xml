@@ -382,6 +382,36 @@
       </tags>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>杂文随笔</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
     <url>/article/2306cec7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -729,36 +759,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>杂文随笔</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MacOS常用软件记录</title>
     <url>/article/2878e73f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -905,6 +905,35 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows环境Oracle数据库自动备份的实现</title>
+    <url>/article/a639d743.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
+<blockquote>
+<p>点击“完成”，完成定时任务的创建。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UOS升级OpenSSH</title>
     <url>/article/947b9fd7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -980,35 +1009,6 @@
 ]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows环境Oracle数据库自动备份的实现</title>
-    <url>/article/a639d743.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
-<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
-<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
-<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
-<blockquote>
-<p>点击“完成”，完成定时任务的创建。</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -1455,7 +1455,7 @@
 <h2 id="书籍的寻找和导入"><a href="#书籍的寻找和导入" class="headerlink" title="书籍的寻找和导入"></a>书籍的寻找和导入</h2><p>首先这个是一个很棒的功能，微信读书知道自己不可能把所有的书籍资源都包含进去，所以给我们开放了一个接口，这个接口允许我们自己上传书籍到书架中去阅读。那么这就涉及到了两个问题：第一如何找书的问题？第二怎么上传到微信读书书架的问题？</p>
 <h3 id="怎么找书？"><a href="#怎么找书？" class="headerlink" title="怎么找书？"></a>怎么找书？</h3><p>找书的前提是知道书名、作者，或者知道这本书长啥样。对于如何找书，我一般使用下面的几个资源网站：</p>
 <ol>
-<li><a href="zlibrary-sg.se">ZLibrary图书馆</a>：Z-Library号称世界上最大的电子图书馆。🌟</li>
+<li><a href="https://zlibrary-sg.se/">ZLibrary图书馆</a>：Z-Library号称世界上最大的电子图书馆。🌟</li>
 <li><a href="https://www.jiumodiary.com/">鸠摩搜索-文档搜索引擎</a></li>
 <li><a href="https://www.shuge.org/">书格</a>：主要提供古籍搜索</li>
 </ol>
