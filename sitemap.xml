@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://gotojava.cn/article/6b5ee4f0.html</loc>
+    
+    <lastmod>2024-02-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://gotojava.cn/article/1bc91136.html</loc>
     
     <lastmod>2024-02-25</lastmod>
@@ -193,50 +202,57 @@
 
   <url>
     <loc>https://gotojava.cn/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://gotojava.cn/tags/MacOS/</loc>
-    <lastmod>2024-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/tags/Java/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/MySQL/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/Oracle/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <loc>https://gotojava.cn/tags/MacOS/</loc>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/Amazon/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/Linux/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/Oracle/</loc>
+    <lastmod>2024-02-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -245,7 +261,7 @@
   
   <url>
     <loc>https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-02-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
