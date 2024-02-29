@@ -101,12 +101,14 @@
     <link href="https://gotojava.cn/article/e26f95fb.html"/>
     <id>https://gotojava.cn/article/e26f95fb.html</id>
     <published>2024-01-05T21:55:50.000Z</published>
-    <updated>2024-02-24T15:41:57.562Z</updated>
+    <updated>2024-02-29T05:53:50.632Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Java" scheme="https://gotojava.cn/tags/Java/"/>
@@ -118,12 +120,14 @@
     <link href="https://gotojava.cn/article/b0b9894c.html"/>
     <id>https://gotojava.cn/article/b0b9894c.html</id>
     <published>2023-12-08T20:22:22.000Z</published>
-    <updated>2024-02-17T08:31:20.015Z</updated>
+    <updated>2024-02-29T05:55:38.322Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -173,7 +177,7 @@
     <link href="https://gotojava.cn/article/2306cec7.html"/>
     <id>https://gotojava.cn/article/2306cec7.html</id>
     <published>2023-11-13T05:55:23.000Z</published>
-    <updated>2024-02-17T08:31:00.330Z</updated>
+    <updated>2024-02-29T05:53:59.876Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -181,6 +185,8 @@
 &lt;p&gt;本文记录MySQL5.7在CentOS7环境下的安装和配置过程。&lt;/p&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -232,7 +238,7 @@
     <link href="https://gotojava.cn/article/947b9fd7.html"/>
     <id>https://gotojava.cn/article/947b9fd7.html</id>
     <published>2023-09-14T06:46:11.000Z</published>
-    <updated>2024-02-17T08:30:51.733Z</updated>
+    <updated>2024-02-29T05:54:19.872Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -240,6 +246,8 @@
 &lt;p&gt;因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程&lt;/p&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
@@ -251,7 +259,7 @@
     <link href="https://gotojava.cn/article/9fdf7a25.html"/>
     <id>https://gotojava.cn/article/9fdf7a25.html</id>
     <published>2023-09-08T14:06:33.000Z</published>
-    <updated>2024-02-17T08:28:08.619Z</updated>
+    <updated>2024-02-29T05:56:50.672Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -259,6 +267,8 @@
 &lt;p&gt;通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。&lt;/p&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
@@ -289,7 +299,7 @@
     <link href="https://gotojava.cn/article/8df25a04.html"/>
     <id>https://gotojava.cn/article/8df25a04.html</id>
     <published>2023-07-27T13:35:31.000Z</published>
-    <updated>2024-02-17T08:30:33.103Z</updated>
+    <updated>2024-02-29T05:54:27.233Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
@@ -297,6 +307,8 @@
 &lt;p&gt;💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。&lt;/p&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -331,12 +343,14 @@
     <link href="https://gotojava.cn/article/a639d743.html"/>
     <id>https://gotojava.cn/article/a639d743.html</id>
     <published>2023-06-08T06:05:15.000Z</published>
-    <updated>2024-02-17T08:30:23.360Z</updated>
+    <updated>2024-02-29T05:54:34.770Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
@@ -348,12 +362,14 @@
     <link href="https://gotojava.cn/article/e057bf2e.html"/>
     <id>https://gotojava.cn/article/e057bf2e.html</id>
     <published>2023-06-08T06:00:55.000Z</published>
-    <updated>2024-02-17T08:31:08.713Z</updated>
+    <updated>2024-02-29T05:54:05.622Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
+    
+    <category term="开发者" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>

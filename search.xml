@@ -141,6 +141,250 @@
       </categories>
   </entry>
   <entry>
+    <title>Java基础-正则的基本使用</title>
+    <url>/article/e26f95fb.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="什么是正则"><a href="#什么是正则" class="headerlink" title="什么是正则?"></a>什么是正则?</h2><p>正则表达式，是一种用于<strong>描述字符串匹配规则的表达式</strong>。通过正则表达式可以字符串中找到符合特定规则的内容。正则表达式就像是一把强大的查找和替换工具，但更加灵活。</p>
+<h2 id="为什么需要正则？"><a href="#为什么需要正则？" class="headerlink" title="为什么需要正则？"></a>为什么需要正则？</h2><p>在网站的开发之中，经常需要接触的就是对于表单的操作，比如：邮箱的验证、手机号的验证。为了保证这些数据的正确性，我们都需要对数据进行一些复杂的验证处理。在此我们以Java语言为例，判断是否是一个邮箱格式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;@&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">atIndex</span> <span class="operator">=</span> email.indexOf(<span class="string">&#x27;@&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (atIndex == -<span class="number">1</span> || atIndex == <span class="number">0</span> || atIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;.&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">dotIndex</span> <span class="operator">=</span> email.lastIndexOf(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (dotIndex == -<span class="number">1</span> || dotIndex == atIndex + <span class="number">1</span> || dotIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上的代码，我们实现了一个基本邮箱格式的判断。但代码有点过于复杂了，如果使用正则来验证会不会比较简单呢？下面是一个正则验证邮箱的格式的例子。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 定义E-Mail地址的正则表达式</span></span><br><span class="line">  <span class="type">String</span> <span class="variable">emailRegex</span> <span class="operator">=</span> <span class="string">&quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]&#123;2,7&#125;$&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 验证是否合法</span></span><br><span class="line">  <span class="keyword">return</span> Pattern.compile(emailRegex).matcher(email).matches();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的例子我们发现，使用正则来验证数据的格式，将会变得简单很多。这也是正则最大的特点。</p>
+<h2 id="常用正则标记"><a href="#常用正则标记" class="headerlink" title="常用正则标记"></a>常用正则标记</h2><ul>
+<li><strong>基本字符匹配：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>.</code></th>
+<th>匹配除换行符外的任意字符。</th>
+<th>示例：<code>a.b</code> 可以匹配 “aab”、”aeb”、”acb” 等。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[]</code></td>
+<td>字符集，匹配方括号中的任意一个字符。</td>
+<td>示例：<code>[aeiou]</code> 可以匹配任何一个元音字母。</td>
+</tr>
+<tr>
+<td><code>[^]</code></td>
+<td>否定字符集，匹配除方括号中字符外的任意一个字符。</td>
+<td>示例：<code>[^0-9]</code> 可以匹配任何非数字字符。</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>匹配任意数字字符，相当于 <code>[0-9]</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\D</code></td>
+<td>匹配任意非数字字符，相当于 <code>[^0-9]</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>匹配任意字母、数字或下划线字符，相当于 <code>[a-zA-Z0-9_]</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\W</code></td>
+<td>匹配任意非字母、数字或下划线字符，相当于 <code>[^a-zA-Z0-9_]</code>。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>匹配任意空白字符，包括空格、制表符、换行符等。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\S</code></td>
+<td>匹配任意非空白字符。</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>重复匹配：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>*</code></th>
+<th>匹配前一个元素零次或多次。</th>
+<th>示例：<code>ab*c</code> 可以匹配 “ac”、”abc”、”abbc” 等。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>匹配前一个元素一次或多次。</td>
+<td>示例：<code>ab+c</code> 可以匹配 “abc”、”abbc” 等，但不能匹配 “ac”。</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>匹配前一个元素零次或一次。</td>
+<td>示例：<code>ab?c</code> 可以匹配 “ac”、”abc”，但不能匹配 “abbc”。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>位置匹配：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>^</code></th>
+<th>匹配字符串的开始。</th>
+<th>示例：<code>^abc</code> 可以匹配以 “abc” 开头的字符串。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$</code></td>
+<td>匹配字符串的结束。</td>
+<td>示例：<code>xyz$</code> 可以匹配以 “xyz” 结尾的字符串。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>特殊字符匹配：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>\</code></th>
+<th>转义字符，使其后的字符失去特殊含义。</th>
+<th>示例：<code>\d</code> 匹配任意数字字符。</th>
+</tr>
+</thead>
+</table>
+<ul>
+<li><strong>分组和引用：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>()</code></th>
+<th>用于将多个元素分组。</th>
+<th>示例：<code>(abc)+</code> 可以匹配 “abc”、”abcabc” 等。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>\n</code></td>
+<td>引用前面的第n个分组匹配到的文本。</td>
+<td>示例：<code>(\d&#123;2&#125;)-(\d&#123;2&#125;)-(\d&#123;4&#125;)</code> 可以匹配日期形式，如 “01-01-2022”，并通过引用获取年、月、日。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>边界匹配：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>\b</code></th>
+<th>匹配单词的边界。</th>
+<th>示例：<code>\bword\b</code> 可以匹配 “word”，但不匹配 “words” 或 “password”。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>\B</code></td>
+<td>匹配非单词边界。</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>量词：</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>{n}</th>
+<th>匹配前一个元素恰好n次。</th>
+<th>示例：<code>a&#123;3&#125;</code> 可以匹配 “aaa”。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&#123;n,&#125;</code></td>
+<td>匹配前一个元素至少n次。</td>
+<td></td>
+</tr>
+<tr>
+<td><code>&#123;n,m&#125;</code></td>
+<td>匹配前一个元素至少n次，最多m次。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="常用正则"><a href="#常用正则" class="headerlink" title="常用正则"></a>常用正则</h2><ul>
+<li><p><strong>匹配邮箱地址：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配URL：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配日期：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配手机号码：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配身份证号码：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配IP地址：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配用户名（字母开头，允许字母数字下划线，长度6-20）：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配密码（包含大小写字母和数字，长度8-16）：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配 HTML 标签：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配中文字符：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">\u</span>4e00-<span class="keyword">\u</span>9fa5]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="正则处理类"><a href="#正则处理类" class="headerlink" title="正则处理类"></a>正则处理类</h2><ul>
+<li><p>Pattern：正则表达式编译；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将给定的正则表达式编译为模式。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pattern <span class="title function_">compile</span><span class="params">(String regex)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正则拆分</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 将给定的输入分成这个规则的匹配。</span><br><span class="line">public String[] split(CharSequence input)</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Matcher：正则表达式匹配，实现了正则表达式的处理类，对象的实例化依靠Pattern类完成；</p>
+<ul>
+<li>获取matcher对象</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 获取matcher对象</span><br><span class="line">public Matcher matcher(CharSequence input)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正则表达式匹配</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">public static boolean matches(String regex,CharSequence input)</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要匹配的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;The quick brown fox jumps over the lazy dog&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 匹配包含 &quot;fox&quot; 的单词</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">pattern</span> <span class="operator">=</span> <span class="string">&quot;\\bfox\\b&quot;</span>;</span><br><span class="line">  	<span class="type">boolean</span> <span class="variable">isMatch</span> <span class="operator">=</span> isPatternMatch(inputString, pattern);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出匹配结果</span></span><br><span class="line">    <span class="keyword">if</span> (isMatch) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中不包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isPatternMatch</span><span class="params">(String input, String regex)</span> &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">pattern</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建Matcher对象</span></span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> pattern.matcher(input);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行匹配</span></span><br><span class="line">    <span class="keyword">return</span> matcher.find();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>正则分组</p>
+<p>正则表达式中的分组是用括号 <code>()</code> 包围的部分，可以用来实现匹配的分组操作。</p>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO dept(deptno, dname, loc) VALUES(#&#123;deptno&#125;, #&#123;dname&#125;, #&#123;loc&#125;)&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> <span class="string">&quot;#\\&#123;\\w+\\&#125;+&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译正则表达式</span></span><br><span class="line"><span class="type">Pattern</span> <span class="variable">compile</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"><span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> compile.matcher(sql);</span><br><span class="line"><span class="keyword">while</span> (matcher.find()) &#123; <span class="comment">// 是否有匹配成功的内容</span></span><br><span class="line">		System.out.println(matcher.group().replaceAll(<span class="string">&quot;#|\\&#123;|\\&#125;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自动生成正则"><a href="#自动生成正则" class="headerlink" title="自动生成正则"></a>自动生成正则</h2><p>如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224628057-20240109211112575.png" alt="image-20240106224628057"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224709864-20240109211121630.png" alt="image-20240106224709864"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png" alt="image-20240106224721804"></p>
+<p>代码、注释、说明都给了很清晰的说明，简直太贴心了。</p>
+]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
     <url>/article/2306cec7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -483,249 +727,11 @@
 <h3 id="ERROR-1820（HY000）"><a href="#ERROR-1820（HY000）" class="headerlink" title="ERROR 1820（HY000）"></a>ERROR 1820（HY000）</h3><p>错误提示：You must reset your password using ALTER USER statement before executing this statement.</p>
 <p>解决方案：<a href="https://blog.csdn.net/Wing_kin666/article/details/110921440">MySQL 报错：ERROR 1820 (HY000): You must reset your password using ALTER USER statement before-CSDN博客</a></p>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java基础-正则的基本使用</title>
-    <url>/article/e26f95fb.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="什么是正则"><a href="#什么是正则" class="headerlink" title="什么是正则?"></a>什么是正则?</h2><p>正则表达式，是一种用于<strong>描述字符串匹配规则的表达式</strong>。通过正则表达式可以字符串中找到符合特定规则的内容。正则表达式就像是一把强大的查找和替换工具，但更加灵活。</p>
-<h2 id="为什么需要正则？"><a href="#为什么需要正则？" class="headerlink" title="为什么需要正则？"></a>为什么需要正则？</h2><p>在网站的开发之中，经常需要接触的就是对于表单的操作，比如：邮箱的验证、手机号的验证。为了保证这些数据的正确性，我们都需要对数据进行一些复杂的验证处理。在此我们以Java语言为例，判断是否是一个邮箱格式。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;@&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">atIndex</span> <span class="operator">=</span> email.indexOf(<span class="string">&#x27;@&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (atIndex == -<span class="number">1</span> || atIndex == <span class="number">0</span> || atIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;.&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">dotIndex</span> <span class="operator">=</span> email.lastIndexOf(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (dotIndex == -<span class="number">1</span> || dotIndex == atIndex + <span class="number">1</span> || dotIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上的代码，我们实现了一个基本邮箱格式的判断。但代码有点过于复杂了，如果使用正则来验证会不会比较简单呢？下面是一个正则验证邮箱的格式的例子。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 定义E-Mail地址的正则表达式</span></span><br><span class="line">  <span class="type">String</span> <span class="variable">emailRegex</span> <span class="operator">=</span> <span class="string">&quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]&#123;2,7&#125;$&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 验证是否合法</span></span><br><span class="line">  <span class="keyword">return</span> Pattern.compile(emailRegex).matcher(email).matches();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的例子我们发现，使用正则来验证数据的格式，将会变得简单很多。这也是正则最大的特点。</p>
-<h2 id="常用正则标记"><a href="#常用正则标记" class="headerlink" title="常用正则标记"></a>常用正则标记</h2><ul>
-<li><strong>基本字符匹配：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>.</code></th>
-<th>匹配除换行符外的任意字符。</th>
-<th>示例：<code>a.b</code> 可以匹配 “aab”、”aeb”、”acb” 等。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>[]</code></td>
-<td>字符集，匹配方括号中的任意一个字符。</td>
-<td>示例：<code>[aeiou]</code> 可以匹配任何一个元音字母。</td>
-</tr>
-<tr>
-<td><code>[^]</code></td>
-<td>否定字符集，匹配除方括号中字符外的任意一个字符。</td>
-<td>示例：<code>[^0-9]</code> 可以匹配任何非数字字符。</td>
-</tr>
-<tr>
-<td><code>\d</code></td>
-<td>匹配任意数字字符，相当于 <code>[0-9]</code>。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>\D</code></td>
-<td>匹配任意非数字字符，相当于 <code>[^0-9]</code>。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>\w</code></td>
-<td>匹配任意字母、数字或下划线字符，相当于 <code>[a-zA-Z0-9_]</code>。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>\W</code></td>
-<td>匹配任意非字母、数字或下划线字符，相当于 <code>[^a-zA-Z0-9_]</code>。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>\s</code></td>
-<td>匹配任意空白字符，包括空格、制表符、换行符等。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>\S</code></td>
-<td>匹配任意非空白字符。</td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>重复匹配：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>*</code></th>
-<th>匹配前一个元素零次或多次。</th>
-<th>示例：<code>ab*c</code> 可以匹配 “ac”、”abc”、”abbc” 等。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>+</code></td>
-<td>匹配前一个元素一次或多次。</td>
-<td>示例：<code>ab+c</code> 可以匹配 “abc”、”abbc” 等，但不能匹配 “ac”。</td>
-</tr>
-<tr>
-<td><code>?</code></td>
-<td>匹配前一个元素零次或一次。</td>
-<td>示例：<code>ab?c</code> 可以匹配 “ac”、”abc”，但不能匹配 “abbc”。</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>位置匹配：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>^</code></th>
-<th>匹配字符串的开始。</th>
-<th>示例：<code>^abc</code> 可以匹配以 “abc” 开头的字符串。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>$</code></td>
-<td>匹配字符串的结束。</td>
-<td>示例：<code>xyz$</code> 可以匹配以 “xyz” 结尾的字符串。</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>特殊字符匹配：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>\</code></th>
-<th>转义字符，使其后的字符失去特殊含义。</th>
-<th>示例：<code>\d</code> 匹配任意数字字符。</th>
-</tr>
-</thead>
-</table>
-<ul>
-<li><strong>分组和引用：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>()</code></th>
-<th>用于将多个元素分组。</th>
-<th>示例：<code>(abc)+</code> 可以匹配 “abc”、”abcabc” 等。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>\n</code></td>
-<td>引用前面的第n个分组匹配到的文本。</td>
-<td>示例：<code>(\d&#123;2&#125;)-(\d&#123;2&#125;)-(\d&#123;4&#125;)</code> 可以匹配日期形式，如 “01-01-2022”，并通过引用获取年、月、日。</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>边界匹配：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><code>\b</code></th>
-<th>匹配单词的边界。</th>
-<th>示例：<code>\bword\b</code> 可以匹配 “word”，但不匹配 “words” 或 “password”。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>\B</code></td>
-<td>匹配非单词边界。</td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>量词：</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>{n}</th>
-<th>匹配前一个元素恰好n次。</th>
-<th>示例：<code>a&#123;3&#125;</code> 可以匹配 “aaa”。</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>&#123;n,&#125;</code></td>
-<td>匹配前一个元素至少n次。</td>
-<td></td>
-</tr>
-<tr>
-<td><code>&#123;n,m&#125;</code></td>
-<td>匹配前一个元素至少n次，最多m次。</td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="常用正则"><a href="#常用正则" class="headerlink" title="常用正则"></a>常用正则</h2><ul>
-<li><p><strong>匹配邮箱地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配URL：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配日期：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配手机号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配身份证号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配IP地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配用户名（字母开头，允许字母数字下划线，长度6-20）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配密码（包含大小写字母和数字，长度8-16）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配 HTML 标签：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>匹配中文字符：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">\u</span>4e00-<span class="keyword">\u</span>9fa5]</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="正则处理类"><a href="#正则处理类" class="headerlink" title="正则处理类"></a>正则处理类</h2><ul>
-<li><p>Pattern：正则表达式编译；</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将给定的正则表达式编译为模式。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pattern <span class="title function_">compile</span><span class="params">(String regex)</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>正则拆分</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 将给定的输入分成这个规则的匹配。</span><br><span class="line">public String[] split(CharSequence input)</span><br></pre></td></tr></table></figure>
-
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>Matcher：正则表达式匹配，实现了正则表达式的处理类，对象的实例化依靠Pattern类完成；</p>
-<ul>
-<li>获取matcher对象</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 获取matcher对象</span><br><span class="line">public Matcher matcher(CharSequence input)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>正则表达式匹配</li>
-</ul>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">public static boolean matches(String regex,CharSequence input)</span><br></pre></td></tr></table></figure>
-
-<p>示例：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要匹配的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;The quick brown fox jumps over the lazy dog&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 匹配包含 &quot;fox&quot; 的单词</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">pattern</span> <span class="operator">=</span> <span class="string">&quot;\\bfox\\b&quot;</span>;</span><br><span class="line">  	<span class="type">boolean</span> <span class="variable">isMatch</span> <span class="operator">=</span> isPatternMatch(inputString, pattern);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出匹配结果</span></span><br><span class="line">    <span class="keyword">if</span> (isMatch) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中不包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isPatternMatch</span><span class="params">(String input, String regex)</span> &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">pattern</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建Matcher对象</span></span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> pattern.matcher(input);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行匹配</span></span><br><span class="line">    <span class="keyword">return</span> matcher.find();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>正则分组</p>
-<p>正则表达式中的分组是用括号 <code>()</code> 包围的部分，可以用来实现匹配的分组操作。</p>
-</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO dept(deptno, dname, loc) VALUES(#&#123;deptno&#125;, #&#123;dname&#125;, #&#123;loc&#125;)&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> <span class="string">&quot;#\\&#123;\\w+\\&#125;+&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译正则表达式</span></span><br><span class="line"><span class="type">Pattern</span> <span class="variable">compile</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"><span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> compile.matcher(sql);</span><br><span class="line"><span class="keyword">while</span> (matcher.find()) &#123; <span class="comment">// 是否有匹配成功的内容</span></span><br><span class="line">		System.out.println(matcher.group().replaceAll(<span class="string">&quot;#|\\&#123;|\\&#125;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="自动生成正则"><a href="#自动生成正则" class="headerlink" title="自动生成正则"></a>自动生成正则</h2><p>如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224628057-20240109211112575.png" alt="image-20240106224628057"></p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224709864-20240109211121630.png" alt="image-20240106224709864"></p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png" alt="image-20240106224721804"></p>
-<p>代码、注释、说明都给了很清晰的说明，简直太贴心了。</p>
-]]></content>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -857,9 +863,12 @@
 
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>Oracle</tag>
       </tags>
@@ -978,6 +987,9 @@
 <h2 id="升级验证"><a href="#升级验证" class="headerlink" title="升级验证"></a>升级验证</h2><p>再次查看OpenSSH的版本，发现已经升级成功，由原来的 <code>7.9p1 Debian-10+deb10u1</code>升级到了 <code>9.4p1</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:~# ssh -V</span><br><span class="line">OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>Linux</tag>
       </tags>
@@ -1002,11 +1014,14 @@
 <p>点击“完成”，完成定时任务的创建。</p>
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本<code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法<code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>Oracle</tag>
       </tags>
@@ -1164,6 +1179,9 @@
 <li><a href="https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html">在 Microsoft Windows 上安装 MySQL</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>
@@ -1202,68 +1220,6 @@
       <categories>
         <category>杂文随笔</category>
       </categories>
-  </entry>
-  <entry>
-    <title>使用rsyslog归集系统日志</title>
-    <url>/article/1836dc99.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
-<span id="more"></span>
-
-<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
-<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
-</blockquote>
-<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
-<p>测试服务器IP：<code>172.25.16.29</code></p>
-<p>测试客户端IP：<code>172.25.16.34</code></p>
-<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
-<p>启动UDP传输并进行端口监听</p>
-</blockquote>
-<p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>创建default.conf配置文件</p>
-</blockquote>
-<p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重启服务端rsyslog服务</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重启服务端rsyslog服务</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
-<p>日期生成</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
-<blockquote>
-<p>客户端生成日志</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
-<blockquote>
-<p>服务端监控输出</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
   </entry>
   <entry>
     <title>使用ChatGPT的提问技巧</title>
@@ -1367,6 +1323,68 @@
       </categories>
   </entry>
   <entry>
+    <title>使用rsyslog归集系统日志</title>
+    <url>/article/1836dc99.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
+<span id="more"></span>
+
+<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
+<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
+</blockquote>
+<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
+<p>测试服务器IP：<code>172.25.16.29</code></p>
+<p>测试客户端IP：<code>172.25.16.34</code></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
+<p>启动UDP传输并进行端口监听</p>
+</blockquote>
+<p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建default.conf配置文件</p>
+</blockquote>
+<p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>日期生成</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
+<blockquote>
+<p>客户端生成日志</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
+<blockquote>
+<p>服务端监控输出</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
     <url>/article/9fdf7a25.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1404,6 +1422,9 @@
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
 <p>重新尝试SSH登陆后，发现可以正常登陆。</p>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>Linux</tag>
       </tags>
@@ -1724,6 +1745,9 @@
 </ol>
 <p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
 ]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
       <tags>
         <tag>MySQL</tag>
       </tags>
