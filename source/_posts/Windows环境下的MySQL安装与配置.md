@@ -1,5 +1,7 @@
 ---
 title: Windows环境下的MySQL安装与配置
+categories:
+  - 开发者
 tags:
   - MySQL
 abbrlink: 8df25a04

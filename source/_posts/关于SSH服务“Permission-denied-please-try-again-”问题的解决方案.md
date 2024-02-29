@@ -1,5 +1,7 @@
 ---
 title: '关于SSH服务“Permission denied, please try again.”问题的解决方案'
+categories:
+  - 开发者
 tags:
   - Linux
 abbrlink: 9fdf7a25

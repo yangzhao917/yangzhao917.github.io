@@ -1,5 +1,7 @@
 ---
 title: 达梦查询分页排序问题
+categories:
+  - 开发者
 tags:
   - Oracle
 abbrlink: e057bf2e
@@ -126,4 +128,4 @@ FROM
 
 ## 参考
 
-- `<a href="https://blog.csdn.net/github_34013496/article/details/74938788">`Oracle数据库中分页排序`</a>`
+- `<a href="https://blog.csdn.net/github_34013496/article/details/74938788">`Oracle数据库中分页排序 `</a>`
