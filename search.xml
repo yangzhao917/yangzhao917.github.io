@@ -670,6 +670,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows环境Oracle数据库自动备份的实现</title>
+    <url>/article/a639d743.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
+<blockquote>
+<p>点击“完成”，完成定时任务的创建。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UOS升级OpenSSH</title>
     <url>/article/947b9fd7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -748,38 +780,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows环境Oracle数据库自动备份的实现</title>
-    <url>/article/a639d743.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
-<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
-<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
-<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
-<blockquote>
-<p>点击“完成”，完成定时任务的创建。</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>开发者</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -1685,30 +1685,14 @@
 <p>为什么要写这篇文章呢？因为在每次面试的时候我都会再次遇到上面的这些问题，这些问题在我每次面试的时候也都会再次跳出来，为了解开这些答案，我觉得我需要梳理一下这些问题记录下来为以后再遇到这些问题提供一个理论的参考。其次是帮助能看到这篇文章的朋友，给你们一个可行的方向。对于这些问题如果有不同看法和观点的朋友和欢迎交流，因为每个人经历不一样，感受和观点肯定也会有所偏差，这是正常的。</p>
 <p>（本文主要针对互联网技术行业，其他行业的朋友也可以参考本文希望也对你有所帮助）</p>
 <p>综合以上的问题，本文导航如下：</p>
-<ol>
-<li><p>简历该如何去写？</p>
-</li>
-<li><p>可以投递的平台有哪些？</p>
-</li>
-<li><p>面试的流程是什么样的？</p>
-</li>
-</ol>
+<p>1.简历该如何去写？</p>
+<p>2.可以投递的平台有哪些？</p>
+<p>3.面试的流程是什么样的？</p>
 <ul>
-<li>面试的三种形式</li>
-<li>面试的三个环节</li>
+<li>三种形式</li>
+<li>三个环节</li>
 </ul>
-<ol start="4">
-<li>面试的各项能力的考察</li>
-</ol>
-<ul>
-<li>沟通能力和学习能力</li>
-<li>知识迁移能力</li>
-<li>抽象建模能力</li>
-<li>发散思维能力</li>
-</ul>
-<ol start="5">
-<li>面试方面推荐的资源</li>
-</ol>
+<p>4.面试方面推荐的资源</p>
 <h2 id="简历该如何去写？"><a href="#简历该如何去写？" class="headerlink" title="简历该如何去写？"></a>简历该如何去写？</h2><p>对于这个问题，我们首先需要关注几个问题，简历是什么？需要包含哪些内容？哪些内容是需要重点琢磨的？</p>
 <p>假设你现在想认识一位姑娘或者帅哥，你该怎么样去获取这个人的信息呢？首先获取这个人的照片，然后获取这个人的社交方式（加微信），通过社交媒体进一步了解（朋友圈），是这样嘛？</p>
 <p>那么对于面试来说，<strong>简历就是我们的一张名片，通过名片来了解我们的过往经历，以及我们的过往经历是否符合公司招人的预期</strong>。</p>
@@ -1723,10 +1707,31 @@
 <li>实习经历（如果适用）：如果你有相关的实习经历，也可以列出来，描述你在实习期间所做的工作和所获得的经验。</li>
 <li>其他信息：你可以根据需要添加其他信息，比如个人技能、语言能力、获奖经历等。</li>
 </ol>
-<p>需要说明的是，<strong>对于有工作经验的人，公司的侧重点在你的个人信息、工作经历、技能专长、项目经验、其他信息</strong>上面。学历作为次要条件。<strong>对于应届生来说、公司的侧重点在你的个人信息、教育背景、技能专长、实习经历、其他信息上面</strong>。</p>
-<p>对于个人信息要说一下：部分公司对于一些岗位对于性别是有歧视的，但这些不会在招聘信息上直接体现出来，而是在筛选简历的时候直接过滤掉。个人信息包含基本的姓名、邮箱、电话、投递岗位意向、当前的状态：是离职还是找工作。对于投递国有单位，可以把政治面貌描述一下，其他的Pass。而且据我的了解在职人士跳槽和离职人士跳槽的情况不太一样。这个我也很不了解，希望有知道的朋友可以解释一下~</p>
-<p>对于应届生来说，公司会注重你的学校背景和相关的获奖经历，比如省赛、国赛和你的实习经历。还有你在学校期间的社会活动和产出。技能专长的话会一些通用技能和主流技能就好，因为每个公司的技术栈都不一样，你也不可能所有东西都会，如果你所有的东西都会，那么可能大部分也是浅尝辄止，没有一个是熟悉的~</p>
+<p>对于应届生来说、公司的侧重点在你的个人信息、教育背景、技能专长、实习经历、其他信息上面。</p>
+<p>对于有工作经验的人，侧重点在你的个人信息、工作经历、技能专长、项目经验、其他信息上面。学历作为次要条件。</p>
+<p>个人信息包含基本的姓名、邮箱、电话、投递岗位意向、当前的状态：是离职还是找工作。对于投递国有单位，可以把政治面貌描述一下，其他的Pass。而且据我的了解在职人士跳槽和离职人士跳槽的情况不太一样。这个我也很不了解，希望有知道的朋友可以解释一下~</p>
+<p>对于应届生来说，公司会注重你的学校背景和相关的获奖经历，比如省赛、国赛和你的实习经历。还有你在学校期间的社会活动和产出。技能专长的话会一些通用技能和主流技能就好，因为每个公司的技术栈都不一样，你也不可能所有东西都会，如果你所有的东西都会，那么可能大部分也是浅尝辄止，没有一个是熟悉的。</p>
 <p>对于有工作经验来说，你的项目经验和工作经历是公司比较关注的，3年内工作经历多的人，可能意味着不稳定。从公司的角度来说，这不是一个好事，但如果你能解释的清楚，也是可以的。项目经历主要说明你参与了哪些项目，做了哪些事情，有什么样的产出。</p>
+<h3 id="技能的描述"><a href="#技能的描述" class="headerlink" title="技能的描述"></a>技能的描述</h3><p>关于技能可以从招聘网站的岗位介绍中获取一些关键信息，如果这些关键信息在很多岗位中都出现了，那么说明这个技能具有一定的行业通用性，如果你掌握了就会更有优势。对于技能的描述也要区分“了解”、“熟悉”、“精通”。</p>
+<ul>
+<li><p>了解：“了解”指对某一个技术只是上过课或者看过书，但没有做过实际的项目。通常不建议在简历中列出只是肤浅地了解一点的技能，除非这项技术应聘的职位的确需要。</p>
+<p>比如某学生读本科的时候学过《计算机图形学》这门课程，但一直没有开发过与图形绘制相关的项目，那就只能算是了解。如果他去应聘Autodesk公司，那他可以在简历上提一下他了解图形学。Autodesk是一个开发三维设计软件的公司，有很多职位或多或少都会与图形学有关系，那么了解图形学的总比完全不了解的要适合一些。但如果他是去应聘Oracle，那就没有必要提这一点了，因为开发数据库系统的Oracle公司大部分职位与图形学没有什么关系。</p>
+</li>
+<li><p>熟悉：如果我们在实际项目中使用某一项技术已经有较长的时间，通过查阅相关的文档可以独立解决大部分问题，我们就熟悉它了。对应届毕业生而言，他毕业设计所用到的技能，可以用“熟悉”；对已经工作过的，在项目开发过程中所用到的技能，也可以用“熟悉”。</p>
+</li>
+<li><p>精通：如果我们对一项技术使用得得心应手，在项目开发过程中当同学或同事向我们请教这个领域的问题我们都有信心也有能力解决，这个时候我们就可以说自己精通了这项技术。应聘者不要试图在简历中把自己修饰成“高人”而轻易使用“精通”，除非自己能够很轻松地回答这个领域里的绝大多数问题，否则就会适得其反。</p>
+</li>
+</ul>
+<h3 id="项目经验描述"><a href="#项目经验描述" class="headerlink" title="项目经验描述"></a>项目经验描述</h3><p>面试官会对照应聘者的简历去详细了解他感兴趣的项目。应聘者在准备简历的时候，建议用STAR模型描述自己经历过的每一个项目。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240307033704251.png" alt="项目经验-STAR模型"></p>
+<ul>
+<li>Situation：简短的项目背景，比如项目的规模，开发的软件的功能、目标用户等。</li>
+<li>Task：自己完成的任务。这个要写详细，要让面试官对自己的工作一目了然。在用词上要注意区分“参与”和“负责”：如果只是加入某一个开发团队写了几行代码就用“负责”，那就很危险。面试官看到简历上应聘者“负责”了某个项目，他可能就会问项目的总体框架设计、核心算法、团队合作等问题。这些问题对于只是简单“参与”的人来说，是很难回答的，会让面试官认为你不诚实，印象分会减去很多。</li>
+<li>Action：为了完成任务自己做了哪些工作，是怎么做的。这里可以详细介绍。做系统设计的，可以介绍系统架构的特点；做软件开发的，可以写基于什么工具在哪个平台下应用于哪些技术；做软件测试的，可以写是手工测试还是自动化测试，是白盒测试还是黑盒测试等。</li>
+<li>Result：自己的贡献。这方面的信息可以写的具体些，最好能用数字加以说明，如果是参与功能开发，可以说按时完成了多少功能；如果做优化，可以说性能提高的百分比是多少；如果是维护，可以说修改了多少个Bug。</li>
+</ul>
+<p>例子：</p>
+<p>Winforms是微软.NET中的一个成熟的UI平台（Situation）。本人的工作是在添加少量新功能之外主要负责维护已有的功能（Task）。新的功能主要是让Winforms的控件的风格和Vista、Windows 7的风格保持一致。在维护方面，对于较难的问题我用WinDbg等工具进行调试（Action）。在过去两年中我总共修改了超过200个Bug（Result）。</p>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
 <li>简历命名建议以：“投递的岗位名称-姓名”的方式去命名，目的就是方便HR区分，并将简历转给相关的负责人确认是否可用以方便通知面试；</li>
 <li>简历应该尽可能清爽，简单，让HR能迅速找到重点；</li>
@@ -1745,16 +1750,6 @@
 </ul>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240307034855647.png" alt="简历格式-技术"></p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240307035027216.png" alt="简历格式-技术2"></p>
-<h3 id="项目经验描述"><a href="#项目经验描述" class="headerlink" title="项目经验描述"></a>项目经验描述</h3><p>面试官会对照应聘者的简历去详细了解他感兴趣的项目。应聘者在准备简历的时候，建议用STAR模型描述自己经历过的每一个项目。</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240307033704251.png" alt="项目经验-STAR模型"></p>
-<ul>
-<li>Situation：简短的项目背景，比如项目的规模，开发的软件的功能、目标用户等。</li>
-<li>Task：自己完成的任务。这个要写详细，要让面试官对自己的工作一目了然。在用词上要注意区分“参与”和“负责”：如果只是加入某一个开发团队写了几行代码就用“负责”，那就很危险。面试官看到简历上应聘者“负责”了某个项目，他可能就会问项目的总体框架设计、核心算法、团队合作等问题。这些问题对于只是简单“参与”的人来说，是很难回答的，会让面试官认为你不诚实，印象分会减去很多。</li>
-<li>Action：为了完成任务自己做了哪些工作，是怎么做的。这里可以详细介绍。做系统设计的，可以介绍系统架构的特点；做软件开发的，可以写基于什么工具在哪个平台下应用于哪些技术；做软件测试的，可以写是手工测试还是自动化测试，是白盒测试还是黑盒测试等。</li>
-<li>Result：自己的贡献。这方面的信息可以写的具体些，最好能用数字加以说明，如果是参与功能开发，可以说按时完成了多少功能；如果做优化，可以说性能提高的百分比是多少；如果是维护，可以说修改了多少个Bug。</li>
-</ul>
-<p>例子：</p>
-<p>Winforms是微软.NET中的一个成熟的UI平台（Situation）。本人的工作是在添加少量新功能之外主要负责维护已有的功能（Task）。新的功能主要是让Winforms的控件的风格和Vista、Windows 7的风格保持一致。在维护方面，对于较难的问题我用WinDbg等工具进行调试（Action）。在过去两年中我总共修改了超过200个Bug（Result）。</p>
 <h2 id="可以投递的平台有哪些？"><a href="#可以投递的平台有哪些？" class="headerlink" title="可以投递的平台有哪些？"></a>可以投递的平台有哪些？</h2><ul>
 <li>简历编写</li>
 </ul>
@@ -1764,18 +1759,175 @@
 </ul>
 <p>目前国内的互联网的招聘平台有很多，主流的有：<a href="https://www.51job.com/">前程无忧</a>、<a href="https://www.zhaopin.com/">智联招聘</a>、<a href="https://www.zhipin.com/">BOSS直聘</a>、<a href="https://www.lagou.com/">拉勾网</a>。这些平台也可以在线制作简历，也可以导入和解析简历。</p>
 <p>我一般是在超级简历上完成简历编写后，导入到简历投递平台进行解析。</p>
-<h2 id="面试的流程是什么样的？"><a href="#面试的流程是什么样的？" class="headerlink" title="面试的流程是什么样的？"></a>面试的流程是什么样的？</h2><p>待补充~</p>
-<h2 id="面试的各项能力的考察"><a href="#面试的各项能力的考察" class="headerlink" title="面试的各项能力的考察"></a>面试的各项能力的考察</h2><p>待补充~</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li>剑指Offer：名企面试官精讲典型编程题（何海涛）</li>
-<li><a href="https://zhuanlan.zhihu.com/p/24615330">如何写一份成功的简历（王盐）【知乎】</a></li>
+<ul>
+<li>简历内推</li>
 </ul>
+<p>内部推荐是一个很好的入职渠道，一般都是通过公司在职的人直接帮你把简历递给HR部门，HR部门再和你进一步沟通联系。如果你能顺利入职，对于推荐者来说也会有一部分的推荐奖励，这其实是一个非常好的渠道。对于多数人来说，内部推荐的推荐人一般都是熟人和朋友、或者是朋友的朋友。</p>
+<h2 id="面试的流程是什么样的？"><a href="#面试的流程是什么样的？" class="headerlink" title="面试的流程是什么样的？"></a>面试的流程是什么样的？</h2><h3 id="三种形式"><a href="#三种形式" class="headerlink" title="三种形式"></a>三种形式</h3><p><img src="https://qiniu-image.gotojava.cn/blog/image-20240308200154966.png" alt="面试流程"></p>
+<p>应聘者首先需要通过公司的简历筛选环节，才有可能得到面试的机会，也说明面试取得了阶段性的成功。</p>
+<p>面试一般分为三种形式：电话面试、视频面试、现场面试。</p>
+<ul>
+<li><p>电话面试：以打电话的形式考查应聘者。一般会提前沟通好电话面试的时间，考验应聘者的沟通能力、应变能力和理解问题的能力，你的想法和逻辑怎么形象化的解释和表达清楚让面试官能理解是重点。</p>
+</li>
+<li><p>视频面试：</p>
+<p>目前经历中就遇到过一次，而且是群面（一个面试官买对好几个应聘者），通过线上出题的形式，对应聘者进行能力考查，在纸上写答案，在答案写完后，通过拍照把答案通过邮件的形式反馈到指定的邮箱。</p>
+<p>也有视频面试会考查编程能力和调试能力，这种需要注意的方面有：思考清楚再编码、好的代码习惯、能够单元测试。</p>
+</li>
+<li><p>现场面试：被公司邀请去参加现场面试，这种比较多。在目前的面试经历中，大部分简历筛选通过后会直接</p>
+</li>
+</ul>
+<h3 id="三个环节"><a href="#三个环节" class="headerlink" title="三个环节"></a>三个环节</h3><ul>
+<li>行为面试环节</li>
+</ul>
+<p>行为面试环节包括：自我介绍、应聘者项目经验、应聘者掌握技能、跳槽的原因。整个过程大概在5~10分钟。面试官会注意应聘者的性格特点、深入的去了解简历中列举的项目经历。</p>
+<p>对于自我介绍方面在90到120秒左右就好，自我介绍简要讲一下主要学习和工作经历就好，太长了面试官会反感，留下不好的影响。</p>
+<p>针对项目经验，应聘者在准备简历的时候也需要准备一到两个问题，防止面试官的突然提问。比如：</p>
+<ol>
+<li>你在该项目中碰到的最大的问题是什么，你是怎么解决的？</li>
+<li>从这个项目中你学到了什么？</li>
+<li>什么时候会和其他团队成员（包括开发成员、测试人员、设计人员、项目经理等）有什么样的冲突，又是如何解决冲突的？</li>
+</ol>
+<p>对于项目经验的介绍不必太具体，因为简历上都有写，需要突出的是个人完成的工作及取得的成绩。</p>
+<p>面试官会针对简历上的技能进行提问，以此来了解应聘者对于技能的掌握程度。对于简历技能该怎么写请参考【简历该如何去写？】-【技能的描述】章节。对于常见的面试题可以参考【资源推荐】中的内容。</p>
+<p>在回答“为什么跳槽”时，不要抱怨和流露出负面的情绪。以免给面试官留下不好的印象，应避免四个原因：</p>
+<ol>
+<li>老板太苛刻：如果面试官就是当前招聘的职位的老板，他听到应聘者抱怨现在的老板苛刻时，他肯定会想要是把这个人招进来，接下来他就会抱怨我也苛刻了。</li>
+<li>同事太难相处：如果应聘者说他周围有很多很难相处的同事，面试官很有可能会觉得这个人他本身就很难相处。</li>
+<li>加班太频繁：对于大部分IT企业来说，加班是家常便饭。如果正在面试的公司也需要经常加班，那等于应聘者说他不想进这家公司。</li>
+<li>工资太低：现在的工资太低的确是大部分人跳槽的真实原因，但不建议在面试的时候对面试官抱怨。面试的目的是拿到offer，我们要尽量给面试官留下好印象。</li>
+</ol>
+<p>例子：</p>
+<p>我在Autodesk开发的软件Civil 3D是一款面向土木行业的设计软件。如果我想在现在的职位上得到提升，就必须加强土木行业的学习，可我对诸如计算土方量、道路设计等没有太多兴趣，因此出来寻找机会。</p>
+<p>我在微软的主要工作是开发和维护.NET的UI平台Winforms。由于Winforms已经非常成熟，不需要添加多少新功能，因此我的大部分工作都是维护和修改BUG。两年下来，调试的能力得到了很大的提高，但长期如此自己的软件开发和设计能力将不能得到提高，因此想出来寻找可以设计和开发系统的职位。同时，我在过去几年里的工作都是开发桌面软件，对网络了解甚少，因此希望下一个工作能与网络相关。众所周知，思科是个网络公司，这里的软件和系统或多或少都离不开网络，因此我对思科的职位很感兴趣。</p>
+<ul>
+<li>技术面试环节</li>
+</ul>
+<p>对于技术面试，主要会关注应聘者五大方面</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240308211809026.png" alt="应聘者需要具备的素质"></p>
+<ol>
+<li><strong>基础知识扎实</strong></li>
+</ol>
+<p>扎实的基本功是成为优秀程序员的前提条件，因此面试官首要关注的应聘者素质就是是否具备扎实的基础知识。通常基本功在编程面试环节体现在3个方面：编程语言、数据结构和算法。应聘者需要熟练掌握链表、树、栈、队列和哈希表等数据结构，以及它们的操作。应聘者可以在了解各种查找和排序算法的基础上，重点掌握二分查找、归并排序和快速排序，因为很多面试题都只是这些算法的变体而已。谷歌或者百度，还会要求应聘者熟练掌握动态规划和贪婪算法。</p>
+<ol start="2">
+<li><strong>高质量的代码</strong></li>
+</ol>
+<p>在面试过程中，面试官总会格外关注边界条件、特殊输入等看似细枝末节但实质至关重要的地方，以考查应聘者是否注重代码质量。技术面试的面试官一般都是程序员，程序员通常没有那么多想法，他们只认一个理：题目做对、做完整了，就让你通过面试；否则失败。所以遇到简单题目却被拒的情况，应聘者应认真反思在思路或者代码中存在哪些漏洞。</p>
+<ol start="3">
+<li><strong>清晰的思路</strong></li>
+</ol>
+<p>只有思路清晰，应聘者才有可能在面试过程中解决复杂的问题。有些时候面试官会有意出一些比较复杂的问题，以考查应聘者能否在短时间内形成清晰的思路并解决问题。</p>
+<ol start="4">
+<li><strong>优化效率的能力</strong></li>
+</ol>
+<p>当面试官出的题目有多种解法的时候，通常他会期待应聘者最终能够找到最优解。当面试官提示还有更好的解法的时候，应聘者不能放弃思考，而应该努力寻找在时间消耗或者空间消耗上可以优化的地方。</p>
+<p>要想优化效率，我们需要熟知各种数据结构的优缺点，选择合适的数据结构解决问题。也要熟悉常用的算法和不同算法之间的优缺点和适用场景。</p>
+<ol start="5">
+<li><strong>优秀的综合能力</strong></li>
+</ol>
+<p>在面试过程中，应聘者除了展示自己的编程能力和技术功底之外，还需要展示自己的软技能，诸如自己的沟通能力和学习能力。随着软件系统的规模越来越大，软件开发已经告别了单打独斗的年代，程序员与他人的沟通变得越来越重要。在面试过程中，面试官会观察应聘者在介绍项目经验或者算法思路时是否观点明确、逻辑清晰，并以此判断其沟通能力的强弱。另外，面试官也会从应聘者说话的神态和语气来判断他是否有团队合作的意识。通常面试官不会喜欢高傲或者轻视合作者的人。</p>
+<ul>
+<li>应聘者提问环节</li>
+</ul>
+<p>在结束面试前的5～10分钟，面试官会给应聘者机会问几个问题，面试官让应聘者问几个问题，主要是想了解他最关心的问题有哪些，因此应聘者至少要问一两个问题，否则面试官就会觉得你对我们公司、职位等都不感兴趣，那你来面试做什么？</p>
+<p>对于提问题的建议：</p>
+<ol>
+<li>不要问和自己的职位没有关系的问题；</li>
+<li>不要问薪水。技术面试不是谈薪水的时候，要谈工资要等通过面试之后和HR谈。</li>
+<li>再次是不要立即打听面试结果，比如问“您觉得我能拿到Offer吗”之类的问题。现在大部分公司的面试都有好几轮，最终决定应聘者能不能通过面试，是要把所有面试官的评价综合起来的。</li>
+</ol>
+<p>最后推荐问的问题是与招聘的职位或者项目相关的问题。如果这种类型的问题问得很到位，那么面试官就会觉得你对应聘的职位很有兴趣。不过要问好这种类型的问题也不容易，因为首先对应聘的职位或者项目的背景要有一定的了解。我们可以从两方面去了解相关的信息：</p>
+<p>一是面试前做足功课，到网上去收集一些相关的信息，做到对公司成立时间、主要业务、职位要求等都了然于胸；二是面试过程中留心面试官说过的话。有不少面试官在面试之前会简单介绍与招聘职位相关的项目，其中会包含其他渠道无法得到的信息，比如项目进展情况等。应聘者可以从中找出一两个点，然后向面试官提问。</p>
+<h2 id="资源推荐"><a href="#资源推荐" class="headerlink" title="资源推荐"></a>资源推荐</h2><p>书籍：《剑指Offer：名企面试官精讲典型编程题》（何海涛）</p>
+<p>公众号：明哥聊求职</p>
+<p>刷题App：<a href="https://www.nowcoder.com/">牛客网</a></p>
+<p>面试题：<a href="https://pdai.tech/">Java 全栈知识体系</a></p>
+<p>数据结构和算法：<a href="https://www.hello-algo.com/">Hello，算法</a></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本文主要从应聘者角度总结了简历应该如何去写、投递的平台和面试的流程以及相关对应聘者有帮助的资源。对于面试，细节其实是特别多的。单纯的一两篇文章也不一定能表达清楚。不同行业和岗位对于应聘者的需求也不一样。需要我们多去尝试、多去反思、多去总结。</p>
 ]]></content>
       <categories>
         <category>杂文随笔</category>
       </categories>
       <tags>
         <tag>职场进阶</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>开发者</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -2021,84 +2173,5 @@
       <categories>
         <category>杂文随笔</category>
       </categories>
-  </entry>
-  <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
-
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
-<ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
-</ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
-<ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
-</ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
-</ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
-]]></content>
-      <categories>
-        <category>开发者</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
   </entry>
 </search>
