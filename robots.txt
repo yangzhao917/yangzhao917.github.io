@@ -7,4 +7,3 @@ Allow: /about/
 Allow: /links/
 
 Sitemap: http://gotojava.cn/sitemap.xml
-Sitemap: http://gotojava.cn/baidusitemap.xml
