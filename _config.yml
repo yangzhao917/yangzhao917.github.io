@@ -4,8 +4,8 @@
 
 # Site
 title: '澄澈少年的网络日志'
-subtitle: '知是行之始，行是知之至。'
-description: ''
+subtitle: '软件工程师，我的博客记录了我的学习过程，涵盖了代码实践、读书笔记等多个方向。'
+description: '软件工程师，我的博客记录了我的学习过程，涵盖了代码实践、读书笔记等多个方向。'
 keywords: '澄澈少年的网络日志,澄澈少年,Java'
 author: '澄澈少年'
 language: zh-CN
@@ -31,17 +31,8 @@ Plugins:
 - hexo-generator-sitemap
 - hexo-generator-feed
 
-# baidusitemap:
-#   path: baidusitemap.xml
 sitemap:
   path: sitemap.xml
-
-# 百度提交，插件名称：hexo-baidu-url-submit
-# baidu_url_submit:
-#   count: 1                    # 提交最新的多少个链接
-#   host: gotojava.cn            # 在百度站长平台中添加的域名
-#   token: bF1uqWNi6O7VRomz      # 秘钥
-#   path: baidu_urls.txt         # 文本文档的地址， 新链接会保存在此文本文档里
 
 # Directory
 source_dir: source
@@ -165,8 +156,6 @@ deploy:
   repo: https://github.com/yangzhao917/yangzhao917.github.io.git
   branch: blog-page
   token: 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
-# - type: 'baidu_url_submitter'
-  # message: "{{ now('YYYY-MM-DD HH:mm:ss') }} "
 
 # Feed Atom
 feed:

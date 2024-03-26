@@ -477,7 +477,7 @@ font:
 index_with_subtitle: true
 
 # 自动添加外部URL与Base64加密和解密。
-exturl: false
+exturl: true
 # 如果为true，则每个外部URL都会附加一个图标
 exturl_icon: true
 
@@ -495,7 +495,7 @@ yandex_site_verification:
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
-baidu_site_verification:
+baidu_site_verification: bF1uqWNi6O7VRomz
 
 
 # ---------------------------------------------------------------
