@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://gotojava.cn/404.html</loc>
+    
+    <lastmod>2024-03-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://gotojava.cn/about/index.html</loc>
     
     <lastmod>2024-03-28</lastmod>
@@ -218,14 +227,14 @@
 
   
   <url>
-    <loc>https://gotojava.cn/tags/MySQL/</loc>
+    <loc>https://gotojava.cn/tags/MacOS/</loc>
     <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/MacOS/</loc>
+    <loc>https://gotojava.cn/tags/MySQL/</loc>
     <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -239,14 +248,14 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/Linux/</loc>
+    <loc>https://gotojava.cn/tags/Amazon/</loc>
     <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/Amazon/</loc>
+    <loc>https://gotojava.cn/tags/Linux/</loc>
     <lastmod>2024-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
