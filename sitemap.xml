@@ -2,6 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://gotojava.cn/article/a639d743.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/8df25a04.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/947b9fd7.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/306847ba.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/e057bf2e.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/2306cec7.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/9fdf7a25.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/article/e26f95fb.html</loc>
+    
+    <lastmod>2024-04-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://gotojava.cn/links/index.html</loc>
     
     <lastmod>2024-04-07</lastmod>
@@ -29,70 +101,7 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/article/e26f95fb.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/9fdf7a25.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/article/b0b9894c.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/a639d743.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/8df25a04.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/947b9fd7.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/e057bf2e.html</loc>
-    
-    <lastmod>2024-02-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/2306cec7.html</loc>
     
     <lastmod>2024-02-29</lastmod>
     
@@ -120,15 +129,6 @@
   
   <url>
     <loc>https://gotojava.cn/article/d6bf6e8c.html</loc>
-    
-    <lastmod>2024-02-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/article/306847ba.html</loc>
     
     <lastmod>2024-02-17</lastmod>
     
@@ -277,6 +277,13 @@
   
   <url>
     <loc>https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2024-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</loc>
     <lastmod>2024-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
