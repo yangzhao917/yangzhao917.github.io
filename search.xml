@@ -783,41 +783,6 @@
       </tags>
   </entry>
   <entry>
-    <title>为什么PPT不如备忘录</title>
-    <url>/article/60bd0b8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-
-
-<span id="more"></span>
-
-<blockquote>
-<p>原文<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDI0LzAxL3dlZWtseS1pc3N1ZS0yODUuaHRtbA==">《科技爱好者周刊（第 285 期）：为什么 PPT 不如备忘录》<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：”我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
-<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。”新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
-<p>“会议的前30分钟，我们是不说话的。大家在会议室中安静地坐在一起，阅读这份六页的备忘录，在空白处做笔记，过了30分钟才开始讨论。”</p>
-<p>这真的很奇怪，你见过半个小时没人说话的会议吗？</p>
-<p>贝佐斯解释：”你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
-<p>“我们索性在会议上留出时间，让大家现场阅读材料，然后就可以进行真正高层次的讨论了，所有人都跟得上讨论的主题，不会搞不清一些基本的事实。”</p>
-<p>那么，为什么一定要当事人提交六页的备忘录，而不是现场主讲 PPT 呢？</p>
-<p>贝佐斯说，<strong>书面的备忘录要比 PPT 演示，效果好得多</strong>，主要有以下几点原因。</p>
-<p>（1）PPT 的设计目的是说服，这是一种销售工具。但是在公司内部，你想要的是真相，而不是业务主管的推销。</p>
-<p>（2）PPT 的缺点是，它对作者相对容易，对观众来说却很难抓住要点。备忘录正好相反，写好一份六页的备忘录，对于作者是很难的。</p>
-<p>你可能需要两周的时间，先写出初稿，然后再重写，不断加工，确保你的文字是准确和可靠的。所以，备忘录对作者非常困难，但对观众就好多了，半小时的阅读就能搞清楚事情的来龙去脉，也看得出作者对这个问题的熟悉程度。</p>
-<p>（3）备忘录可以节省会议时间。如果是 PPT 演示，高管们会不停地打断提问，结果发现答案就在下一张幻灯片。</p>
-<p>但是，阅读备忘录时，你必须先把所有问题写在空白处，当你读到最后一页时，发现很多问题已经得到了解答，这就节省了当众提问的时间。</p>
-<p>（4）PPT 演示过程中，主讲人也许会根据现场情况，临时决定隐藏或修改一些讲法。备忘录就没有这个问题，主讲人必须事先给出完整描述，你更能了解他的真实想法。</p>
-<p>（5）PPT 通常只是一些要点，不是完整的句子，有利于隐藏很多草率的想法。而备忘录是完整的段落，必须有主题句，有动词和名词，你很难隐藏自己的草率思维。</p>
-<p>备忘录迫使作者处于最佳状态，你能得到一个人真正最好的想法。如果 PPT 演示，你们可能要讨论很久，发言人才能进入最佳状态。从长远来看，备忘录节省了你的时间。</p>
-<p>以上就是贝佐斯不允许使用 PPT 的五点理由。</p>
-<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的”备忘录开会法”—-<strong>先写成文档，再进行讨论</strong>—-可能是更好更正确的做法。</p>
-]]></content>
-      <categories>
-        <category>杂文随笔</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Windows环境下的MySQL安装与配置</title>
     <url>/article/8df25a04.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -976,6 +941,41 @@
       <tags>
         <tag>MySQL</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>为什么PPT不如备忘录</title>
+    <url>/article/60bd0b8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+<blockquote>
+<p>原文<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDI0LzAxL3dlZWtseS1pc3N1ZS0yODUuaHRtbA==">《科技爱好者周刊（第 285 期）：为什么 PPT 不如备忘录》<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：”我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
+<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。”新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
+<p>“会议的前30分钟，我们是不说话的。大家在会议室中安静地坐在一起，阅读这份六页的备忘录，在空白处做笔记，过了30分钟才开始讨论。”</p>
+<p>这真的很奇怪，你见过半个小时没人说话的会议吗？</p>
+<p>贝佐斯解释：”你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
+<p>“我们索性在会议上留出时间，让大家现场阅读材料，然后就可以进行真正高层次的讨论了，所有人都跟得上讨论的主题，不会搞不清一些基本的事实。”</p>
+<p>那么，为什么一定要当事人提交六页的备忘录，而不是现场主讲 PPT 呢？</p>
+<p>贝佐斯说，<strong>书面的备忘录要比 PPT 演示，效果好得多</strong>，主要有以下几点原因。</p>
+<p>（1）PPT 的设计目的是说服，这是一种销售工具。但是在公司内部，你想要的是真相，而不是业务主管的推销。</p>
+<p>（2）PPT 的缺点是，它对作者相对容易，对观众来说却很难抓住要点。备忘录正好相反，写好一份六页的备忘录，对于作者是很难的。</p>
+<p>你可能需要两周的时间，先写出初稿，然后再重写，不断加工，确保你的文字是准确和可靠的。所以，备忘录对作者非常困难，但对观众就好多了，半小时的阅读就能搞清楚事情的来龙去脉，也看得出作者对这个问题的熟悉程度。</p>
+<p>（3）备忘录可以节省会议时间。如果是 PPT 演示，高管们会不停地打断提问，结果发现答案就在下一张幻灯片。</p>
+<p>但是，阅读备忘录时，你必须先把所有问题写在空白处，当你读到最后一页时，发现很多问题已经得到了解答，这就节省了当众提问的时间。</p>
+<p>（4）PPT 演示过程中，主讲人也许会根据现场情况，临时决定隐藏或修改一些讲法。备忘录就没有这个问题，主讲人必须事先给出完整描述，你更能了解他的真实想法。</p>
+<p>（5）PPT 通常只是一些要点，不是完整的句子，有利于隐藏很多草率的想法。而备忘录是完整的段落，必须有主题句，有动词和名词，你很难隐藏自己的草率思维。</p>
+<p>备忘录迫使作者处于最佳状态，你能得到一个人真正最好的想法。如果 PPT 演示，你们可能要讨论很久，发言人才能进入最佳状态。从长远来看，备忘录节省了你的时间。</p>
+<p>以上就是贝佐斯不允许使用 PPT 的五点理由。</p>
+<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的”备忘录开会法”—-<strong>先写成文档，再进行讨论</strong>—-可能是更好更正确的做法。</p>
+]]></content>
+      <categories>
+        <category>杂文随笔</category>
+      </categories>
   </entry>
   <entry>
     <title>使用ChatGPT的提问技巧</title>
@@ -1141,6 +1141,51 @@
       </tags>
   </entry>
   <entry>
+    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
+    <url>/article/9fdf7a25.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<span id="more"></span>
+
+<p>通过SSH终端工具连接时报以下问题：</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
+<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
+<ol>
+<li>设置口令复杂度；</li>
+<li>设置口令重复使用次数限制；</li>
+<li>设置密码过期时间</li>
+<li>限制本地登陆和远程登陆次数；</li>
+<li>禁用root远程SSH登陆；</li>
+<li>升级OpenSSH；</li>
+</ol>
+<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
+<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
+<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
+<blockquote>
+<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
+<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
+<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
+<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
+<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微信读书这个技巧让免费阅读成为可能</title>
     <url>/article/6b5ee4f0.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1244,51 +1289,6 @@
       </categories>
       <tags>
         <tag>读书分享</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
-    <url>/article/9fdf7a25.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
-<span id="more"></span>
-
-<p>通过SSH终端工具连接时报以下问题：</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
-<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
-<ol>
-<li>设置口令复杂度；</li>
-<li>设置口令重复使用次数限制；</li>
-<li>设置密码过期时间</li>
-<li>限制本地登陆和远程登陆次数；</li>
-<li>禁用root远程SSH登陆；</li>
-<li>升级OpenSSH；</li>
-</ol>
-<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
-<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
-<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
-<blockquote>
-<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
-</blockquote>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
-<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
-<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
-<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
-<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1674,85 +1674,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
-
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
-<ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
-</ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
-<ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
-</ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
-</ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
-]]></content>
-      <categories>
-        <category>开发者</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>步步为营：如何在面试中展现最佳自我</title>
     <url>/article/71556c0e.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1925,6 +1846,85 @@
       </categories>
       <tags>
         <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
