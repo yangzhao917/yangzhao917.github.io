@@ -25,6 +25,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;本文用于分享面试的一些流程和技巧，目的在于帮助新人如何打造一份适合自己的简历，在面试的过程中增加获取Offer成功率。&lt;/p&gt;</summary>
     
     
@@ -45,6 +46,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;本文用于分享一些微信读书的一些技巧和方法，目的在于让免费阅读成为可能。&lt;/p&gt;</summary>
     
     
@@ -65,6 +67,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;《断舍离》是山下英子老师从瑜伽的修行哲学”断行“、”舍行“、”离行“中提炼出”断舍离“的思维方式并用于日常生活的”整理“上。那么到底什么是断舍离？断舍离又是怎么去整理生活的？本文将追随山下英子老师，学习探索断舍离的简约之道。&lt;/p&gt;</summary>
     
     
@@ -81,15 +84,16 @@
     <link href="https://gotojava.cn/article/306847ba.html"/>
     <id>https://gotojava.cn/article/306847ba.html</id>
     <published>2024-01-18T19:56:12.000Z</published>
-    <updated>2024-04-07T14:33:47.924Z</updated>
+    <updated>2024-04-08T15:14:00.904Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展计算能力的按需计算服务。本文用于记录MacOS环境下连接EC2实例的排查过程。&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Amazon" scheme="https://gotojava.cn/tags/Amazon/"/>
@@ -118,14 +122,14 @@
     <link href="https://gotojava.cn/article/e26f95fb.html"/>
     <id>https://gotojava.cn/article/e26f95fb.html</id>
     <published>2024-01-05T21:55:50.000Z</published>
-    <updated>2024-04-07T14:33:08.231Z</updated>
+    <updated>2024-04-08T15:13:25.669Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Java" scheme="https://gotojava.cn/tags/Java/"/>
@@ -137,14 +141,14 @@
     <link href="https://gotojava.cn/article/b0b9894c.html"/>
     <id>https://gotojava.cn/article/b0b9894c.html</id>
     <published>2023-12-08T20:22:22.000Z</published>
-    <updated>2024-04-07T14:32:20.848Z</updated>
+    <updated>2024-04-08T15:13:09.233Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -160,6 +164,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;GitHub是一个全球性的代码托管平台，上面托管了非常多的优秀项目和学习资料。但是对于庞大的资源内容掌握一些搜索方法和技巧来提高搜索效率是十分有必要的。下面是我经过验证的一些不错的技巧和相关资料，希望能对你有所帮助。&lt;/p&gt;</summary>
     
     
@@ -178,6 +183,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;电子邮件是我们沟通方式的一部分，在早期网络不发达的时代，写信成了重要的沟通方式。那么如何写好一封得体的邮件，也成为了个人发展的重要技能之一。&lt;/p&gt;</summary>
     
     
@@ -192,15 +198,16 @@
     <link href="https://gotojava.cn/article/2306cec7.html"/>
     <id>https://gotojava.cn/article/2306cec7.html</id>
     <published>2023-11-13T05:55:23.000Z</published>
-    <updated>2024-04-07T14:33:23.445Z</updated>
+    <updated>2024-04-08T15:13:35.068Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;本文记录MySQL5.7在CentOS7环境下的安装和配置过程。&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -216,6 +223,7 @@
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;本人将介绍一些ChatGPT的提问技巧，帮助我们更好的使用ChatGPT解决实际问题。&lt;/p&gt;</summary>
     
     
@@ -230,15 +238,16 @@
     <link href="https://gotojava.cn/article/43757ee8.html"/>
     <id>https://gotojava.cn/article/43757ee8.html</id>
     <published>2023-10-08T13:50:38.000Z</published>
-    <updated>2024-04-07T14:33:36.412Z</updated>
+    <updated>2024-04-08T15:13:48.465Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;记录在MacOS下修改文件的时间属性。&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="MacOS" scheme="https://gotojava.cn/tags/MacOS/"/>
@@ -250,15 +259,16 @@
     <link href="https://gotojava.cn/article/947b9fd7.html"/>
     <id>https://gotojava.cn/article/947b9fd7.html</id>
     <published>2023-09-14T06:46:11.000Z</published>
-    <updated>2024-04-07T14:33:54.199Z</updated>
+    <updated>2024-04-08T15:14:07.828Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
@@ -270,15 +280,16 @@
     <link href="https://gotojava.cn/article/9fdf7a25.html"/>
     <id>https://gotojava.cn/article/9fdf7a25.html</id>
     <published>2023-09-08T14:06:33.000Z</published>
-    <updated>2024-04-07T14:32:15.820Z</updated>
+    <updated>2024-04-08T15:13:01.205Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
@@ -290,15 +301,16 @@
     <link href="https://gotojava.cn/article/1836dc99.html"/>
     <id>https://gotojava.cn/article/1836dc99.html</id>
     <published>2023-08-24T18:33:57.000Z</published>
-    <updated>2024-04-07T14:32:50.830Z</updated>
+    <updated>2024-04-08T15:13:17.148Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Linux" scheme="https://gotojava.cn/tags/Linux/"/>
@@ -310,15 +322,16 @@
     <link href="https://gotojava.cn/article/8df25a04.html"/>
     <id>https://gotojava.cn/article/8df25a04.html</id>
     <published>2023-07-27T13:35:31.000Z</published>
-    <updated>2024-04-07T14:33:59.599Z</updated>
+    <updated>2024-04-08T15:14:13.964Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;p&gt;💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。&lt;/p&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="MySQL" scheme="https://gotojava.cn/tags/MySQL/"/>
@@ -330,17 +343,18 @@
     <link href="https://gotojava.cn/article/2878e73f.html"/>
     <id>https://gotojava.cn/article/2878e73f.html</id>
     <published>2023-07-21T10:34:55.000Z</published>
-    <updated>2024-02-17T08:19:02.100Z</updated>
+    <updated>2024-04-08T15:13:41.549Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
     
     
     
-    <category term="杂文随笔" scheme="https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="MacOS" scheme="https://gotojava.cn/tags/MacOS/"/>
@@ -352,14 +366,14 @@
     <link href="https://gotojava.cn/article/a639d743.html"/>
     <id>https://gotojava.cn/article/a639d743.html</id>
     <published>2023-06-08T06:05:15.000Z</published>
-    <updated>2024-04-07T14:34:05.258Z</updated>
+    <updated>2024-04-08T15:14:20.217Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
@@ -371,14 +385,14 @@
     <link href="https://gotojava.cn/article/e057bf2e.html"/>
     <id>https://gotojava.cn/article/e057bf2e.html</id>
     <published>2023-06-08T06:00:55.000Z</published>
-    <updated>2024-04-07T14:33:43.491Z</updated>
+    <updated>2024-04-08T15:13:54.889Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
     
     
     
-    <category term="技术分享" scheme="https://gotojava.cn/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
