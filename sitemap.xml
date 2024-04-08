@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://gotojava.cn/article/71556c0e.html</loc>
+    
+    <lastmod>2024-04-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://gotojava.cn/article/a639d743.html</loc>
     
     <lastmod>2024-04-08</lastmod>
@@ -137,15 +146,6 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/article/71556c0e.html</loc>
-    
-    <lastmod>2024-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/about/index.html</loc>
     
     <lastmod>2024-03-28</lastmod>
@@ -218,13 +218,6 @@
 
   
   <url>
-    <loc>https://gotojava.cn/tags/MacOS/</loc>
-    <lastmod>2024-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/tags/MySQL/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -232,7 +225,7 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/Amazon/</loc>
+    <loc>https://gotojava.cn/tags/MacOS/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -240,6 +233,13 @@
   
   <url>
     <loc>https://gotojava.cn/tags/Oracle/</loc>
+    <lastmod>2024-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/Amazon/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -267,7 +267,7 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/%E9%9D%A2%E8%AF%95/</loc>
+    <loc>https://gotojava.cn/tags/%E8%81%8C%E5%9C%BA/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
