@@ -141,6 +141,36 @@
       </categories>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
     <url>/article/2306cec7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -491,33 +521,42 @@
       </tags>
   </entry>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
+    <title>达梦查询分页排序问题</title>
+    <url>/article/e057bf2e.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<p>记录在MacOS下修改文件的时间属性。</p>
 <span id="more"></span>
 
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
+<li>环境：达梦7</li>
+</ul>
+<p>查询SQL如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+<p>发现数据库的查询结果数据是正确的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
+<p>但页面返回的数据排序是有问题的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
+<p>那么拼接后的SQL就是这样</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
+<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
+</ul>
 ]]></content>
       <categories>
         <category>开发者手册</category>
       </categories>
       <tags>
-        <tag>MacOS</tag>
+        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -588,45 +627,6 @@
       </categories>
       <tags>
         <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>达梦查询分页排序问题</title>
-    <url>/article/e057bf2e.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
-<li>环境：达梦7</li>
-</ul>
-<p>查询SQL如下</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
-
-<p>发现数据库的查询结果数据是正确的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
-<p>但页面返回的数据排序是有问题的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
-<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
-<p>那么拼接后的SQL就是这样</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
-<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -1677,6 +1677,85 @@
       </tags>
   </entry>
   <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>步步为营：如何在面试中展现最佳自我</title>
     <url>/article/71556c0e.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -1852,85 +1931,6 @@
       </categories>
       <tags>
         <tag>职场</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
-
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
-<ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
-</ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
-<ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
-</ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
-</ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
