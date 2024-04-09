@@ -1,7 +1,7 @@
 ---
 title: 达梦查询分页排序问题
 categories:
-  - 开发者
+  - 开发者手册
 tags:
   - Oracle
 abbrlink: e057bf2e

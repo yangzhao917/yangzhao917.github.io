@@ -1,7 +1,7 @@
 ---
 title: Windows环境Oracle数据库自动备份的实现
 categories:
-  - 开发者
+  - 开发者手册
 tags:
   - Oracle
 abbrlink: a639d743

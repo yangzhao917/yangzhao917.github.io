@@ -4,9 +4,9 @@
 
 # Site
 title: '澄澈少年的网络日志'
-subtitle: '软件工程师，我的博客记录了我的学习过程，涵盖了代码实践、读书笔记等多个方向。'
-description: '软件工程师，我的博客记录了我的学习过程，涵盖了代码实践、读书笔记等多个方向。'
-keywords: '澄澈少年的网络日志,澄澈少年,Java'
+subtitle: ''
+description: ''
+keywords: '澄澈少年的网络日志,澄澈少年'
 author: '澄澈少年'
 language: zh-CN
 timezone: ''
@@ -146,7 +146,6 @@ neat_js:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-#theme: Hacker
 theme: "next"
 
 # Deployment
