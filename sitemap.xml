@@ -211,7 +211,7 @@
 
   <url>
     <loc>https://gotojava.cn/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -219,56 +219,56 @@
   
   <url>
     <loc>https://gotojava.cn/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/%E8%81%8C%E5%9C%BA/</loc>
-    <lastmod>2024-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://gotojava.cn/tags/MacOS/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/MySQL/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/Oracle/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <loc>https://gotojava.cn/tags/MacOS/</loc>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/Amazon/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/Oracle/</loc>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/Linux/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/tags/Java/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -277,14 +277,14 @@
   
   <url>
     <loc>https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</loc>
-    <lastmod>2024-04-08</lastmod>
+    <lastmod>2024-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
