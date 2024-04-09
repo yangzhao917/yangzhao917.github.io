@@ -1,7 +1,7 @@
 ---
 title: MacOS常用软件记录
 categories:
-  - 杂文随笔
+  - 开发者手册
 tags:
   - MacOS
 abbrlink: 2878e73f

@@ -1,5 +1,7 @@
 ---
-title: 使用rsyslog归集系统日志
+title: 使用Rsyslog归集系统日志
+categories:
+  - 开发者手册
 tags:
   - Linux
 abbrlink: 1836dc99

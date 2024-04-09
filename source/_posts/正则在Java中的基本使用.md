@@ -1,7 +1,7 @@
 ---
 title: 正则在Java中的基本使用
 categories:
-  - 开发者
+  - 开发者手册
 tags:
   - Java
 abbrlink: e26f95fb
@@ -177,21 +177,21 @@ private static boolean isValidEmail(String email) {
   public static void main(String[] args) {
       // 要拆分的字符串
       String inputString = "apple,orange,banana,grape";
-
+  
       // 使用逗号作为分隔符进行拆分
       String[] fruits = splitString(inputString, ",");
-
+  
       // 输出拆分后的结果
       System.out.println("拆分后的水果:");
       for (String fruit : fruits) {
           System.out.println(fruit);
       }
   }
-
+  
   public static String[] splitString(String input, String delimiter) {
       // 构建正则表达式
       String regex = Pattern.quote(delimiter);
-
+  
       // 使用正则表达式拆分字符串
       return input.split(regex);
   }

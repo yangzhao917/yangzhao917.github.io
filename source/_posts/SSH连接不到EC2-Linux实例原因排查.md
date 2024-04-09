@@ -1,7 +1,7 @@
 ---
 title: SSH 连接不到 EC2 Linux 实例原因排查
 categories:
-  - 杂文随笔
+  - 开发者手册
 tags:
   - Amazon
 abbrlink: 306847ba
