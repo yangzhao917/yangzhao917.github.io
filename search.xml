@@ -4,8 +4,10 @@
     <title>Easy Excel 的基本使用</title>
     <url>/article/c0347fb7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS8=">Easy Excel<i class="fa fa-external-link-alt"></i></span> 是一个基于 Java 的、快速、简洁、解决大文件内存溢出的 Excel 处理工具。它能让你在不用考虑性能、内存的因素情况下，快速完成 Excel 的读、写等功能。</p>
 <span id="more"></span>
+
 <p><strong>优点：</strong></p>
 <p>快速：快速的读取 Excel 中的数据。</p>
 <p>简洁：映射 Excel 和实体类，让代码变的更加简洁。</p>
@@ -15,50 +17,53 @@
 <li>Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。</li>
 <li>easyexcel重写了poi对07版Excel的解析，一个3M的excel用POI sax解析依然需要100M左右内存，改用easyexcel可以降低到几M，并且再大的excel也不会出现内存溢出；03版依赖POI的sax模式，在上层做了模型转换的封装，让使用者更加简单方便。</li>
 </ul>
-<h2 id="基本使用">基本使用</h2>
-<ul>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ul>
 <li>Maven 引入</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- Easy Excel --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 日志打印 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.7.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 简化setter/getter方法 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.18.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 单元测试 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="读操作">读操作</h3>
-<ul>
+
+<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><ul>
 <li>映射实体</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReadExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer product_id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer categories;</span><br><span class="line">    <span class="keyword">private</span> Integer sku;</span><br><span class="line">    <span class="keyword">private</span> Integer location;</span><br><span class="line">    <span class="keyword">private</span> Integer quantity;</span><br><span class="line">    <span class="keyword">private</span> String model;</span><br><span class="line">    <span class="keyword">private</span> String manufacturer;</span><br><span class="line">    <span class="keyword">private</span> String image_name;</span><br><span class="line">    <span class="keyword">private</span> String requires_shipping;</span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_added;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_modified;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_available;</span><br><span class="line">    <span class="keyword">private</span> Double weight;</span><br><span class="line">    <span class="keyword">private</span> String unit;</span><br><span class="line">    <span class="keyword">private</span> Integer length;</span><br><span class="line">    <span class="keyword">private</span> Integer width;</span><br><span class="line">    <span class="keyword">private</span> Integer height;</span><br><span class="line">    <span class="keyword">private</span> String length_unit;</span><br><span class="line">    <span class="keyword">private</span> Boolean status_enabled;</span><br><span class="line">    <span class="keyword">private</span> Integer tax_class_id;</span><br><span class="line">    <span class="keyword">private</span> Integer viewed;</span><br><span class="line">    <span class="keyword">private</span> Integer language_id;</span><br><span class="line">    <span class="keyword">private</span> String seo_keyword;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> String meta_description;</span><br><span class="line">    <span class="keyword">private</span> String meta_keywords;</span><br><span class="line">    <span class="keyword">private</span> String additional_image_names;</span><br><span class="line">    <span class="keyword">private</span> Integer stock_status_id;</span><br><span class="line">    <span class="keyword">private</span> Integer store_ids;</span><br><span class="line">    <span class="keyword">private</span> String related_ids;</span><br><span class="line">    <span class="keyword">private</span> String tags;</span><br><span class="line">    <span class="keyword">private</span> Integer sort_order;</span><br><span class="line">    <span class="keyword">private</span> Boolean subtract;</span><br><span class="line">    <span class="keyword">private</span> Integer minimum;</span><br><span class="line">    <span class="keyword">private</span> Double cost;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>核心代码</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testReadExcel</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass().getClassLoader().getResource(<span class="string">&quot;test.xls&quot;</span>);</span><br><span class="line">    EasyExcel.read(resource.getPath(), ReadExcel.class, <span class="keyword">new</span> <span class="title class_">ExcelDataListener</span>()).sheet(<span class="string">&quot;Products&quot;</span>).doRead();</span><br><span class="line">    <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    log.info(<span class="string">&quot;耗时：&#123;&#125;ms&quot;</span>, endTime - startTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>监听器</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取对象的监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExcelDataListener</span> <span class="keyword">extends</span> <span class="title class_">AnalysisEventListener</span>&lt;ReadExcel&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每隔 500 条存储数据库，然后清理list，方便内存回收</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BATCH_COUNT</span> <span class="operator">=</span> <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;ReadExcel&gt; cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这个每一条数据解析都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> readExcel</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(ReadExcel readExcel, AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;解析到一条数据：&#123;&#125;&quot;</span>, readExcel);</span><br><span class="line">        cacheDataList.add(readExcel);</span><br><span class="line">        <span class="keyword">if</span> (cacheDataList.size() &gt;= BATCH_COUNT)&#123;</span><br><span class="line">            <span class="comment">// saveData();</span></span><br><span class="line">            cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 所有数据解析完成了 都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfterAllAnalysed</span><span class="params">(AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.saveData();</span><br><span class="line">        log.info(<span class="string">&quot;所有数据解析完成!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveData</span><span class="params">()</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;条数据，开始存储数据库!&quot;</span>, cacheDataList.size());</span><br><span class="line">        log.info(<span class="string">&quot;存储数据库成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>单元测试结果</li>
 </ul>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430043257016.png" alt="Easy Excel 读取测试"></p>
-<h3 id="写操作">写操作</h3>
-<ul>
+<h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><ul>
 <li>实体对象</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 写Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WriteExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;编号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long no;    <span class="comment">// 编号</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;性别&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sex; <span class="comment">// 性别</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;地址&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String address; <span class="comment">// 地址</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;手机号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tel; <span class="comment">// 手机号</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>核心代码</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 写入Excel</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testWriteExcel()&#123;</span><br><span class="line">    long startTime = System.currentTimeMillis();</span><br><span class="line">    // 指定写入到哪个Excel文件</span><br><span class="line">    String fileName = String.format(&quot;/Users/yangzhao/Desktop/write-excel-%s%s&quot;, startTime, FILE_SUFFIX_XLSX);</span><br><span class="line">    EasyExcel.write(fileName, WriteExcel.class).sheet(&quot;模板&quot;).doWrite(generateData());</span><br><span class="line">    long endTime = System.currentTimeMillis();</span><br><span class="line">    log.info(&quot;耗时：&#123;&#125;ms&quot;, endTime - startTime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 模拟数据库</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">private List&lt;WriteExcel&gt; generateData() &#123;</span><br><span class="line">    int writeNubmer = 65535;</span><br><span class="line">    List&lt;WriteExcel&gt; dataList = new ArrayList&lt;&gt;(writeNubmer);</span><br><span class="line">    for (int i = 0; i &lt;= writeNubmer; i++) &#123;</span><br><span class="line">        WriteExcel data = new WriteExcel();</span><br><span class="line">        data.setNo((long) i + 1);</span><br><span class="line">        data.setName(GenerateInfoUtils.generateRandomName());</span><br><span class="line">        data.setSex(GenerateInfoUtils.generateRandomGender());</span><br><span class="line">        data.setAddress(GenerateInfoUtils.generateRandomAddress());</span><br><span class="line">        data.setTel(GenerateInfoUtils.generateRandomTel());</span><br><span class="line">        dataList.add(data);</span><br><span class="line">    &#125;</span><br><span class="line">    return dataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>随机信息生成工具类</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 信息生成工具，用于随机生成姓名、地址、性别、手机号</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GenerateInfoUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的姓</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; SURNAMES = Arrays.asList(<span class="string">&quot;王&quot;</span>, <span class="string">&quot;李&quot;</span>, <span class="string">&quot;张&quot;</span>, <span class="string">&quot;刘&quot;</span>, <span class="string">&quot;陈&quot;</span>, <span class="string">&quot;杨&quot;</span>, <span class="string">&quot;黄&quot;</span>, <span class="string">&quot;吴&quot;</span>, <span class="string">&quot;赵&quot;</span>, <span class="string">&quot;周&quot;</span>, <span class="string">&quot;庄&quot;</span>, <span class="string">&quot;诸葛&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; FIRST_NAMES = Arrays.asList(<span class="string">&quot;伟&quot;</span>, <span class="string">&quot;勇&quot;</span>, <span class="string">&quot;芳&quot;</span>, <span class="string">&quot;娜&quot;</span>, <span class="string">&quot;敏&quot;</span>, <span class="string">&quot;磊&quot;</span>, <span class="string">&quot;静&quot;</span>, <span class="string">&quot;丽&quot;</span>, <span class="string">&quot;强&quot;</span>, <span class="string">&quot;鹏&quot;</span>, <span class="string">&quot;钊&quot;</span>, <span class="string">&quot;能&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的性别常量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] GENDERS = &#123;<span class="string">&quot;男&quot;</span>, <span class="string">&quot;女&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的城市、街道和房号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; CITIES = Arrays.asList(<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;上海&quot;</span>, <span class="string">&quot;广州&quot;</span>, <span class="string">&quot;深圳&quot;</span>, <span class="string">&quot;成都&quot;</span>, <span class="string">&quot;重庆&quot;</span>, <span class="string">&quot;杭州&quot;</span>, <span class="string">&quot;南京&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; STREETS = Arrays.asList(<span class="string">&quot;长安街&quot;</span>, <span class="string">&quot;南京路&quot;</span>, <span class="string">&quot;解放大道&quot;</span>, <span class="string">&quot;人民路&quot;</span>, <span class="string">&quot;复兴路&quot;</span>, <span class="string">&quot;中山路&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义国内常见的手机号前缀</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PHONE_PREFIXES = &#123;<span class="string">&quot;139&quot;</span>, <span class="string">&quot;138&quot;</span>, <span class="string">&quot;137&quot;</span>, <span class="string">&quot;136&quot;</span>, <span class="string">&quot;135&quot;</span>, <span class="string">&quot;134&quot;</span>, <span class="string">&quot;159&quot;</span>, <span class="string">&quot;158&quot;</span>, <span class="string">&quot;157&quot;</span>, <span class="string">&quot;150&quot;</span>, <span class="string">&quot;151&quot;</span>, <span class="string">&quot;152&quot;</span>, <span class="string">&quot;188&quot;</span>, <span class="string">&quot;187&quot;</span>, <span class="string">&quot;186&quot;</span>, <span class="string">&quot;183&quot;</span>, <span class="string">&quot;182&quot;</span>, <span class="string">&quot;181&quot;</span>, <span class="string">&quot;180&quot;</span>, <span class="string">&quot;178&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机数生成器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Random</span> <span class="variable">RANDOM</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成手机号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomTel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 随机生成前缀</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phonePrefix</span> <span class="operator">=</span> PHONE_PREFIXES[RANDOM.nextInt(PHONE_PREFIXES.length)];</span><br><span class="line">        <span class="comment">// 随机生成后8位数字</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">phoneNumber</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(phonePrefix);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">            phoneNumber.append(RANDOM.nextInt(<span class="number">10</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> phoneNumber.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">city</span> <span class="operator">=</span> CITIES.get(RANDOM.nextInt(CITIES.size()));    <span class="comment">// 城市</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">street</span> <span class="operator">=</span> STREETS.get(RANDOM.nextInt(STREETS.size()));    <span class="comment">// 街道</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">houseNumber</span> <span class="operator">=</span> MIN_HOUSE_NUMBER + RANDOM.nextInt(MAX_HOUSE_NUMBER);  <span class="comment">// 房号</span></span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">&quot;%s%s%d号&quot;</span>, city, street, houseNumber);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成性别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomGender</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> RANDOM.nextInt(GENDERS.length);</span><br><span class="line">        <span class="keyword">return</span> GENDERS[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从姓氏和名字列表中随机选择</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">surname</span> <span class="operator">=</span> SURNAMES.get(RANDOM.nextInt(SURNAMES.size()));</span><br><span class="line">        <span class="type">String</span> <span class="variable">firstName</span> <span class="operator">=</span> FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size()));</span><br><span class="line">        <span class="keyword">return</span> surname + firstName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>单元测试结果</li>
 </ul>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044041091.png" alt="Easy Excel 写数据"></p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044122868.png" alt="image-20240430044122868"></p>
-<h2 id="参考">参考</h2>
-<ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82OTU1MzQ0NDU5MDc2NzMwODg3">Easy Excel 的使用<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS9kb2NzL2N1cnJlbnQv">Easy Excel 官方文档<i class="fa fa-external-link-alt"></i></span>``</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS9kb2NzL2N1cnJlbnQv">Easy Excel 官方文档<i class="fa fa-external-link-alt"></i></span>&#96;&#96;</li>
 </ul>
 ]]></content>
       <categories>
@@ -72,10 +77,11 @@
     <title>GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略</title>
     <url>/article/d6bf6e8c.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>GitHub是一个全球性的代码托管平台，上面托管了非常多的优秀项目和学习资料。但是对于庞大的资源内容掌握一些搜索方法和技巧来提高搜索效率是十分有必要的。下面是我经过验证的一些不错的技巧和相关资料，希望能对你有所帮助。</p>
 <span id="more"></span>
-<h2 id="搜索小技巧">搜索小技巧</h2>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png" alt="Untitled"></p>
+
+<h2 id="搜索小技巧"><a href="#搜索小技巧" class="headerlink" title="搜索小技巧"></a>搜索小技巧</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191043.png" alt="Untitled"></p>
 <ul>
 <li>Watch：表示有多少人关注这个项目；</li>
 <li>Star：表示有多少人给这个项目点赞，如果你给这个项目点赞，这个项目会出现在你的点赞列表中。点赞数越多，代表这个项目在社区的热度就越高；</li>
@@ -87,6 +93,7 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.png" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pdf2excel in:name</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>根据项目描述搜索</li>
 </ul>
@@ -95,6 +102,7 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191044.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>根据项目帮助文档搜索</li>
 </ul>
@@ -103,6 +111,7 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191046.png" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:in:readme</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>根据项目描述、项目文档组合搜索</li>
 </ul>
@@ -111,6 +120,7 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191047.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Java教程 in:description,readme</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>根据starts点赞量搜索，点赞量越高代表项目比较收欢迎</li>
 </ul>
@@ -119,6 +129,7 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191049.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2md，stars数量大于等于100的项目</span><br><span class="line">pdf2md in:name,description,readme stars:&gt;=100</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>根据forks克隆数量搜索，克隆数量越高代表项目比较收欢迎</li>
 </ul>
@@ -127,33 +138,35 @@
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191050.jpg" alt="Untitled"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量大于等于100的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:&gt;=100</span><br><span class="line"></span><br><span class="line"># 搜索项目名称，项目说明，项目文档中包含pdf2doc，forks数量100到500区间的项目</span><br><span class="line">pdf2doc in:name,description,readme forks:100..500</span><br></pre></td></tr></table></figure>
-<h2 id="浏览小技巧">浏览小技巧</h2>
-<ul>
+
+<h2 id="浏览小技巧"><a href="#浏览小技巧" class="headerlink" title="浏览小技巧"></a>浏览小技巧</h2><ul>
 <li>在线查看项目</li>
 </ul>
 <p>在仓库详情按下【.】键，神奇的事情发生了，当前仓库的内容会被当做资源在一个在线的VSCode中打开，方便我们浏览项目的内容，包括在VSCode中代码搜索、快捷跳转、安装插件增强编辑器功能等。</p>
 <aside>
 💡 实际上github.com的域名会跳转变成”github.dev“。然后当前的仓库就加载到了在线的VSCode中。
 </aside>
+
 <ul>
 <li>在线运行项目</li>
 </ul>
-<p>在项目地址前面加入”<span class="exturl" data-url="aHR0cDovL2dpdHBvZC5pby8lRTIlODAlOUQlRTUlODklOEQlRTclQkMlODAlRTMlODAlODIlRTYlODglOTElRTQlQkIlQUMlRTglQTYlODElRTclOUMlOEIlRTclOUElODQlRTklQTElQjklRTclOUIlQUUlRTUlQjAlQjElRTQlQkMlOUElRTUlOUMlQThnaXRwb2QuaW8lRTklQTElQjklRTclOUIlQUUlRTQlQjglQUQlRTglQkYlOTAlRTglQTElOEMlRUYlQkMlOEMlRTQlQkQlQkYlRTclOTQlQTglRTYlOTMlOEQlRTQlQkQlOUMlRTUlOTIlOENWU0NvZGUlRTYlOTglQUYlRTQlQjglODAlRTYlQTAlQjclRTclOUElODQlRUYlQkMlOEMlRTYlOTclQTIlRTclODQlQjYlRTglODMlQkQlRTglQkYlOTAlRTglQTElOEMlRUYlQkMlOEMlRTklODIlQTMlRTQlQjklODglRTUlQkQlOTMlRTclODQlQjYlRTQlQjklOUYlRTUlQjAlQjElRTUlOEYlQUYlRTQlQkIlQTUlRTUlOUMlQTglRTclQkElQkYlRTklOTglODUlRTglQUYlQkIlRTklQTElQjklRTclOUIlQUUlRTUlOTYlQkQlRTMlODAlODIlRTglODAlOEMlRTQlQjglOTRnaXRwb2QuaW8lRTQlQkMlOUElRTglODclQUElRTUlOEElQTglRTUlQjglQUUlRTYlODglOTElRTQlQkIlQUMlRTglQUYlODYlRTUlODglQUIlRTklQTElQjklRTclOUIlQUUlRTclQjElQkIlRTUlOUUlOEIlRTUlQjklQjYlRTUlQTQlODQlRTclOTAlODYlRTUlQUUlODklRTglQTMlODUlRTklQTElQjklRTclOUIlQUUlRTclOUElODQlRTQlQkUlOUQlRTglQjUlOTYlRUYlQkMlOEMlRTclQUUlODAlRTclOUIlQjQlRTUlQTQlQUElRTklQTYlOTklRTQlQkElODZ+">gitpod.io/”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~<i class="fa fa-external-link-alt"></i></span></p>
+<p>在项目地址前面加入”gitpod.io&#x2F;”前缀。我们要看的项目就会在gitpod.io项目中运行，使用操作和VSCode是一样的，既然能运行，那么当然也就可以在线阅读项目喽。而且gitpod.io会自动帮我们识别项目类型并处理安装项目的依赖，简直太香了~</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191052.jpg" alt="Untitled"></p>
-<h2 id="如何寻找优质项目">如何寻找优质项目</h2>
-<ul>
+<h2 id="如何寻找优质项目"><a href="#如何寻找优质项目" class="headerlink" title="如何寻找优质项目"></a>如何寻找优质项目</h2><ul>
 <li>GitHub Trending</li>
 </ul>
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RyZW5kaW5n">https://github.com/trending<i class="fa fa-external-link-alt"></i></span></p>
 <aside>
 💡 GitHub Trending是<b>一个展示GitHub上当前最受欢迎项目的功能</b>。 每天，GitHub会计算许多项目的活跃度，从而得出一个受欢迎程度排行榜，包括今天、本周和本月的热门项目。
 </aside>
+
 <ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLzUyMXh1ZXdlaWhhbi9IZWxsb0dpdEh1Yg==">https://github.com/521xueweihan/HelloGitHub<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 <aside>
 💡 分享 GitHub 上有趣、入门级的开源项目。
 </aside>
+
 <ul>
 <li>awesome</li>
 </ul>
@@ -161,6 +174,7 @@
 <aside>
 💡 GitHub Awesome 是<b>一个Github 上的一个项目集合，也是一个社区驱动的项目，旨在收集GitHub 上的各种优秀的、值得推荐的项目</b>。 Awesome 通常指令人敬畏的、令人赞叹的事物，所以这个项目的名称取为Awesome XXX，表明它收录的是优秀的、值得推荐的项目。
 </aside>
+
 <ul>
 <li>找例子</li>
 </ul>
@@ -172,7 +186,7 @@
 <li>找模板</li>
 </ul>
 <blockquote>
-<p>语法：xxx starter/boilerplat</p>
+<p>语法：xxx starter&#x2F;boilerplat</p>
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191101.jpg" alt="Untitled"></p>
 <ul>
@@ -182,13 +196,13 @@
 <p>语法：xxx tutorial</p>
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191104.jpg" alt="Untitled"></p>
-<h2 id="指导初学者">指导初学者</h2>
-<ul>
+<h2 id="指导初学者"><a href="#指导初学者" class="headerlink" title="指导初学者"></a>指导初学者</h2><ul>
 <li>指导初学者做出首次贡献的方式</li>
 </ul>
 <aside>
 💡 该项目旨在简化和指导初学者做出首次贡献的方式。如果您想做出第一次贡献，请按照以下步骤操作。
 </aside>
+
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZpcnN0Y29udHJpYnV0aW9ucy9maXJzdC1jb250cmlidXRpb25z">https://github.com/firstcontributions/first-contributions<i class="fa fa-external-link-alt"></i></span></p>
 <ul>
 <li>最浅显易懂的Git教程</li>
@@ -200,13 +214,44 @@
       </categories>
   </entry>
   <entry>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>记录在MacOS下修改文件的时间属性。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux环境下的MySQL的安装和配置</title>
     <url>/article/2306cec7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>本文记录MySQL5.7在CentOS7环境下的安装和配置过程。</p>
 <span id="more"></span>
-<h2 id="新特性">新特性</h2>
-<p>MySQL5.7有以下几个方面的新功能</p>
+
+<h2 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h2><p>MySQL5.7有以下几个方面的新功能</p>
 <ol>
 <li>随机root密码</li>
 </ol>
@@ -236,8 +281,7 @@
 <li>引入系统库</li>
 </ol>
 <p>系统库中包含一系列视图、函数和存储过程，通过多线程、多进程、组合事务提交和基于行的优化方式将复制功能提高5倍以上，用户向外扩充其跨商品系统的工作负载时，得以大幅度提升复制的效能和效率。</p>
-<h2 id="下载">下载</h2>
-<p>MySQL的版本分为：</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>MySQL的版本分为：</p>
 <ul>
 <li>企业版</li>
 </ul>
@@ -246,14 +290,12 @@
 <li>社区版</li>
 </ul>
 <p>社区版的维护由MySQL的开源社区提供支持，不能像商业版那样获取Oracle的电话支持和补丁服务。社区版是免费获取。MySQL的社区版可通过官网<span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2Rvd25sb2Fkcy9teXNxbC8=">MySQL Communify Downloads<i class="fa fa-external-link-alt"></i></span>获取。本文也主要针对该版本进行测试。</p>
-<h2 id="安装">安装</h2>
-<p>实验使用环境为：</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>实验使用环境为：</p>
 <p>操作系统（虚拟机环境）：CentOS Linux release 7.5.1804 (Core)</p>
 <p>MySQL版本：mysql-5.7.41-1.el7.x86_64</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# ls</span><br><span class="line">anaconda<span class="operator">-</span>ks.cfg  mysql<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm<span class="operator">-</span>bundle.tar</span><br><span class="line"># 解压归档tar包</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# tar <span class="operator">-</span>xf mysql<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm<span class="operator">-</span>bundle.tar</span><br><span class="line"></span><br><span class="line"># 卸载关于mariadb的依赖包文件，一台服务器只能安装一个MySQL<span class="operator">/</span>MariaDB软件</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>qa <span class="operator">|</span> grep mariadb</span><br><span class="line">mariadb<span class="operator">-</span>libs<span class="number">-5.5</span><span class="number">.56</span><span class="number">-2.</span>el7.x86_64</span><br><span class="line"># <span class="operator">-</span>e：删除指定的包；<span class="comment">--nodeps：在安装时不检查依赖关系</span></span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>e <span class="comment">--nodeps mariadb-libs-5.5.56-2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line"># 服务器和客户端库的通用文件</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># MySQL数据库客户端应用程序的共享库</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># MySQL客户端应用程序和工具</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># 数据库服务器和相关工具 </span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># 启动MySQL服务</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# systemctl <span class="keyword">start</span> mysqld</span><br><span class="line"># 查看MySQL服务状态</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# systemctl status mysqld</span><br><span class="line">● mysqld.service <span class="operator">-</span> MySQL Server</span><br><span class="line">   Loaded: loaded (<span class="operator">/</span>usr<span class="operator">/</span>lib<span class="operator">/</span>systemd<span class="operator">/</span><span class="keyword">system</span><span class="operator">/</span>mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (<span class="keyword">running</span>) since 二 <span class="number">2023</span><span class="number">-11</span><span class="number">-07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">56</span> CST; <span class="number">2</span>s ago</span><br><span class="line">     Docs: man:mysqld(<span class="number">8</span>)</span><br><span class="line">           http:<span class="operator">/</span><span class="operator">/</span>dev.mysql.com<span class="operator">/</span>doc<span class="operator">/</span>refman<span class="operator">/</span>en<span class="operator">/</span><span class="keyword">using</span><span class="operator">-</span>systemd.html</span><br><span class="line">  Process: <span class="number">12837</span> ExecStart<span class="operator">=</span><span class="operator">/</span>usr<span class="operator">/</span>sbin<span class="operator">/</span>mysqld <span class="comment">--daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)</span></span><br><span class="line">  Process: <span class="number">12722</span> ExecStartPre<span class="operator">=</span><span class="operator">/</span>usr<span class="operator">/</span>bin<span class="operator">/</span>mysqld_pre_systemd (code<span class="operator">=</span>exited, status<span class="operator">=</span><span class="number">0</span><span class="operator">/</span>SUCCESS)</span><br><span class="line"> Main PID: <span class="number">12840</span> (mysqld)</span><br><span class="line">   CGroup: <span class="operator">/</span>system.slice<span class="operator">/</span>mysqld.service</span><br><span class="line">           └─<span class="number">12840</span> <span class="operator">/</span>usr<span class="operator">/</span>sbin<span class="operator">/</span>mysqld <span class="comment">--daemonize --pid-file=/var/run/mysqld/mysqld.pid</span></span><br><span class="line"></span><br><span class="line"><span class="number">11</span>月 <span class="number">07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">53</span> centos7 systemd[<span class="number">1</span>]: Starting MySQL Server...</span><br><span class="line"><span class="number">11</span>月 <span class="number">07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">56</span> centos7 systemd[<span class="number">1</span>]: Started MySQL Server.</span><br></pre></td></tr></table></figure>
-<h2 id="配置">配置</h2>
-<h3 id="修改MySQL密码">修改MySQL密码</h3>
-<blockquote>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="修改MySQL密码"><a href="#修改MySQL密码" class="headerlink" title="修改MySQL密码"></a>修改MySQL密码</h3><blockquote>
 <p>获取随机密码登陆</p>
 </blockquote>
 <p>MySQL在安装完成后，会生成一个随机密码，我们通过root用户➕随机密码便可以登陆MySQL服务器。随机密码会生成在 <code>/var/log/mysqld.log</code>中。我们可以通过 <code>tail -100f /var/log/mysqld.log | grep -i &quot;password”</code>来获取随机密码。</p>
@@ -261,75 +303,77 @@
 <blockquote>
 <p>使用skip_grant_tables跳过密码验证</p>
 </blockquote>
-<p>也可以通过修改MySQL的配置文件my.cnf，通过跳过密码校验，来免登陆MySQL修改密码。通过在/etc/my.cnf配置文件中，添加 <code>skip_grant_tables</code>来实现跳过密码校验。</p>
+<p>也可以通过修改MySQL的配置文件my.cnf，通过跳过密码校验，来免登陆MySQL修改密码。通过在&#x2F;etc&#x2F;my.cnf配置文件中，添加 <code>skip_grant_tables</code>来实现跳过密码校验。</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191107.png" alt="Untitled"></p>
 <p>修改完成后，需要通过 <code>systemctl restart mysqld</code>重启MySQL服务，使配置文件的内容生效。</p>
 <p>通过mysql  -u root -p来登陆MySQL服务器，因为我们跳过了密码校验，所以在提示：“Enter password”时，回车即可。像下面这样：</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191110.png" alt="Untitled"></p>
 <aside>
 ⚠️ 如果需要恢复密码验证，则移除”`skip_grant_tables`”这行内容，重启MySQL服务就可以了。
+
 </aside>
+
 <blockquote>
 <p>修改root密码</p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 修改当前登陆用户的密码为root</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="keyword">user</span>() identified <span class="keyword">by</span> &quot;root&quot;;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"># 刷新权限</span><br><span class="line">mysql<span class="operator">&gt;</span> flush privileges;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-<h3 id="开放远程连接">开放远程连接</h3>
-<p>默认情况下MySQL是不允许本地以外的其他服务器远程访问的，这个时候需要我们进行授权操作。</p>
+
+<h3 id="开放远程连接"><a href="#开放远程连接" class="headerlink" title="开放远程连接"></a>开放远程连接</h3><p>默认情况下MySQL是不允许本地以外的其他服务器远程访问的，这个时候需要我们进行授权操作。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 打开mysql数据库</span><br><span class="line">mysql<span class="operator">&gt;</span> use mysql;</span><br><span class="line">Reading <span class="keyword">table</span> information <span class="keyword">for</span> completion <span class="keyword">of</span> <span class="keyword">table</span> <span class="keyword">and</span> <span class="keyword">column</span> names</span><br><span class="line">You can turn off this feature <span class="keyword">to</span> <span class="keyword">get</span> a quicker startup <span class="keyword">with</span> <span class="operator">-</span>A</span><br><span class="line">Database changed</span><br><span class="line"># 修改记录，允许远程访问</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> <span class="string">&#x27;%&#x27;</span> <span class="keyword">where</span> <span class="keyword">user</span> <span class="operator">=</span><span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">1</span>  Changed: <span class="number">1</span>  Warnings: <span class="number">0</span></span><br><span class="line"># 刷新权限信息</span><br><span class="line">mysql<span class="operator">&gt;</span> flush privileges;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># 开放防火墙<span class="number">3306</span>端口</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--zone=public --add-port=3306/tcp --permanent</span></span><br><span class="line"># 刷新防火墙规则</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--reload</span></span><br><span class="line"># 移除<span class="number">3306</span>端口</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--zone=public --remove-port=3306/tcp --permanent</span></span><br><span class="line"># 查看当前防火墙规则列表</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--list-all</span></span><br></pre></td></tr></table></figure>
-<h3 id="获取服务器状态信息">获取服务器状态信息</h3>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> status</span><br><span class="line"><span class="comment">--------------</span></span><br><span class="line">mysql  Ver <span class="number">14.14</span> Distrib <span class="number">5.7</span><span class="number">.41</span>, <span class="keyword">for</span> Linux (x86_64) <span class="keyword">using</span>  EditLine wrapper</span><br><span class="line"></span><br><span class="line">Connection id:          <span class="number">12</span></span><br><span class="line"><span class="keyword">Current</span> database:       mysql</span><br><span class="line"><span class="keyword">Current</span> <span class="keyword">user</span>:           root<span class="variable">@localhost</span></span><br><span class="line">SSL:                    <span class="keyword">Not</span> <span class="keyword">in</span> use</span><br><span class="line"><span class="keyword">Current</span> pager:          stdout</span><br><span class="line"><span class="keyword">Using</span> outfile:          <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">Using</span> delimiter:        ;</span><br><span class="line">Server version:         <span class="number">5.7</span><span class="number">.41</span> MySQL Community Server (GPL)</span><br><span class="line">Protocol version:       <span class="number">10</span></span><br><span class="line">Connection:             Localhost via UNIX socket</span><br><span class="line">Server characterset:    latin1</span><br><span class="line">Db     characterset:    latin1</span><br><span class="line">Client characterset:    utf8</span><br><span class="line">Conn.  characterset:    utf8</span><br><span class="line">UNIX socket:            <span class="operator">/</span>var<span class="operator">/</span>lib<span class="operator">/</span>mysql<span class="operator">/</span>mysql.sock</span><br><span class="line">Uptime:                 <span class="number">33</span> min <span class="number">20</span> sec</span><br><span class="line"></span><br><span class="line">Threads: <span class="number">1</span>  Questions: <span class="number">116</span>  Slow queries: <span class="number">0</span>  Opens: <span class="number">175</span>  Flush tables: <span class="number">1</span>  <span class="keyword">Open</span> tables: <span class="number">168</span>  Queries <span class="keyword">per</span> <span class="keyword">second</span> avg: <span class="number">0.058</span></span><br><span class="line"><span class="comment">--------------</span></span><br></pre></td></tr></table></figure>
-<h3 id="MySQL安装目录说明">MySQL安装目录说明</h3>
-<table>
+
+<h3 id="获取服务器状态信息"><a href="#获取服务器状态信息" class="headerlink" title="获取服务器状态信息"></a>获取服务器状态信息</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> status</span><br><span class="line"><span class="comment">--------------</span></span><br><span class="line">mysql  Ver <span class="number">14.14</span> Distrib <span class="number">5.7</span><span class="number">.41</span>, <span class="keyword">for</span> Linux (x86_64) <span class="keyword">using</span>  EditLine wrapper</span><br><span class="line"></span><br><span class="line">Connection id:          <span class="number">12</span></span><br><span class="line"><span class="keyword">Current</span> database:       mysql</span><br><span class="line"><span class="keyword">Current</span> <span class="keyword">user</span>:           root<span class="variable">@localhost</span></span><br><span class="line">SSL:                    <span class="keyword">Not</span> <span class="keyword">in</span> use</span><br><span class="line"><span class="keyword">Current</span> pager:          stdout</span><br><span class="line"><span class="keyword">Using</span> outfile:          <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">Using</span> delimiter:        ;</span><br><span class="line">Server version:         <span class="number">5.7</span><span class="number">.41</span> MySQL Community Server (GPL)</span><br><span class="line">Protocol version:       <span class="number">10</span></span><br><span class="line">Connection:             Localhost via UNIX socket</span><br><span class="line">Server characterset:    latin1</span><br><span class="line">Db     characterset:    latin1</span><br><span class="line">Client characterset:    utf8</span><br><span class="line">Conn.  characterset:    utf8</span><br><span class="line">UNIX socket:            <span class="operator">/</span>var<span class="operator">/</span>lib<span class="operator">/</span>mysql<span class="operator">/</span>mysql.sock</span><br><span class="line">Uptime:                 <span class="number">33</span> min <span class="number">20</span> sec</span><br><span class="line"></span><br><span class="line">Threads: <span class="number">1</span>  Questions: <span class="number">116</span>  Slow queries: <span class="number">0</span>  Opens: <span class="number">175</span>  Flush tables: <span class="number">1</span>  <span class="keyword">Open</span> tables: <span class="number">168</span>  Queries <span class="keyword">per</span> <span class="keyword">second</span> avg: <span class="number">0.058</span></span><br><span class="line"><span class="comment">--------------</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL安装目录说明"><a href="#MySQL安装目录说明" class="headerlink" title="MySQL安装目录说明"></a>MySQL安装目录说明</h3><table>
 <thead>
 <tr>
 <th>文件夹</th>
 <th>文件夹内容</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>/var/bin</td>
+<tbody><tr>
+<td>&#x2F;var&#x2F;bin</td>
 <td>客户端和脚本（mysqladmin、mysqldump等命令）</td>
 </tr>
 <tr>
-<td>/usr/sbin</td>
+<td>&#x2F;usr&#x2F;sbin</td>
 <td>mysqld服务器</td>
 </tr>
 <tr>
-<td>/var/lib/mysql</td>
+<td>&#x2F;var&#x2F;lib&#x2F;mysql</td>
 <td>日志文件、socket文件和数据库</td>
 </tr>
 <tr>
-<td>/usr/share/info</td>
+<td>&#x2F;usr&#x2F;share&#x2F;info</td>
 <td>信息格式的手册</td>
 </tr>
 <tr>
-<td>/usr/share/man</td>
+<td>&#x2F;usr&#x2F;share&#x2F;man</td>
 <td>UNIX帮助页</td>
 </tr>
 <tr>
-<td>/usr/include/mysql</td>
+<td>&#x2F;usr&#x2F;include&#x2F;mysql</td>
 <td>头文件</td>
 </tr>
 <tr>
-<td>/usr/lib/mysql</td>
+<td>&#x2F;usr&#x2F;lib&#x2F;mysql</td>
 <td>MySQL的依赖库</td>
 </tr>
 <tr>
-<td>/usr/share/mysql</td>
+<td>&#x2F;usr&#x2F;share&#x2F;mysql</td>
 <td>错误消息、字符集、安装文件和配置文件</td>
 </tr>
 <tr>
-<td>/etc/rc.d/init.d/</td>
+<td>&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;</td>
 <td>启动脚本文件的mysql目录，用来启动和停止MySQL服务</td>
 </tr>
-</tbody>
-</table>
-<h3 id="MySQL数据目录说明">MySQL数据目录说明</h3>
-<aside>
+</tbody></table>
+<h3 id="MySQL数据目录说明"><a href="#MySQL数据目录说明" class="headerlink" title="MySQL数据目录说明"></a>MySQL数据目录说明</h3><aside>
 ⚠️ MySQL数据目录的位置可以通过/etc/my.cnf配置文件中的datadir配置获得。
+
 </aside>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191111.png" alt="Untitled"></p>
 <table>
 <thead>
@@ -338,18 +382,17 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>auto.cnf</td>
 <td>MySQL服务器的选项文件，用于存储server-uuid的值，server-uuid用于标识MySQL实例在集群中的唯一性。</td>
 </tr>
 <tr>
 <td>ca-key.pem</td>
-<td>CA 私钥, 用于生成服务器端/客户端的数字证书</td>
+<td>CA 私钥, 用于生成服务器端&#x2F;客户端的数字证书</td>
 </tr>
 <tr>
 <td>ca.pem</td>
-<td>CA 证书, 用于生成服务器端/客户端的数字证书</td>
+<td>CA 证书, 用于生成服务器端&#x2F;客户端的数字证书</td>
 </tr>
 <tr>
 <td>client-cert.pem</td>
@@ -419,8 +462,7 @@
 <td>sys：MySQL5.7版本的数据库，提供了一些视图，用于帮助开发者和使用者更方便地查看性能问题。</td>
 <td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li>test是我们自己创建的测试库，结构如下：</li>
 </ul>
@@ -438,9 +480,10 @@
 <p>*.MYI：存储MyISAM表的索引及相关信息。</p>
 <aside>
 ⚠️ 在MySQL中，一个数据库可以使用多个存储引擎。所以该数据库下可能既存在InnoDB引擎的文件，也存在MyISAM引擎的文件。
+
 </aside>
-<h3 id="MySQL配置文件（my-cnf）">MySQL配置文件（my.cnf）</h3>
-<blockquote>
+
+<h3 id="MySQL配置文件（my-cnf）"><a href="#MySQL配置文件（my-cnf）" class="headerlink" title="MySQL配置文件（my.cnf）"></a>MySQL配置文件（my.cnf）</h3><blockquote>
 <p>服务器端参数“[mysqld]”</p>
 </blockquote>
 <table>
@@ -450,8 +493,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>port</td>
 <td>表示MySQL服务器的端口号</td>
 </tr>
@@ -539,13 +581,9 @@
 <td>innodb_flush_log_at_trx_commit</td>
 <td>提交日志的时机，为1时会在每次提交后将事务日志写入到磁盘上</td>
 </tr>
-</tbody>
-</table>
-<h2 id="问题记录">问题记录</h2>
-<h3 id="CentOS7忘记密码怎么办？">CentOS7忘记密码怎么办？</h3>
-<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1ODg3MTgwL2FydGljbGUvZGV0YWlscy8xMTU4MTkxMzY=">CentOS7如果忘记密码，密码重置详细步骤_centos修改密码忘记密码-CSDN博客<i class="fa fa-external-link-alt"></i></span></p>
-<h3 id="ERROR-1820（HY000）">ERROR 1820（HY000）</h3>
-<p>错误提示：You must reset your password using ALTER USER statement before executing this statement.</p>
+</tbody></table>
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="CentOS7忘记密码怎么办？"><a href="#CentOS7忘记密码怎么办？" class="headerlink" title="CentOS7忘记密码怎么办？"></a>CentOS7忘记密码怎么办？</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1ODg3MTgwL2FydGljbGUvZGV0YWlscy8xMTU4MTkxMzY=">CentOS7如果忘记密码，密码重置详细步骤_centos修改密码忘记密码-CSDN博客<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="ERROR-1820（HY000）"><a href="#ERROR-1820（HY000）" class="headerlink" title="ERROR 1820（HY000）"></a>ERROR 1820（HY000）</h3><p>错误提示：You must reset your password using ALTER USER statement before executing this statement.</p>
 <p>解决方案：<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1dpbmdfa2luNjY2L2FydGljbGUvZGV0YWlscy8xMTA5MjE0NDA=">MySQL 报错：ERROR 1820 (HY000): You must reset your password using ALTER USER statement before-CSDN博客<i class="fa fa-external-link-alt"></i></span></p>
 ]]></content>
       <categories>
@@ -556,41 +594,16 @@
       </tags>
   </entry>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-<p>记录在MacOS下修改文件的时间属性。</p>
-<span id="more"></span>
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MacOS常用软件记录</title>
     <url>/article/2878e73f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <blockquote>
 <p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
 </blockquote>
 <span id="more"></span>
-<h3 id="操作系统-镜像">操作系统-[镜像]</h3>
-<ul>
+
+<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
 <li>Windows：✨<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN-itellyou<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 <blockquote>
@@ -602,14 +615,12 @@
 <blockquote>
 <p>比较推荐直接去一些软件源上下载，这里举例<span class="exturl" data-url="aHR0cHM6Ly9taXJyb3JzLnR1bmEudHNpbmdodWEuZWR1LmNuL3VidW50dS1jZGltYWdlL3JlbGVhc2VzLzIzLjA0L3JlbGVhc2Uv">清华源<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
-<h3 id="操作系统工具-Mac">操作系统工具-[Mac]</h3>
-<h4 id="日常使用：">日常使用：</h4>
-<ul>
+<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
 <li><strong>视频会议</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly9tZWV0aW5nLnRlbmNlbnQuY29tLw==">腾讯会议<i class="fa fa-external-link-alt"></i></span></li>
 <li><strong>文件解压缩：</strong><span class="exturl" data-url="aHR0cHM6Ly9lemlwLmF3ZWh1bnQuY29tLw==">MacZip<i class="fa fa-external-link-alt"></i></span></li>
 <li><strong>待办提醒</strong>：苹果提醒事项</li>
 <li><strong>电子邮件</strong>：苹果邮件</li>
-<li><strong>聊天工具</strong>：<span class="exturl" data-url="aHR0cHM6Ly93ZWl4aW4ucXEuY29tLw==">微信<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93b3JrLndlaXhpbi5xcS5jb20=">企业微信<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>聊天工具</strong>：<span class="exturl" data-url="aHR0cHM6Ly93ZWl4aW4ucXEuY29tLw==">微信<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93b3JrLndlaXhpbi5xcS5jb20v">企业微信<i class="fa fa-external-link-alt"></i></span></li>
 <li>翻译：<span class="exturl" data-url="aHR0cHM6Ly9jaWRpYW4ueW91ZGFvLmNvbS9kb3dubG9hZC1hcHAvP2tleWZyb209ZGljdF93ZWJfcHJvZHVjdA==">有道词典<i class="fa fa-external-link-alt"></i></span></li>
 <li>VPN：✨<span class="exturl" data-url="aHR0cHM6Ly9yaWMuYXNpd2F5Lm9yZy8/c2hvcnRsaW5rPTBnZXNnaml1JmM9Y3MtYXJ0aWNsZXMmcGlkPWFjdGl2aXR5JmFmX3hwPWN1c3RvbSZzb3VyY2VfY2FsbGVyPXVp">LetsVPN<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly92cG4ubXVjLmVkdS5jbi9wb3J0YWwvIyEvbG9naW4=">EasyConnect<i class="fa fa-external-link-alt"></i></span></li>
 <li><strong>备忘录</strong>：苹果备忘录</li>
@@ -619,8 +630,7 @@
 <li>输入法：<span class="exturl" data-url="aHR0cHM6Ly9waW55aW4uc29nb3UuY29tL21hYy8=">搜狗输入法<i class="fa fa-external-link-alt"></i></span></li>
 <li>软件包管理：<span class="exturl" data-url="aHR0cHM6Ly9icmV3LnNoLw==">Homebrew<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<h4 id="开发工具：">开发工具：</h4>
-<ul>
+<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
 <li><strong>代码编辑器</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuamV0YnJhaW5zLmNvbS8=">IDEA<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpc3VhbHN0dWRpby5jb20v">VSCode<i class="fa fa-external-link-alt"></i></span></li>
 <li>Git：<span class="exturl" data-url="aHR0cHM6Ly9naXQtc2NtLmNvbS9kb3dubG9hZA==">Git<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9mb3JtdWxhZS5icmV3LnNoL2Zvcm11bGEvc3VidmVyc2lvbiNkZWZhdWx0">Svn<i class="fa fa-external-link-alt"></i></span></li>
 <li><strong>浏览器</strong>：<span class="exturl" data-url="aHR0cDovL3d3dy5maXJlZm94LmNvbS5jbi8=">Firefox<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNuL2Nocm9tZS9pbmRleC5odG1s">Google Chrome<i class="fa fa-external-link-alt"></i></span></li>
@@ -631,18 +641,15 @@
 <li>数据库设计工具：✨<span class="exturl" data-url="aHR0cHM6Ly9naXRlZS5jb20vcm9iZXJncm91cC9wZG1hbmVyL3JlbGVhc2Vz">PDManer<i class="fa fa-external-link-alt"></i></span></li>
 <li>接口测试工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucG9zdG1hbi5jb20vZG93bmxvYWRzLw==">Postman<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9qbWV0ZXIuYXBhY2hlLm9yZy8=">Jemter<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<h3 id="操作系统工具-Windows">操作系统工具-[Windows]</h3>
-<ul>
+<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
 <li>文件查找搜索：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cudm9pZHRvb2xzLmNvbS96aC1jbi8=">Everything<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<h3 id="网页工具">网页工具</h3>
-<ul>
+<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
 <li>✨腾讯杂项在线工具：<span class="exturl" data-url="aHR0cHM6Ly90b29sLmJyb3dzZXIucXEuY29tLw==">杂项工具箱<i class="fa fa-external-link-alt"></i></span></li>
 <li>✨画图工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucHJvY2Vzc29uLmNvbS8=">ProcessOn<i class="fa fa-external-link-alt"></i></span></li>
 <li>✨<span class="exturl" data-url="aHR0cHM6Ly93ZXJlYWQucXEuY29tLw==">微信读书<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<h3 id="浏览器插件">浏览器插件</h3>
-<ul>
+<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
 <li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvYWRndWFyZC1hZGJsb2NrZXIvYmdua2hobm5hbWljbXBlZW5hZWxuamZoaWtnYmtsbGc=">AdGuard AdBlocker<i class="fa fa-external-link-alt"></i></span>拦截广告</li>
 <li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvdGFrZS13ZWJwYWdlLXNjcmVlbnNob3RzL21jYnBibG9jZ21nZm5wampwcG5kamttZ2phb2dmY2Vn">FireShot<i class="fa fa-external-link-alt"></i></span> 捕捉网页截图</li>
 <li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvZ2l0emlwLWZvci1naXRodWIvZmZhYm1ra2xoYmVwZ2NnZm9uYWJhbWduZmFmYmRsa24=">GitZip for github<i class="fa fa-external-link-alt"></i></span> 下载GitHub部分文件</li>
@@ -660,30 +667,31 @@
     <title>达梦查询分页排序问题</title>
     <url>/article/e057bf2e.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <span id="more"></span>
-<h2 id="问题复现">问题复现</h2>
-<ul>
+
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
 <li>环境：达梦7</li>
 </ul>
 <p>查询SQL如下</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
 <p>发现数据库的查询结果数据是正确的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png" alt=""></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
 <p>但页面返回的数据排序是有问题的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png" alt=""></p>
-<h2 id="问题分析">问题分析</h2>
-<p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png" alt=""></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
 <p>那么拼接后的SQL就是这样</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png" alt=""></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png" alt=""></p>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
 <p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
-<h2 id="解决方式">解决方式</h2>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
-<h2 id="参考">参考</h2>
-<ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
@@ -698,8 +706,10 @@
     <title>SSH 连接不到 EC2 Linux 实例原因排查</title>
     <url>/article/306847ba.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展计算能力的按需计算服务。本文用于记录MacOS环境下连接EC2实例的排查过程。</p>
 <span id="more"></span>
+
 <p>当时由于第一次接触AWS的EC2产品，对AWS除了知道它和阿里云一样都属于云计算公司以外，并没有过多的了解。但在之前已经使用过腾讯云、阿里云的相关云服务产品，有一定的云上使用经验。</p>
 <p>网上的大多数方案都是基于Windows的方法，对于MacOS的平台的资料并不多或者没法通过验证。因对AWS产品的不熟，在困扰许久的情况下，我联系了AWS的中国区的官方支持人员。在与亚马逊的小姐姐沟通后，她们针对我的问题与技术进行了沟通并对我的问题进行了邮件回复和文档支持。</p>
 <p>以下是邮件回复的的文档资料（部分内容）</p>
@@ -707,6 +717,7 @@
 <li>在 Linux 或者 mac 环境下，常见的ssh的命令：</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i /path/&lt;替换为您自己的秘钥名称&gt;.pem ec2-user@publicdns-hostname-or-ipv4-address</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>在 windows 下，请参考使用 <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmF3cy5hbWF6b24uY29tL3poX2NuL0FXU0VDMi9sYXRlc3QvVXNlckd1aWRlL3B1dHR5Lmh0bWw=">putty 从 windows 连接到 linux 实例<i class="fa fa-external-link-alt"></i></span>。通常分为两步，秘钥格式的转换，以及连接。</li>
 </ol>
@@ -735,53 +746,60 @@
     <title>UOS升级OpenSSH</title>
     <url>/article/947b9fd7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程</p>
 <span id="more"></span>
+
 <p>服务器使用的是统信的UOS，使用方式和Ubuntu的使用方式很像。</p>
 <ul>
 <li>操作系统版本</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Uos</span><br><span class="line">Description:	UnionTech OS Server 20 Enterprise</span><br><span class="line">Release:	20</span><br><span class="line">Codename:	fou</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>升级前的OpenSSH版本</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ ssh -V</span><br><span class="line">OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
-<h2 id="更新apt源">更新apt源</h2>
-<ol>
+
+<h2 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h2><ol>
 <li>使用root用户修改 <code>/etc/apt/sources.list</code>文件</li>
 </ol>
 <blockquote>
-<p>vi /etc/apt/sources.list</p>
+<p>vi &#x2F;etc&#x2F;apt&#x2F;sources.list</p>
 </blockquote>
 <ul>
 <li>政务网</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb [by-hash=force] http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>互联网</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>更新源</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line">命中:1 http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise fou/sp3 InRelease</span><br><span class="line">正在读取软件包列表... 完成</span><br><span class="line">正在分析软件包的依赖关系树   </span><br><span class="line">正在读取状态信息... 完成   </span><br><span class="line">有 140 个软件包可以升级。请执行 ‘apt list --upgradable’ 来查看它们。</span><br></pre></td></tr></table></figure>
-<h2 id="更新OpenSSH">更新OpenSSH</h2>
-<ol>
+
+<h2 id="更新OpenSSH"><a href="#更新OpenSSH" class="headerlink" title="更新OpenSSH"></a>更新OpenSSH</h2><ol>
 <li>安装 <code>libssl-dev</code></li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install libssl-dev -y</span></span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>上传 <code>openssh</code>和 <code>zlib</code></li>
 </ol>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wYTZaNVlqUlRVT1ZEd3l5amg2OWZMQW9R">ICloud获取<i class="fa fa-external-link-alt"></i></span></th>
-<th style="text-align:center"><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMU43NENkc3JvZm9uSnZ5RW1TODd2b0E/cHdkPWdlczM=">百度网盘获取<i class="fa fa-external-link-alt"></i></span></th>
+<th align="center"><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wYTZaNVlqUlRVT1ZEd3l5amg2OWZMQW9R">ICloud获取<i class="fa fa-external-link-alt"></i></span></th>
+<th align="center"><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMU43NENkc3JvZm9uSnZ5RW1TODd2b0E/cHdkPWdlczM=">百度网盘获取<i class="fa fa-external-link-alt"></i></span></th>
 </tr>
 </thead>
 </table>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1.tar.gz  zlib-1.2.13.tar.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压源码包</span></span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf openssh-9.4p1.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf zlib-1.2.13.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1	openssh-9.4p1.tar.gz  zlib-1.2.13  zlib-1.2.13.tar.gz</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li>编译安装</li>
 </ol>
@@ -789,12 +807,13 @@
 <li>安装zlib</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>安装open-ssh</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# cd openssh-9.4p1</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<h2 id="升级验证">升级验证</h2>
-<p>再次查看OpenSSH的版本，发现已经升级成功，由原来的 <code>7.9p1 Debian-10+deb10u1</code>升级到了 <code>9.4p1</code></p>
+
+<h2 id="升级验证"><a href="#升级验证" class="headerlink" title="升级验证"></a>升级验证</h2><p>再次查看OpenSSH的版本，发现已经升级成功，由原来的 <code>7.9p1 Debian-10+deb10u1</code>升级到了 <code>9.4p1</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root@wsupport-PC:~# ssh -V</span><br><span class="line">OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -808,31 +827,25 @@
     <title>Windows环境Oracle数据库自动备份的实现</title>
     <url>/article/a639d743.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <span id="more"></span>
-<h2 id="1-创建批处理文件（-bat）">1.创建批处理文件（.bat）</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-添加定时任务执行计划">2.添加定时任务执行计划</h2>
-<h3 id="2-1打开任务计划程序">2.1打开任务计划程序</h3>
-<p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务">2.2创建计划任务</h3>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg" alt=""></p>
-<h3 id="2-3选择计划任务的执行循环周期">2.3选择计划任务的执行循环周期</h3>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg" alt=""></p>
-<h3 id="2-4选择计划任务的执行时间">2.4选择计划任务的执行时间</h3>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg" alt=""></p>
-<h3 id="2-5选择程序位置">2.5选择程序位置</h3>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg" alt=""></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg" alt=""></p>
-<h3 id="2-6确认任务摘要">2.6确认任务摘要</h3>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg" alt=""></p>
+
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
 <blockquote>
 <p>点击“完成”，完成定时任务的创建。</p>
 </blockquote>
-<h2 id="参考">参考</h2>
-<ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date~0,4%和 %time~0,2%等用法详解 <code>&lt;/a&gt;</code></li>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
 <li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 / 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
       <categories>
@@ -846,26 +859,25 @@
     <title>Windows环境下的MySQL安装与配置</title>
     <url>/article/8df25a04.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。</p>
 <span id="more"></span>
-<h2 id="获取">获取</h2>
-<p>本文使用的版本是 <code>MySQL 5.7.43</code>，可通过🔗<span class="exturl" data-url="aHR0cHM6Ly9kb3dubG9hZHMubXlzcWwuY29tL2FyY2hpdmVzL2luc3RhbGxlci8=">官网<i class="fa fa-external-link-alt"></i></span>获取最新版本，也可以直接通过我的网盘获取。</p>
+
+<h2 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h2><p>本文使用的版本是 <code>MySQL 5.7.43</code>，可通过🔗<span class="exturl" data-url="aHR0cHM6Ly9kb3dubG9hZHMubXlzcWwuY29tL2FyY2hpdmVzL2luc3RhbGxlci8=">官网<i class="fa fa-external-link-alt"></i></span>获取最新版本，也可以直接通过我的网盘获取。</p>
 <p>🔗<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wZmRNcWhHMVpiUXpYVGEteFQ2R3E0anlRI015U1FM">ICloud的网盘<i class="fa fa-external-link-alt"></i></span>：</p>
 <ul>
 <li>基于32位的 <code>mysql-installer-community-5.7.42.0</code>安装版</li>
 <li>基于64位的 <code>mysql-5.7.43-winx64</code></li>
 <li>RPM版本的 <code>mysql-5.7.41-1.el7.x86_64.rpm-bundle.tar</code></li>
 </ul>
-<h2 id="Windows的安装">Windows的安装</h2>
-<blockquote>
+<h2 id="Windows的安装"><a href="#Windows的安装" class="headerlink" title="Windows的安装"></a>Windows的安装</h2><blockquote>
 <p>Windows环境：Windows7旗舰版Service Pack 1</p>
 </blockquote>
 <ul>
 <li>将MySQL放到安装目录中</li>
 </ul>
 <p>此系统为了我的虚拟机，只有一个盘符 <code>C:</code>，所以我会放到 <code>C:\Program Files</code>目录下。对于MySQL的图形化 <code>.msi</code>的安装版本，会默认将安装到 <code>C:\Program Files\MySQL</code>目录下。</p>
-<h3 id="设置环境变量">设置环境变量</h3>
-<ul>
+<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
 <li>添加系统环境变量 <code>MYSQL57_HOME</code></li>
 </ul>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191133.png" alt="image-20230727220925088"></p>
@@ -887,29 +899,29 @@
 </ul>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191135.png" alt="image-20230727222026852"></p>
 <p>看到这个说明环境变量配置成功</p>
-<h3 id="创建配置文件">创建配置文件</h3>
-<p>在MySQL安装目录创建MySQL配置文件 <code>my.ini</code></p>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>在MySQL安装目录创建MySQL配置文件 <code>my.ini</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir=C:\\Program Files\mysql-5.7.43-winx64</span><br><span class="line"></span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=C:\\Program Files\mysql-5.7.43-winx64\data</span><br><span class="line"></span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections=200</span><br><span class="line"></span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br></pre></td></tr></table></figure>
+
 <p>从 MySQL 5.7.6 开始，ZIP存档的MySQL不再包含 <code>data</code>目录，这个目录需要我们自己创建和通过MySQL初始化。</p>
 <p>如果您想在不同位置使用数据目录，则应将该 <code>data</code>目录的全部内容复制到新位置。例如，如果您想用作 <code>E:\mydata</code>数据目录，则必须做两件事：</p>
 <ol>
 <li>将整个 <code>data</code>目录及其所有内容从默认位置（例如 <code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>）移动到 <code>E:\mydata</code>；</li>
 <li>每次启动服务器时，使用<a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_datadir"><code>--datadir</code></a>选项指定新的数据目录位置。</li>
 </ol>
-<h3 id="初始化和安装">初始化和安装</h3>
-<p>❗以下命令都需要cmd以<strong>管理员身份运行</strong></p>
+<h3 id="初始化和安装"><a href="#初始化和安装" class="headerlink" title="初始化和安装"></a>初始化和安装</h3><p>❗以下命令都需要cmd以<strong>管理员身份运行</strong></p>
 <ol>
 <li>初始化数据库</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 初始化时生成随机密码，且密码将被标记为已过期，在首次登陆后需要进行密码的修改</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize</span><br><span class="line"></span><br><span class="line"># 初始化时不会生成随机密码，在第一次登陆时使用回车确认即可</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize-insecure</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
-<li>启动服务器/停止服务器</li>
+<li>启动服务器&#x2F;停止服务器</li>
 </ol>
 <ul>
 <li>启动服务器</li>
 </ul>
 <blockquote>
-<p>C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --console</p>
+<p>C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld –console</p>
 <p>或 mysqld，因为已经配置了环境变量所以这里可以简写为mysqld</p>
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191136.png" alt="image-20230727230811586"></p>
@@ -921,32 +933,35 @@
 <li>类型为自动启动，服务名默认MySQL(推荐)</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install</span><br><span class="line">Service successfully installed.</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>类型为手动启动，服务名为MySQLServer57</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install-manual MySQLServer57</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
 <li>启动服务</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc start mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 2  START_PENDING</span><br><span class="line">                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x1f40</span><br><span class="line">        PID                : 2192</span><br><span class="line">        FLAGS              :</span><br></pre></td></tr></table></figure>
+
 <p>查看服务状态</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc query mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 1  STOPPED</span><br><span class="line">        WIN32_EXIT_CODE    : 1077  (0x435)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x0</span><br><span class="line">        WAIT_HINT          : 0x0</span><br></pre></td></tr></table></figure>
-<h3 id="安装后配置">安装后配置</h3>
-<p>在进行MySQL的初始化操作后，会在MySQL的配置的 <code>datadir</code>目录下生成一个以 <code>主机名.err</code>的日志文件，在日志文件中查找 <code>password</code>关键字来获取MySQL的初始密码。</p>
+
+<h3 id="安装后配置"><a href="#安装后配置" class="headerlink" title="安装后配置"></a>安装后配置</h3><p>在进行MySQL的初始化操作后，会在MySQL的配置的 <code>datadir</code>目录下生成一个以 <code>主机名.err</code>的日志文件，在日志文件中查找 <code>password</code>关键字来获取MySQL的初始密码。</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191137.png" alt="image-20230728005557780"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Windows\system32&gt;mysql -u root -p</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.43</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2023, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
 <p>可通过mysql本地客户端工具连接mysql后，修改初始密码。</p>
-<h4 id="修改root密码">修改root密码</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; alter user root@localhost identified by &#x27;123456&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
-<h4 id="允许远程访问">允许远程访问</h4>
-<p>用户默认会有登陆的授权访问限制，只有允许的IP才能访问。所以可以通过修改用户的host字段来修改IP访问限制。</p>
+<h4 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; alter user root@localhost identified by &#x27;123456&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="允许远程访问"><a href="#允许远程访问" class="headerlink" title="允许远程访问"></a>允许远程访问</h4><p>用户默认会有登陆的授权访问限制，只有允许的IP才能访问。所以可以通过修改用户的host字段来修改IP访问限制。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 打开mysql数据库</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update user set host=&#x27;%&#x27; where user = &#x27;root&#x27;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line"># 刷新权限表</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
-<h3 id="番外篇">番外篇</h3>
-<h4 id="卸载MySQL">卸载MySQL</h4>
-<ol>
+
+<h3 id="番外篇"><a href="#番外篇" class="headerlink" title="番外篇"></a>番外篇</h3><h4 id="卸载MySQL"><a href="#卸载MySQL" class="headerlink" title="卸载MySQL"></a>卸载MySQL</h4><ol>
 <li>停止MySQL</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqladmin shutdown</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>停止服务</li>
 </ol>
@@ -954,45 +969,42 @@
 <p>可先通过sc query mysql来查询服务状态</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc stop mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 3  STOP_PENDING</span><br><span class="line">                                (STOPPABLE, PAUSABLE, ACCEPTS_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x5265c00</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li>删除服务</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc delete mysql</span><br><span class="line">[SC] DeleteService 成功</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
 <li>删除MySQL相关目录文件及环境变量等信息</li>
 </ol>
 <p>本文中MySQL安装在C:\Program Files\mysql-5.7.43-winx64目录下，那么在做完上述操作后，我只需要将 <code>mysql-5.7.43-winx64</code>目录删除即可。然后再到系统环境变量中删除MySQL的相关环境变量就行。</p>
-<h4 id="常用命令">常用命令</h4>
-<table>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><table>
 <thead>
 <tr>
-<th style="text-align:left">命令</th>
-<th style="text-align:left">描述</th>
+<th align="left">命令</th>
+<th align="left">描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">sc query mysql</td>
-<td style="text-align:left">查看服务状态</td>
+<tbody><tr>
+<td align="left">sc query mysql</td>
+<td align="left">查看服务状态</td>
 </tr>
 <tr>
-<td style="text-align:left">sc delete mysql</td>
-<td style="text-align:left">删除服务</td>
+<td align="left">sc delete mysql</td>
+<td align="left">删除服务</td>
 </tr>
 <tr>
-<td style="text-align:left">sc stop mysql</td>
-<td style="text-align:left">停止服务</td>
+<td align="left">sc stop mysql</td>
+<td align="left">停止服务</td>
 </tr>
 <tr>
-<td style="text-align:left">sc start mysql</td>
-<td style="text-align:left">启动服务</td>
+<td align="left">sc start mysql</td>
+<td align="left">启动服务</td>
 </tr>
-</tbody>
-</table>
-<h2 id="总结">总结</h2>
-<p>MySQL是一个跨平台的关系型数据库，以上记录了Windows7下的安装方式，对于Windows10、WindowsServer、CentOS和其他Linux操作系统来说，方法和思路都是类似的。在具体的操作上会略有不同。</p>
-<h2 id="参考">参考</h2>
-<ul>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MySQL是一个跨平台的关系型数据库，以上记录了Windows7下的安装方式，对于Windows10、WindowsServer、CentOS和其他Linux操作系统来说，方法和思路都是类似的。在具体的操作上会略有不同。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL3dpbmRvd3MtaW5zdGFsbGF0aW9uLmh0bWw=">在 Microsoft Windows 上安装 MySQL<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 ]]></content>
@@ -1007,15 +1019,19 @@
     <title>为什么PPT不如备忘录</title>
     <url>/article/60bd0b8.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+
+
 <span id="more"></span>
+
 <blockquote>
 <p>原文<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDI0LzAxL3dlZWtseS1pc3N1ZS0yODUuaHRtbA==">《科技爱好者周刊（第 285 期）：为什么 PPT 不如备忘录》<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
-<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：“我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
-<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。“新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
+<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：”我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
+<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。”新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
 <p>“会议的前30分钟，我们是不说话的。大家在会议室中安静地坐在一起，阅读这份六页的备忘录，在空白处做笔记，过了30分钟才开始讨论。”</p>
 <p>这真的很奇怪，你见过半个小时没人说话的会议吗？</p>
-<p>贝佐斯解释：“你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
+<p>贝佐斯解释：”你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
 <p>“我们索性在会议上留出时间，让大家现场阅读材料，然后就可以进行真正高层次的讨论了，所有人都跟得上讨论的主题，不会搞不清一些基本的事实。”</p>
 <p>那么，为什么一定要当事人提交六页的备忘录，而不是现场主讲 PPT 呢？</p>
 <p>贝佐斯说，<strong>书面的备忘录要比 PPT 演示，效果好得多</strong>，主要有以下几点原因。</p>
@@ -1028,7 +1044,7 @@
 <p>（5）PPT 通常只是一些要点，不是完整的句子，有利于隐藏很多草率的想法。而备忘录是完整的段落，必须有主题句，有动词和名词，你很难隐藏自己的草率思维。</p>
 <p>备忘录迫使作者处于最佳状态，你能得到一个人真正最好的想法。如果 PPT 演示，你们可能要讨论很久，发言人才能进入最佳状态。从长远来看，备忘录节省了你的时间。</p>
 <p>以上就是贝佐斯不允许使用 PPT 的五点理由。</p>
-<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的&quot;备忘录开会法&quot;----<strong>先写成文档，再进行讨论</strong>----可能是更好更正确的做法。</p>
+<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的”备忘录开会法”—-<strong>先写成文档，再进行讨论</strong>—-可能是更好更正确的做法。</p>
 ]]></content>
       <categories>
         <category>杂文随笔</category>
@@ -1038,12 +1054,12 @@
     <title>使用ChatGPT的提问技巧</title>
     <url>/article/698aa78f.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>本人将介绍一些ChatGPT的提问技巧，帮助我们更好的使用ChatGPT解决实际问题。</p>
 <span id="more"></span>
-<h2 id="什么是ChatGPT？">什么是ChatGPT？</h2>
-<p>如果一个人对世界上的知识几乎无所不知，可以进行实时对话，它可以无条件的帮我去搜索信息、多语言编程、多语言写作、推理、共创。帮我们调用其他的软件完成实际的工作任务，这个的一个人可以扮演你的导师、翻译官、程序员、咨询顾问、搜索引擎。这么一个人就是ChatGPT。</p>
-<h2 id="ChatGPT的特点">ChatGPT的特点</h2>
-<ol>
+
+<h2 id="什么是ChatGPT？"><a href="#什么是ChatGPT？" class="headerlink" title="什么是ChatGPT？"></a>什么是ChatGPT？</h2><p>如果一个人对世界上的知识几乎无所不知，可以进行实时对话，它可以无条件的帮我去搜索信息、多语言编程、多语言写作、推理、共创。帮我们调用其他的软件完成实际的工作任务，这个的一个人可以扮演你的导师、翻译官、程序员、咨询顾问、搜索引擎。这么一个人就是ChatGPT。</p>
+<h2 id="ChatGPT的特点"><a href="#ChatGPT的特点" class="headerlink" title="ChatGPT的特点"></a>ChatGPT的特点</h2><ol>
 <li>直接给你答案</li>
 </ol>
 <p>通过我们提出的问题，ChatGPT可以直接出我们的答案。</p>
@@ -1055,30 +1071,27 @@
 <li>ChatGPT能辅助我们完成工作任务</li>
 </ol>
 <p>ChatGPT不仅可以解答我们的各种疑问，还可以基于我们的需要，辅助我们完成代码编程、内容翻译、文章创作的任务。</p>
-<h2 id="5H2W分析方法">5H2W分析方法</h2>
-<p>5H2W分析方法是一种用于解决问题和制定决策的系统性工具。这种方法通常包括以下五个关键要素（5H）和两个核心问题（2W），这些要素和问题协同工作，帮助人们深入了解问题，找到解决方案。即What（是什么？）、Why（为什么做？）、Who（谁来做？）、When（什么时候做？）、Where（在哪里做？）、How（怎么做？）</p>
-<h3 id="目的">目的</h3>
-<p>通过5W2H分析方法、帮助发现自身问题，并提出解决问题的方法。</p>
-<h3 id="优势">优势</h3>
-<ol>
+<h2 id="5H2W分析方法"><a href="#5H2W分析方法" class="headerlink" title="5H2W分析方法"></a>5H2W分析方法</h2><p>5H2W分析方法是一种用于解决问题和制定决策的系统性工具。这种方法通常包括以下五个关键要素（5H）和两个核心问题（2W），这些要素和问题协同工作，帮助人们深入了解问题，找到解决方案。即What（是什么？）、Why（为什么做？）、Who（谁来做？）、When（什么时候做？）、Where（在哪里做？）、How（怎么做？）</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>通过5W2H分析方法、帮助发现自身问题，并提出解决问题的方法。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ol>
 <li>可以帮助我们发现问题，并根据问题的线索找到解决问题的方法和思路。</li>
 <li>可以准确地找到问题的关键，减少不必要的查找问题的时间，从而提高工作效率。</li>
 </ol>
 <aside>
 ⚠️ 通过ChatGPT和5H2W的组合，可以帮助我们更高效的找到问题的解决思路和方法。
+
 </aside>
-<h2 id="如何提问才能得到更高质量的答案？">如何提问才能得到更高质量的答案？</h2>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191028.png" alt="Untitled"></p>
+
+<h2 id="如何提问才能得到更高质量的答案？"><a href="#如何提问才能得到更高质量的答案？" class="headerlink" title="如何提问才能得到更高质量的答案？"></a>如何提问才能得到更高质量的答案？</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191028.png" alt="Untitled"></p>
 <p>盲区</p>
 <p>问法一：我想了解XXX，我应该向你问哪些问题？</p>
 <p>比如：我想快速了解人工智能行业，我应该向你问哪些问题？</p>
-<p>问法二：请给我列出XXX领域/行业相关的，最常用的50个概念，并做简单解释。如果有英文缩写，请给出完整的英文解释。</p>
+<p>问法二：请给我列出XXX领域&#x2F;行业相关的，最常用的50个概念，并做简单解释。如果有英文缩写，请给出完整的英文解释。</p>
 <p>比如：请给我列出人工智能行业相关的最常用的50个概念，并做简单解释，如果有英文缩写，请给出完整的英文解释。</p>
 <p>问法三：请详细介绍一下XXX的主要生平事迹。请详细介绍一下XXX公司的发展历程。</p>
 <p>比如：请详细介绍一下艾隆·马斯克的主要生平事迹。请详细介绍一下Tesla公司的发展历程。</p>
-<h2 id="公开区">公开区</h2>
-<p>检验认知、扩充认知</p>
-<p>问法一：对于XXX主题/技能，你认为哪些是我必须理解和掌握的核心要点？</p>
+<h2 id="公开区"><a href="#公开区" class="headerlink" title="公开区"></a>公开区</h2><p>检验认知、扩充认知</p>
+<p>问法一：对于XXX主题&#x2F;技能，你认为哪些是我必须理解和掌握的核心要点？</p>
 <p>比如：对于掌握ChatGPT的使用技能，你认为哪些是我必须理解和掌握的核心要点？</p>
 <p>问法二：我理解的XXX是这样的，你觉得我的理解对吗？</p>
 <p>比如：我理解的ChatGPT是一个无所不知的博士，你觉得我的理解对吗？</p>
@@ -1092,26 +1105,23 @@
 <p>问法十：我正在学习xxx，你能给我一些关于这个领域未来发展的观点吗？</p>
 <p>问法十一：给出一些背景信息，我要做关于XXX的研究，我认为原因是，还有其他可能的原因吗？给出一些可能的研究假设。</p>
 <p>问法十二：我是一个XXX行业的新手，马上要采访这个行业的资深大佬，我应该向他请教哪些有价值的问题？</p>
-<h3 id="隐私区">隐私区</h3>
-<p>问法一：你怎么看待这种现象？</p>
+<h3 id="隐私区"><a href="#隐私区" class="headerlink" title="隐私区"></a>隐私区</h3><p>问法一：你怎么看待这种现象？</p>
 <p>问法二：可能的原因有哪些？</p>
 <p>问法三：这会对XXX产生什么样的影响？</p>
 <p>问法四：你觉得XXX应该怎么做？</p>
-<h3 id="未知区">未知区</h3>
-<p>问法一：如果xxx，这会对社会产生什么影响？</p>
+<h3 id="未知区"><a href="#未知区" class="headerlink" title="未知区"></a>未知区</h3><p>问法一：如果xxx，这会对社会产生什么影响？</p>
 <p>比如：如果中国家庭都用上了ChatGPT，这对中国家教行业会有什么影响？</p>
-<h2 id="达克效应">达克效应</h2>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191031.png" alt="Untitled"></p>
+<h2 id="达克效应"><a href="#达克效应" class="headerlink" title="达克效应"></a>达克效应</h2><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191031.png" alt="Untitled"></p>
 <aside>
 💡 达克效应是指在认知能力低下的人更容易高估自己的技能水平，同时也更容易低估他人的技能水平的现象。相对地，高水平的人可能低估自己的能力，因为他们可能认为别人对该领域的能力水平与他们自己相近。
+
 </aside>
-<h3 id="反向提问">反向提问</h3>
-<p>问法一：为了测试我对xxx的了解程度，你会问我什么问题来检验我的水平，最少10个。</p>
+
+<h3 id="反向提问"><a href="#反向提问" class="headerlink" title="反向提问"></a>反向提问</h3><p>问法一：为了测试我对xxx的了解程度，你会问我什么问题来检验我的水平，最少10个。</p>
 <p>问法二：我是xxx领域的专家，你会问我哪些问题来检验我的专业水平？最少10个。</p>
 <p>问法三：现在我们玩个”你问我答“的游戏，目的是为了测试我在xxx方面的专业水平。你负责提问，我负责回答。你要根据我的答案进行反馈、评价、补充。如果我说不知道，你就直接输出正确答案，然后你继续提问。</p>
 <p>问法四：我已经很精通XXX了，我想知道我是否还有需要学习的地方？</p>
-<h2 id="应用性场景的提问">应用性场景的提问</h2>
-<ol>
+<h2 id="应用性场景的提问"><a href="#应用性场景的提问" class="headerlink" title="应用性场景的提问"></a>应用性场景的提问</h2><ol>
 <li>知道自己要干什么，但是不知道ChatGPT能帮你什么</li>
 </ol>
 <p>问法：我想做xxxx，你能给我提供什么帮助？</p>
@@ -1130,8 +1140,7 @@
 <li>请润色…</li>
 </ul>
 <p>比如：请推荐10个高质量的Java的youtuber，按照粉丝量从高到低排序，并给出他们的YouTube频道链接。</p>
-<h2 id="角色扮演式提问">角色扮演式提问</h2>
-<p>问法一：如果你是xxx，在某种情况下，xxx会说什么，会怎么想，会怎么看，会怎么做？</p>
+<h2 id="角色扮演式提问"><a href="#角色扮演式提问" class="headerlink" title="角色扮演式提问"></a>角色扮演式提问</h2><p>问法一：如果你是xxx，在某种情况下，xxx会说什么，会怎么想，会怎么看，会怎么做？</p>
 <p>问法二：你好，我是 [名人名字]。在我最近的电影中，有一场戏是关于 [某个情节] 的。你对这个场景有什么看法吗？</p>
 <p>问法三：您好，我是 [历史人物名字]。我在 [某个时期] 做了一些重要的决定。你认为这些决定对后来的历史产生了什么影响？</p>
 <p>问法四：[名人名字]，我听说你在 [某个事件] 中发表了重要言论。您能分享一下当时的思考和背后的原因吗？</p>
@@ -1146,41 +1155,43 @@
     <title>使用Rsyslog归集系统日志</title>
     <url>/article/1836dc99.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
 <span id="more"></span>
-<h2 id="Rsyslog是什么？">Rsyslog是什么？</h2>
-<blockquote>
+
+<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
 <p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
 </blockquote>
-<h2 id="测试环境说明">测试环境说明</h2>
-<p>操作系统：<code>统信UOS20企业版</code></p>
+<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
 <p>测试服务器IP：<code>172.25.16.29</code></p>
 <p>测试客户端IP：<code>172.25.16.34</code></p>
-<h2 id="服务端配置">服务端配置</h2>
-<blockquote>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
 <p>启动UDP传输并进行端口监听</p>
 </blockquote>
 <p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>创建default.conf配置文件</p>
 </blockquote>
 <p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>重启服务端rsyslog服务</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-<h2 id="客户端配置">客户端配置</h2>
-<p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
+
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>重启服务端rsyslog服务</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-<h2 id="测试">测试</h2>
-<blockquote>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
 <p>日期生成</p>
 </blockquote>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
@@ -1189,11 +1200,13 @@
 <p>客户端生成日志</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
 <blockquote>
 <p>服务端监控输出</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
 ]]></content>
       <categories>
@@ -1207,8 +1220,10 @@
     <title>关于SSH服务“Permission denied, please try again.”问题的解决方案</title>
     <url>/article/9fdf7a25.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
 <span id="more"></span>
+
 <p>通过SSH终端工具连接时报以下问题：</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
 <p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
@@ -1231,9 +1246,11 @@
 <p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
 <p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
 <p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
 <p>重新尝试SSH登陆后，发现可以正常登陆。</p>
 ]]></content>
@@ -1248,39 +1265,36 @@
     <title>微信新号养成攻略</title>
     <url>/article/8cab61fe.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <span id="more"></span>
+
 <meta name="referrer" content="no-referrer" />
+
 <!--more-->
+
 <p>网上找的，供大家参考。</p>
-<h2 id="前期准备">前期准备</h2>
-<p><img src="https://qiniu-image.gotojava.cn/blog/c5b2527ad77dae3d52a0e8ee05873894.jpg" alt="c5b2527ad77dae3d52a0e8ee05873894"></p>
-<h2 id="养号操作">养号操作</h2>
-<h3 id="注册00-07天">注册00-07天</h3>
-<p>[1] 设置账号信息(头像、签名、 微信名、地区、性别等);绑定常用 QQ，邮箱;头像禁用美女头像;签名等不要出现营销、违规的敏感词。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p><img src="https://qiniu-image.gotojava.cn/blog/c5b2527ad77dae3d52a0e8ee05873894.jpg" alt="c5b2527ad77dae3d52a0e8ee05873894"></p>
+<h2 id="养号操作"><a href="#养号操作" class="headerlink" title="养号操作"></a>养号操作</h2><h3 id="注册00-07天"><a href="#注册00-07天" class="headerlink" title="注册00-07天"></a>注册00-07天</h3><p>[1] 设置账号信息(头像、签名、 微信名、地区、性别等);绑定常用 QQ，邮箱;头像禁用美女头像;签名等不要出现营销、违规的敏感词。</p>
 <p>[2] 适当主动添加 3 至 5 个好友，被动加3至5个好友， 适当聊聊天</p>
 <p>[3] 除聊天、查找等几个基础功能，不要使用更多的功能</p>
 <p>[4] 不发布任何违禁信息，禁止其他无关的操作</p>
 <p>[5] 账号要保持在线，手机不要长时间断网或者断电</p>
-<h3 id="注册08-15天">注册08-15天</h3>
-<p>[1] 关注 3~8 个公众号，及时打开推送信息，选择性阅读或者收藏文章</p>
+<h3 id="注册08-15天"><a href="#注册08-15天" class="headerlink" title="注册08-15天"></a>注册08-15天</h3><p>[1] 关注 3~8 个公众号，及时打开推送信息，选择性阅读或者收藏文章</p>
 <p>[2] 加入微信群并修改群名片， 微信钱包放入少量零钱</p>
 <p>[3] 买少量理财通</p>
 <p>[4] 发朋友圈(不要出现二维码等)，并给好友的朋友圈评论与点赞</p>
 <p>[5] 摇一摇和下载微信表情包</p>
 <p>[6] 少量主动加人，时间上要间隔开</p>
 <p>[7] 使用微信小程序</p>
-<h3 id="注册16-23天">注册16-23天</h3>
-<p>[1] 关注更多公众号，并在朋友圈转发推文</p>
+<h3 id="注册16-23天"><a href="#注册16-23天" class="headerlink" title="注册16-23天"></a>注册16-23天</h3><p>[1] 关注更多公众号，并在朋友圈转发推文</p>
 <p>[2] 加入更多的微信群，并在群里打招呼，保持少量群内问候互动</p>
 <p>[3] 朋友圈内容发布频率增加， 点赞与评论增加数量[4] 好友会话，并对好友进行标签分组</p>
 <p>[5] 下载微信游戏，并体验几分钟，使用漂流瓶功能[6] 主动好友添加数量增加</p>
-<h3 id="注册24-31天">注册24-31天</h3>
-<p>[1] 关注更多公众号和加入更多的微信群，并产生更广泛的链接关系</p>
+<h3 id="注册24-31天"><a href="#注册24-31天" class="headerlink" title="注册24-31天"></a>注册24-31天</h3><p>[1] 关注更多公众号和加入更多的微信群，并产生更广泛的链接关系</p>
 <p>[2] 朋友圈内容与互动达到正常微信号的活跃程度，内容多样化和互动性</p>
 <p>[3] 接发红包，并添加群好友，群内适当互动聊天</p>
 <p>[4] 主动添加好友，并适当被动加人，人数控制在每天25人以内为佳，每天分不同时间段分别加人，每次 5 人左右</p>
-<h3 id="31天后">31天后</h3>
-<ul>
+<h3 id="31天后"><a href="#31天后" class="headerlink" title="31天后"></a>31天后</h3><ul>
 <li><strong>必做：</strong></li>
 </ul>
 <p>[1] 和3到5个好友聊天，时间段分开。聊天需要有来有回，至少5-10句左右，要文字、表情、语音、 图片、文章相互穿插</p>
@@ -1301,8 +1315,7 @@
 <p>[7] 给好友增加标签、备注信息等</p>
 <p>[8] 加入群聊聊天</p>
 <p>[9] 其他微信功能</p>
-<h2 id="养号期间注意事项">养号期间注意事项</h2>
-<ul>
+<h2 id="养号期间注意事项"><a href="#养号期间注意事项" class="headerlink" title="养号期间注意事项"></a>养号期间注意事项</h2><ul>
 <li>关于网络</li>
 </ul>
 <p>不要将所有账号连接到同一WiFi下</p>
@@ -1313,15 +1326,15 @@
 <ul>
 <li>关于被动加好友</li>
 </ul>
-<p>不要玩附近的人/漂流瓶</p>
+<p>不要玩附近的人&#x2F;漂流瓶</p>
 <ul>
 <li>关于工具</li>
 </ul>
-<p>严禁三方工具进行管理/群控</p>
+<p>严禁三方工具进行管理&#x2F;群控</p>
 <ul>
 <li>关于操作</li>
 </ul>
-<p>一个月内不要做修改头像/修改绑定手机/登录其他账号等操作</p>
+<p>一个月内不要做修改头像&#x2F;修改绑定手机&#x2F;登录其他账号等操作</p>
 <ul>
 <li>关于内容</li>
 </ul>
@@ -1329,7 +1342,7 @@
 <ul>
 <li>关于安全</li>
 </ul>
-<p>聊天内容/朋友圈内容禁止涉及黄赌毒等政治敏感内容</p>
+<p>聊天内容&#x2F;朋友圈内容禁止涉及黄赌毒等政治敏感内容</p>
 <ul>
 <li>关于解封</li>
 </ul>
@@ -1351,10 +1364,11 @@
     <title>微信读书这个技巧让免费阅读成为可能</title>
     <url>/article/6b5ee4f0.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>本文用于分享一些微信读书的一些技巧和方法，目的在于让免费阅读成为可能。</p>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>元宵节前夕，微信读书书友圈的一个书友发了一篇寻求建议的文章，需求是“想看微信读书上的一些书籍，但书籍看到一半发现要充会员才能看，犹豫要不要充的问题”。我也顺便参与讨论了一些，表达了不建议充的观点和逻辑，没想到引起了很多人的兴趣，所以在此把一些自己的方法和资源分享出来。</p>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>元宵节前夕，微信读书书友圈的一个书友发了一篇寻求建议的文章，需求是“想看微信读书上的一些书籍，但书籍看到一半发现要充会员才能看，犹豫要不要充的问题”。我也顺便参与讨论了一些，表达了不建议充的观点和逻辑，没想到引起了很多人的兴趣，所以在此把一些自己的方法和资源分享出来。</p>
 <blockquote>
 <p>【微信读书】是基于微信关系链的官方阅读应用，同时支持IOS、Web、安卓和iPad终端平台。</p>
 <p>在提供美妙阅读体验的同时，为用户推荐合适的书籍，并可查看微信好友的读书动态、与好友讨论正在阅读的书籍等。</p>
@@ -1381,12 +1395,10 @@
 <li>组建微信读书群</li>
 <li>付费会员卡和体验卡的对比</li>
 </ol>
-<h2 id="书籍的寻找和导入">书籍的寻找和导入</h2>
-<p>首先这个是一个很棒的功能，微信读书知道自己不可能把所有的书籍资源都包含进去，所以给我们开放了一个接口，这个接口允许我们自己上传书籍到书架中去阅读。那么这就涉及到了两个问题：第一如何找书的问题？第二怎么上传到微信读书书架的问题？</p>
-<h3 id="怎么找书？">怎么找书？</h3>
-<p>找书的前提是知道书名、作者，或者知道这本书长啥样。对于如何找书，我一般使用下面的几个资源网站：</p>
+<h2 id="书籍的寻找和导入"><a href="#书籍的寻找和导入" class="headerlink" title="书籍的寻找和导入"></a>书籍的寻找和导入</h2><p>首先这个是一个很棒的功能，微信读书知道自己不可能把所有的书籍资源都包含进去，所以给我们开放了一个接口，这个接口允许我们自己上传书籍到书架中去阅读。那么这就涉及到了两个问题：第一如何找书的问题？第二怎么上传到微信读书书架的问题？</p>
+<h3 id="怎么找书？"><a href="#怎么找书？" class="headerlink" title="怎么找书？"></a>怎么找书？</h3><p>找书的前提是知道书名、作者，或者知道这本书长啥样。对于如何找书，我一般使用下面的几个资源网站：</p>
 <ol>
-<li><span class="exturl" data-url="aHR0cHM6Ly96bGlicmFyeS1zZy5zZQ==">ZLibrary图书馆<i class="fa fa-external-link-alt"></i></span>：Z-Library号称世界上最大的电子图书馆。🌟</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly96bGlicmFyeS1zZy5zZS8=">ZLibrary图书馆<i class="fa fa-external-link-alt"></i></span>：Z-Library号称世界上最大的电子图书馆。🌟</li>
 <li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaml1bW9kaWFyeS5jb20v">鸠摩搜索-文档搜索引擎<i class="fa fa-external-link-alt"></i></span></li>
 <li><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2h1Z2Uub3JnLw==">书格<i class="fa fa-external-link-alt"></i></span>：主要提供古籍搜索</li>
 </ol>
@@ -1395,8 +1407,7 @@
 <p>以ZLibrary举例，我们找《毛泽东选集》这本书，那么在搜索栏直接搜就好了。然后下载我们所需要的版本，</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227182343013.png" alt="毛泽东选集"></p>
 <p>在下载时，优先下载 epub 和 mobi两种格式的书籍，都没有的时候，再去考虑其他的。目前微信读书支持的导入格式有：txt、epub、pdf、doc、docx、mobi、azw3，市面上流行的格式基本上都支持。</p>
-<h3 id="导入书籍">导入书籍</h3>
-<p>说完了找书，那我们来说说导入。对于电脑端的用户可以使用浏览器进行导入，对于IOS、安卓用户可以使用手机进行导入，只要你设备上有这个资源就行了。</p>
+<h3 id="导入书籍"><a href="#导入书籍" class="headerlink" title="导入书籍"></a>导入书籍</h3><p>说完了找书，那我们来说说导入。对于电脑端的用户可以使用浏览器进行导入，对于IOS、安卓用户可以使用手机进行导入，只要你设备上有这个资源就行了。</p>
 <ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly93ZXJlYWQucXEuY29tL3dlYi91cGxvYWQ=">电脑端导入<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
@@ -1409,36 +1420,26 @@
 <p>导入完成后，就可以在微信读书的书架上看到了，多端同步的。</p>
 <p>对于一些英文书籍，最新版的微信读书支持自动翻译功能和一些细节性的参数调整，这个可以在设置中设置。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227184632888.png" alt="参数设置调整"></p>
-<h2 id="同步微信公众号文章">同步微信公众号文章</h2>
-<p>现在的自媒体时代，很多人会通过微信公众号来发布文章，我们可以将不错的文章加入到微信收藏中，微信读书可以同步这些收藏的文章，这样就可以实现集中管理。</p>
+<h2 id="同步微信公众号文章"><a href="#同步微信公众号文章" class="headerlink" title="同步微信公众号文章"></a>同步微信公众号文章</h2><p>现在的自媒体时代，很多人会通过微信公众号来发布文章，我们可以将不错的文章加入到微信收藏中，微信读书可以同步这些收藏的文章，这样就可以实现集中管理。</p>
 <p>在微信读书的“设置”-“隐私”-“微信公众号文章”中可以授权。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227185300500.png" alt="微信公众号文章同步"></p>
-<h2 id="善用微信读书机制">善用微信读书机制</h2>
-<p>这里的微信读书机制是指微信读书App为了提高书友的活跃度和用户黏性，通过活动来刺激书友参与阅读和分享观点的。这些活动包括送书、送书币、送体验卡等等，其目的在于让用户参与到阅读中去，只要你一直看，你就一直会得到奖励，通过这些奖励你再继续去阅读更多的书。</p>
-<h3 id="时长兑福利">时长兑福利</h3>
-<p>书友可以通过“读书排行榜”-“时长兑换福利”来通过阅读的时间来兑换书币和临时体验卡，这些书币也是临时的，不用的话一个月左右就会失效。书币可以用来购买书籍，如果书币额度不够可以花钱充值，充值的书币不会失效。</p>
-<h3 id="每日福利">每日福利</h3>
-<p>在微信读书的“阅读“页面中，有一个”每日福利“的版块，提供了一些免费获取书、书币、付费体验卡的活动。这些活动我们都可以参与。这些活动包括”答题闯关“、”阅读挑战赛“、”每日一答“、”积攒/组队抽体验卡“的活动，这些活动也增加了阅读的趣味性。</p>
+<h2 id="善用微信读书机制"><a href="#善用微信读书机制" class="headerlink" title="善用微信读书机制"></a>善用微信读书机制</h2><p>这里的微信读书机制是指微信读书App为了提高书友的活跃度和用户黏性，通过活动来刺激书友参与阅读和分享观点的。这些活动包括送书、送书币、送体验卡等等，其目的在于让用户参与到阅读中去，只要你一直看，你就一直会得到奖励，通过这些奖励你再继续去阅读更多的书。</p>
+<h3 id="时长兑福利"><a href="#时长兑福利" class="headerlink" title="时长兑福利"></a>时长兑福利</h3><p>书友可以通过“读书排行榜”-“时长兑换福利”来通过阅读的时间来兑换书币和临时体验卡，这些书币也是临时的，不用的话一个月左右就会失效。书币可以用来购买书籍，如果书币额度不够可以花钱充值，充值的书币不会失效。</p>
+<h3 id="每日福利"><a href="#每日福利" class="headerlink" title="每日福利"></a>每日福利</h3><p>在微信读书的“阅读“页面中，有一个”每日福利“的版块，提供了一些免费获取书、书币、付费体验卡的活动。这些活动我们都可以参与。这些活动包括”答题闯关“、”阅读挑战赛“、”每日一答“、”积攒&#x2F;组队抽体验卡“的活动，这些活动也增加了阅读的趣味性。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227191705084.png" alt="福利场"></p>
 <p>比较有意思的一个是”读书小队“，一个小队可以有6个人，其中有一个人是队长。通过登陆、阅读、互动评论、每日一答来积攒积分，积分可以用来兑换体验卡和抽书。连阅读都卷死来了~</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227191812072.png" alt="读书小队"></p>
-<h2 id="笔记的使用技巧">笔记的使用技巧</h2>
-<h3 id="手机端">手机端</h3>
-<p>微信读书的笔记功能是一大靓点。对于手机端用户和网页端用户，可以对内容进行划线和标注。还可以留下你的想法让更多人看到与他人进行交流，同时也可以分享书摘、查询关键词的含义和寻找与关键词相关的书籍。</p>
+<h2 id="笔记的使用技巧"><a href="#笔记的使用技巧" class="headerlink" title="笔记的使用技巧"></a>笔记的使用技巧</h2><h3 id="手机端"><a href="#手机端" class="headerlink" title="手机端"></a>手机端</h3><p>微信读书的笔记功能是一大靓点。对于手机端用户和网页端用户，可以对内容进行划线和标注。还可以留下你的想法让更多人看到与他人进行交流，同时也可以分享书摘、查询关键词的含义和寻找与关键词相关的书籍。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227192839345.png" alt="笔记标注"></p>
-<h3 id="IPad端">IPad端</h3>
-<p>对于有iPad的用户，也可以试试微信读书IPad版的”Pencil笔记模式“，配合类纸膜写笔记很舒服~</p>
+<h3 id="IPad端"><a href="#IPad端" class="headerlink" title="IPad端"></a>IPad端</h3><p>对于有iPad的用户，也可以试试微信读书IPad版的”Pencil笔记模式“，配合类纸膜写笔记很舒服~</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227193808139.png" alt="导出笔记"></p>
-<h3 id="下载笔记">下载笔记</h3>
-<p>我们在书中留下了很多零零散散的观点和想法，这些是我们阅读的痕迹。微信读书支持我们将自己的笔记导出来。</p>
+<h3 id="下载笔记"><a href="#下载笔记" class="headerlink" title="下载笔记"></a>下载笔记</h3><p>我们在书中留下了很多零零散散的观点和想法，这些是我们阅读的痕迹。微信读书支持我们将自己的笔记导出来。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227195213241.png" alt="下载笔记"></p>
 <p>微信读书允许我们将笔记复制到剪贴板中，在电脑上时我们可以把笔记复制到word中进行排版。</p>
 <p>具体可以参考Up主的分享：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXZLNHkxZDdXay8/dmRfc291cmNlPTI0NjdkNTI0NzdiOTFlYWMwMDVkNTBlZmNkYTJiZmJl">超高效的读书笔记整理技巧 | 如何在 5 分钟内快速整理读书笔记？<i class="fa fa-external-link-alt"></i></span></p>
-<h2 id="期刊订阅">期刊订阅</h2>
-<p>微信读书也是可以订阅期刊的，期刊可以帮助我们了解行业或者某领域的最新消息和研究成果，内容也是比较权威和严谨的，对于我们快速学习非常有帮助。在当前知识碎片化的时代，期刊也是系统性学习的一部分。</p>
+<h2 id="期刊订阅"><a href="#期刊订阅" class="headerlink" title="期刊订阅"></a>期刊订阅</h2><p>微信读书也是可以订阅期刊的，期刊可以帮助我们了解行业或者某领域的最新消息和研究成果，内容也是比较权威和严谨的，对于我们快速学习非常有帮助。在当前知识碎片化的时代，期刊也是系统性学习的一部分。</p>
 <p>在微信读书中，可以通过”阅读“-”分类“-”期刊杂志“进行订阅，已订阅的内容可以在”我“-”订阅“-”期刊杂志“中查看和加入书架进行阅读。但需要注意的是期刊内容大部分是付费会员才可以看的，如果想免费阅读我们也可以自己下载和导入期刊。</p>
-<h2 id="组建微信读书群">组建微信读书群</h2>
-<p>组建读书群的目的有三：</p>
+<h2 id="组建微信读书群"><a href="#组建微信读书群" class="headerlink" title="组建微信读书群"></a>组建微信读书群</h2><p>组建读书群的目的有三：</p>
 <ol>
 <li>解答以上步骤中遇到的问题和疑惑。</li>
 </ol>
@@ -1453,12 +1454,10 @@
 <p>比如有些书籍你可能就是找不到，那么可以向其他人获取思路和资源消除信息差；对于在阅读中遇到的问题可能困扰了你许久，那么兴许他人的方法会对你有所帮助；</p>
 <p>不知道看什么书？也许他人的推荐就解答你的疑惑。</p>
 <p>如果你希望得到上述的帮助，那么欢迎加入我们~（加我微信我拉你入群。WeChat：yz2638385556，验证备注：微信读书群）</p>
-<h2 id="付费会员卡和体验卡的对比">付费会员卡和体验卡的对比</h2>
-<p>这个对比是根据官方提供的付费会员卡和体验卡功能清单分析的</p>
+<h2 id="付费会员卡和体验卡的对比"><a href="#付费会员卡和体验卡的对比" class="headerlink" title="付费会员卡和体验卡的对比"></a>付费会员卡和体验卡的对比</h2><p>这个对比是根据官方提供的付费会员卡和体验卡功能清单分析的</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240227210452951.png" alt="付费会员卡和体验卡的对比"></p>
 <p>通过官方的功能清单发现，如果你是喜欢听书的，每周的阅读时间在5个小时左右，那么你开会员是划算的。如果你只是零散阅读，那么建议还是用体验卡更划算一些。对于一些书籍可以用书币购买的直接用书币购买，不能的或者书币不够的，自己下载资源导入吧~</p>
-<h2 id="总结">总结</h2>
-<p>分享了关于微信读书的一些免费阅读方法和使用技巧。但对于微信读书的功能远不止这些，还有很多的技巧等待着我们去挖掘和发现。如果你有更好的资源或技巧也欢迎通过评论区分享~</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>分享了关于微信读书的一些免费阅读方法和使用技巧。但对于微信读书的功能远不止这些，还有很多的技巧等待着我们去挖掘和发现。如果你有更好的资源或技巧也欢迎通过评论区分享~</p>
 ]]></content>
       <categories>
         <category>杂文随笔</category>
@@ -1471,8 +1470,10 @@
     <title>断舍离：迈向简约生活的第一步</title>
     <url>/article/1bc91136.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>《断舍离》是山下英子老师从瑜伽的修行哲学”断行“、”舍行“、”离行“中提炼出”断舍离“的思维方式并用于日常生活的”整理“上。那么到底什么是断舍离？断舍离又是怎么去整理生活的？本文将追随山下英子老师，学习探索断舍离的简约之道。</p>
 <span id="more"></span>
+
 <p><img src="https://qiniu-image.gotojava.cn/blog/%E3%80%8A%E6%96%AD%E8%88%8D%E7%A6%BB%E3%80%8B.png" alt="《断舍离》思维导图"></p>
 <p>这次从上海回家乡的火车上，闲来无事，就翻阅了一下随身带的一本断舍离，其实在接触《断舍离》这本书之前，就对这本书有所耳闻，但一直没有机会拜读。这次刚好回家乡的路途时间较长，有足足22个小时的火车，刚好有机会学习一下。也算是缘分到了。</p>
 <p>翻开《断舍离》一书，就被书中的一行蓝底白色所吸引：”<strong>放手一个无用之物，就腾出一点空间。处理一件多余之物，就减少一份负担。然后，翻开人生新篇章</strong>。“。看到这句话的时候，内心有一种触动感。就像我们身处在一间采光良好，空间很大的房间里时，屋子里很干净、物品的摆放也很整齐，我相信多数人都会感到舒服。</p>
@@ -1480,21 +1481,17 @@
 <p>但反之，如果你身处在一间杂物堆积、垃圾遍地的屋子里时，也会感觉到心被堵了。这种压迫感的环境逐渐让在这里生活的人变得思维迟钝、行动迟缓，然后渐渐变得封闭、不想外出，进而演变成近似愤懑抑郁的状态。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/%E6%9D%82%E7%89%A9%E5%A0%86%E7%A7%AF%E7%9A%84%E5%B1%8B%E5%AD%90.jpg" alt="杂物堆积的屋子-图片来自互联网"></p>
 <p>虽然新媒体和商家也在极力宣传着一些整理、收纳的方式方法，但其本质在于减少物品占用的空间体积、废物利用…治标不治本。而断舍离所倡导的是一种生活上的“新陈代谢”的思维方式。</p>
-<h2 id="断舍离是什么">断舍离是什么</h2>
-<p>那么什么是断舍离呢？&quot;断舍离&quot;是指通过<strong>断绝不必要的联系</strong>、<strong>舍弃多余的物质与情感负担</strong>，以及<strong>清理整理个人生活和心灵空间</strong>，达到简化生活、追求轻松自在的目的。橱柜里、餐架上或者冰箱中囤积的无用之物，家里随处堆积的废品破烂，还包括精神层面上那些不适宜的过剩观念，或是让自己陷入自我否定、自我谴责境地的消极思维或情感纪念物。只有放手这些东西，才能解放自己、解放人生。即：<em><strong>斩“断”物欲</strong></em>、<em>“<strong>舍”弃废物</strong></em>、<em><strong>脱“离”执念</strong></em>。</p>
-<h2 id="我们为什么无法放手">我们为什么无法放手</h2>
-<p>一、随着5G社会的发展，短视频、新媒体行业的兴起，加速了信息的流速。商家的大肆宣传，打折、促销、直播带货的低价锚点效应不断的刺激着我们的消费欲。使我们很难逃脱资本给我们量身打造的”买买买“的陷阱。记得每次出去逛街，总能看到一些卖衣服商家的小姐姐在门口大肆吆喝着：”68一件、100元两件，赶快进店看一看吧“。持着闲来无事看一看的心态，总是不由自主的走进店铺进行试选，导购的小姐姐热情似火的介绍和推荐以及熟练的话术让我不由自主的着了道。碰到特别合适的总忍不住剁个手。结账的时候常常也会感到肉疼，但还是扫码付款一气呵成。我相信此类的场景大家也都会遇到过。</p>
+<h2 id="断舍离是什么"><a href="#断舍离是什么" class="headerlink" title="断舍离是什么"></a>断舍离是什么</h2><p>那么什么是断舍离呢？”断舍离”是指通过<strong>断绝不必要的联系</strong>、<strong>舍弃多余的物质与情感负担</strong>，以及<strong>清理整理个人生活和心灵空间</strong>，达到简化生活、追求轻松自在的目的。橱柜里、餐架上或者冰箱中囤积的无用之物，家里随处堆积的废品破烂，还包括精神层面上那些不适宜的过剩观念，或是让自己陷入自我否定、自我谴责境地的消极思维或情感纪念物。只有放手这些东西，才能解放自己、解放人生。即：<em><strong>斩“断”物欲</strong></em>、<em>“<strong>舍”弃废物</strong></em>、<em><strong>脱“离”执念</strong></em>。</p>
+<h2 id="我们为什么无法放手"><a href="#我们为什么无法放手" class="headerlink" title="我们为什么无法放手"></a>我们为什么无法放手</h2><p>一、随着5G社会的发展，短视频、新媒体行业的兴起，加速了信息的流速。商家的大肆宣传，打折、促销、直播带货的低价锚点效应不断的刺激着我们的消费欲。使我们很难逃脱资本给我们量身打造的”买买买“的陷阱。记得每次出去逛街，总能看到一些卖衣服商家的小姐姐在门口大肆吆喝着：”68一件、100元两件，赶快进店看一看吧“。持着闲来无事看一看的心态，总是不由自主的走进店铺进行试选，导购的小姐姐热情似火的介绍和推荐以及熟练的话术让我不由自主的着了道。碰到特别合适的总忍不住剁个手。结账的时候常常也会感到肉疼，但还是扫码付款一气呵成。我相信此类的场景大家也都会遇到过。</p>
 <p>二、时代遗留的价值观，比如：”这个东西还能用“、”或许以后能用到，就先留下来吧“，而不是”<strong>这个东西是真的需要吗</strong>“。或者因商家打折、促销而多买的日用品、消耗品，回到家时，却发现了囤积占了很多的体积空间，扔了感觉心疼、浪费，有些可能甚至一次都没有使用过。</p>
 <p>三、现在由于工作繁忙、生活压力过大、待在家中的时间短、不会认真的做家务。还有很多是对家庭和家务有情绪，不想待在家中，只想埋头工作。看到家里乱七八糟，心情特别差、更是不愿意待在家中，陷入了不良循环。</p>
 <p>四、对于一些特别念旧的人，总是会收集和珍藏很多现在不用的旧物，小心翼翼地保留着以前的相册或是奖杯奖牌，以及带有过往纪念性质的信件、照片等小物件。总是沉湎过去的快乐时光，而忽略了对当下现实的投入。</p>
 <p>五、”生于忧患、死于安乐“是古人在与猛兽为群时，为了保证自己能生存下来在经历漫长的岁月中所总结的良言警句。对于现代生活的我们有很好的预警左右，也能让我们时刻保持警惕、以应对可能发生的安全威胁。但如果不停的为将来的事情所忧虑，不停地为将来储备东西。眼睛只盯着”某些东西没有，自己将来必定会发愁“的心态，也会导致我们囤积过多的日用品和消耗品。</p>
-<p>**断舍离，不是要求我们随意地”弃“，而是把”舍“作为解决问题的方法之一。**在进行取舍时，我们应该挑选出有质量的东西或者我们十分喜爱的，专注于那些与自己生活关联度高的物品上，处理掉不需要的物品。将物品压缩到能够建立和保持社会性从而选择适合的量即可，才能从最本真的意义上珍惜事物、热爱生活，并不是随意地、不走心地囤东西、扔东西。对于多囤积的物品，我们可以选择适当性的赠予邻居，从而建立我们和邻居之间的社交性往来、促进邻里关系。</p>
-<h2 id="断舍离是怎么工作的">断舍离是怎么工作的</h2>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125021841658.png" alt="断舍离的工作机制"></p>
+<p><strong>断舍离，不是要求我们随意地”弃“，而是把”舍“作为解决问题的方法之一。</strong>在进行取舍时，我们应该挑选出有质量的东西或者我们十分喜爱的，专注于那些与自己生活关联度高的物品上，处理掉不需要的物品。将物品压缩到能够建立和保持社会性从而选择适合的量即可，才能从最本真的意义上珍惜事物、热爱生活，并不是随意地、不走心地囤东西、扔东西。对于多囤积的物品，我们可以选择适当性的赠予邻居，从而建立我们和邻居之间的社交性往来、促进邻里关系。</p>
+<h2 id="断舍离是怎么工作的"><a href="#断舍离是怎么工作的" class="headerlink" title="断舍离是怎么工作的"></a>断舍离是怎么工作的</h2><p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125021841658.png" alt="断舍离的工作机制"></p>
 <p>我们知道了断舍离是通过“舍弃”来减压我们的生活环境，达到简化生活、追求轻松自在的目的。那么断舍离又是如何去“舍”的呢？下面我们将通过“八个技巧”、“五个收纳指南”来学习断舍离、掌握断舍离的要点。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125022204695.png" alt="断舍离的工作机制-八个技巧"></p>
-<h3 id="八个技巧">八个技巧</h3>
-<p><strong>一、认识现状</strong></p>
+<h3 id="八个技巧"><a href="#八个技巧" class="headerlink" title="八个技巧"></a>八个技巧</h3><p><strong>一、认识现状</strong></p>
 <p>假如我们要去爬一座海拔很高的山，首先要做的是准备登山用具、掌握登山所必须的知识、计划山路路线、进行食物储备、准备通讯设备、预备登山物资等等，而不是盲目的就去了。家务的整理也是一样的，我们首先需要做的，<em><strong>就是掌握家里物品的数量和质量，观察东西有没有存在过剩的情况</strong></em>。</p>
 <p>从三个阶段来评估住所的现状：</p>
 <ol>
@@ -1516,6 +1513,7 @@
 <p>扔掉过期保质的生鲜食品、没有食欲的食物，损坏的、不能使用的、已经忘却的、将来也用不上的东西开始处理。</p>
 <p><strong>六、以自我·时间为判断基准，考虑自身与物品的“关联度”，再进行取舍</strong></p>
 <img src="https://qiniu-image.gotojava.cn/blog/image-20240125052516460.png" width="400">
+
 <p>以“自我轴”为基准进行取舍时，只需要考虑“<strong>这个东西我想不想用</strong>”。</p>
 <p>有些东西一年可能才用的上一回，对于这些东西，<strong>不要从频率，而要从和自己的“关联度”的视角进行判断</strong>。</p>
 <p>物品与自己的关联度会随着时间而变化，同一件物品，不同的人会有不同的评判，也有不同的关联度。这是所有人、事、物三者关系网成立的大前提。在这个大前提下，那些同时满足必要、合适、愉快三个维度的物品很快就能被锁定。并且可以摆脱人、事、物单纯理解为非对即错、非善即恶的二元思维，逐渐形成多元性、尊重他人的意识。</p>
@@ -1529,25 +1527,21 @@
 <li>“收拾”就是对庞大的杂物量进行压缩和收纳的作业</li>
 <li>“整理·分类” + “扫除”，总称为“打扫”。</li>
 </ul>
-<p>在断舍离的大前提下，最正确的“打扫”程序是首先清除那些垃圾、废品，以及不需要、不合适、不愉快的杂物，之后再转而进行杂物收纳，进行“清扫、擦拭、磨刷”。因为如果不按这个顺序做的话，把垃圾、废品或者不需要、不合适、不愉快的杂物重新塞进收纳箱，就完全失去了打扫的意义。而且、塞进柜子之后，这些杂物依然是以”机能不全“的状态藏在家中，&quot;大扫除&quot;并没有任何实际的意义。</p>
-<h3 id="五个收纳指南">五个收纳指南</h3>
-<p><strong>一、三分法</strong></p>
+<p>在断舍离的大前提下，最正确的“打扫”程序是首先清除那些垃圾、废品，以及不需要、不合适、不愉快的杂物，之后再转而进行杂物收纳，进行“清扫、擦拭、磨刷”。因为如果不按这个顺序做的话，把垃圾、废品或者不需要、不合适、不愉快的杂物重新塞进收纳箱，就完全失去了打扫的意义。而且、塞进柜子之后，这些杂物依然是以”机能不全“的状态藏在家中，”大扫除”并没有任何实际的意义。</p>
+<h3 id="五个收纳指南"><a href="#五个收纳指南" class="headerlink" title="五个收纳指南"></a>五个收纳指南</h3><p><strong>一、三分法</strong></p>
 <p>大分类 ➡️ 中分类 ➡️ 小分类，<strong>分类的关键是三类不能交叉</strong>，交叉会产生范畴错误，错误越多越会导致找东西花时间，思维也发生混乱。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125025928515.png" alt="三分法-厨房例子"></p>
 <p><strong>二、7•5•1法</strong></p>
 <p>“7·5·1法”指的是进行杂物收纳时，对收纳空间的物量进行大致的估测。根据不同的收纳情况，将杂物总量压缩到收纳空间的”7成“、”5成“、”1成“。</p>
 <ul>
-<li>
-<p>“看不见的收纳空间”，占7成</p>
+<li><p>“看不见的收纳空间”，占7成</p>
 <p>衣柜、壁橱、抽屉等关上门就“看不见的收纳空间”所放杂物的量基本上占整体空间的7成。</p>
 <p>留下3成的目的在于想取柜子最里面的东西时，有操作的空间，避免把前面的东西拿出来再重新去取，减少麻烦。</p>
 </li>
-<li>
-<p>“看的见的收纳空间”，占5成</p>
+<li><p>“看的见的收纳空间”，占5成</p>
 <p>带玻璃门的柜子或橱柜关上门依然能“看得见的收纳空间”所放杂物的量基本上占整体空间的5成。5成的空间可以尽量保持一定的美观。</p>
 </li>
-<li>
-<p>“展示性的收纳空间”，占1成</p>
+<li><p>“展示性的收纳空间”，占1成</p>
 <p>可以看到的开放性空间，如桌面、橱柜的水平面、门口的鞋柜等“展示性的收纳空间”上所放杂物的量基本上占整体空间的1成。</p>
 </li>
 </ul>
@@ -1560,14 +1554,12 @@
 <p>自由：根据杯子的形状种类排列，方便自由拿取；</p>
 <p>自在：底裤、袜子等小件衣物团着折叠扔进收纳盒中，自在滚动；</p>
 <p>从切实能出成绩的小地方着手，全力集中在“达成事件”上，一点点地增加成就感，给自己的“自信心账户”一点点地转账存钱。小地方获得的小成功不断累加，能给人以勇气和信心去面对自己的老大难问题。</p>
-<h3 id="断舍离的步骤">断舍离的步骤</h3>
-<ol>
+<h3 id="断舍离的步骤"><a href="#断舍离的步骤" class="headerlink" title="断舍离的步骤"></a>断舍离的步骤</h3><ol>
 <li>认识现状；</li>
 <li>选择取舍；</li>
 <li>收纳整理；</li>
 </ol>
-<h3 id="居所断舍离的要点">居所断舍离的要点</h3>
-<ul>
+<h3 id="居所断舍离的要点"><a href="#居所断舍离的要点" class="headerlink" title="居所断舍离的要点"></a>居所断舍离的要点</h3><ul>
 <li>衣柜的断舍离</li>
 </ul>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125042251090.png" alt="衣柜的断舍离"></p>
@@ -1603,8 +1595,7 @@
 <li>客厅、餐厅的断舍离</li>
 </ul>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240125031403493.png" alt="客厅、餐厅的断舍离"></p>
-<h2 id="总结">总结</h2>
-<p>这本书倡导我们摒弃不必要的物品，将注意力从物质的积累转移到生活本身的追求上。通过践行“断舍离”的理念，我们可以释放内心的空间，变得更加轻松、自在。“断”即断绝不必要的购买，“舍”即舍弃家中不必要的物品，“离”则是脱离对物质的迷恋。通过“断舍离”，我们不仅可以整理自己的居住空间，也能让我们的生活变得更加充实、幸福。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这本书倡导我们摒弃不必要的物品，将注意力从物质的积累转移到生活本身的追求上。通过践行“断舍离”的理念，我们可以释放内心的空间，变得更加轻松、自在。“断”即断绝不必要的购买，“舍”即舍弃家中不必要的物品，“离”则是脱离对物质的迷恋。通过“断舍离”，我们不仅可以整理自己的居住空间，也能让我们的生活变得更加充实、幸福。</p>
 ]]></content>
       <categories>
         <category>杂文随笔</category>
@@ -1617,17 +1608,18 @@
     <title>正则在Java中的基本使用</title>
     <url>/article/e26f95fb.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <span id="more"></span>
-<h2 id="什么是正则">什么是正则?</h2>
-<p>正则表达式，是一种用于<strong>描述字符串匹配规则的表达式</strong>。通过正则表达式可以字符串中找到符合特定规则的内容。正则表达式就像是一把强大的查找和替换工具，但更加灵活。</p>
-<h2 id="为什么需要正则？">为什么需要正则？</h2>
-<p>在网站的开发之中，经常需要接触的就是对于表单的操作，比如：邮箱的验证、手机号的验证。为了保证这些数据的正确性，我们都需要对数据进行一些复杂的验证处理。在此我们以Java语言为例，判断是否是一个邮箱格式。</p>
+
+<h2 id="什么是正则"><a href="#什么是正则" class="headerlink" title="什么是正则?"></a>什么是正则?</h2><p>正则表达式，是一种用于<strong>描述字符串匹配规则的表达式</strong>。通过正则表达式可以字符串中找到符合特定规则的内容。正则表达式就像是一把强大的查找和替换工具，但更加灵活。</p>
+<h2 id="为什么需要正则？"><a href="#为什么需要正则？" class="headerlink" title="为什么需要正则？"></a>为什么需要正则？</h2><p>在网站的开发之中，经常需要接触的就是对于表单的操作，比如：邮箱的验证、手机号的验证。为了保证这些数据的正确性，我们都需要对数据进行一些复杂的验证处理。在此我们以Java语言为例，判断是否是一个邮箱格式。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;@&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">atIndex</span> <span class="operator">=</span> email.indexOf(<span class="string">&#x27;@&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (atIndex == -<span class="number">1</span> || atIndex == <span class="number">0</span> || atIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 检查是否包含 &#x27;.&#x27;</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">dotIndex</span> <span class="operator">=</span> email.lastIndexOf(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">  <span class="keyword">if</span> (dotIndex == -<span class="number">1</span> || dotIndex == atIndex + <span class="number">1</span> || dotIndex == email.length() - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>以上的代码，我们实现了一个基本邮箱格式的判断。但代码有点过于复杂了，如果使用正则来验证会不会比较简单呢？下面是一个正则验证邮箱的格式的例子。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValidEmail</span><span class="params">(String email)</span> &#123;</span><br><span class="line">  <span class="comment">// 定义E-Mail地址的正则表达式</span></span><br><span class="line">  <span class="type">String</span> <span class="variable">emailRegex</span> <span class="operator">=</span> <span class="string">&quot;^[a-zA-Z0-9_+&amp;*-]+(?:\\.[a-zA-Z0-9_+&amp;*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]&#123;2,7&#125;$&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 验证是否合法</span></span><br><span class="line">  <span class="keyword">return</span> Pattern.compile(emailRegex).matcher(email).matches();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>通过上面的例子我们发现，使用正则来验证数据的格式，将会变得简单很多。这也是正则最大的特点。</p>
-<h2 id="常用正则标记">常用正则标记</h2>
-<ul>
+<h2 id="常用正则标记"><a href="#常用正则标记" class="headerlink" title="常用正则标记"></a>常用正则标记</h2><ul>
 <li><strong>基本字符匹配：</strong></li>
 </ul>
 <table>
@@ -1635,11 +1627,10 @@
 <tr>
 <th><code>.</code></th>
 <th>匹配除换行符外的任意字符。</th>
-<th>示例：<code>a.b</code> 可以匹配 “aab”、“aeb”、“acb” 等。</th>
+<th>示例：<code>a.b</code> 可以匹配 “aab”、”aeb”、”acb” 等。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>[]</code></td>
 <td>字符集，匹配方括号中的任意一个字符。</td>
 <td>示例：<code>[aeiou]</code> 可以匹配任何一个元音字母。</td>
@@ -1679,8 +1670,7 @@
 <td>匹配任意非空白字符。</td>
 <td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>重复匹配：</strong></li>
 </ul>
@@ -1689,22 +1679,20 @@
 <tr>
 <th><code>*</code></th>
 <th>匹配前一个元素零次或多次。</th>
-<th>示例：<code>ab*c</code> 可以匹配 “ac”、“abc”、“abbc” 等。</th>
+<th>示例：<code>ab*c</code> 可以匹配 “ac”、”abc”、”abbc” 等。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>+</code></td>
 <td>匹配前一个元素一次或多次。</td>
-<td>示例：<code>ab+c</code> 可以匹配 “abc”、“abbc” 等，但不能匹配 “ac”。</td>
+<td>示例：<code>ab+c</code> 可以匹配 “abc”、”abbc” 等，但不能匹配 “ac”。</td>
 </tr>
 <tr>
 <td><code>?</code></td>
 <td>匹配前一个元素零次或一次。</td>
-<td>示例：<code>ab?c</code> 可以匹配 “ac”、“abc”，但不能匹配 “abbc”。</td>
+<td>示例：<code>ab?c</code> 可以匹配 “ac”、”abc”，但不能匹配 “abbc”。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>位置匹配：</strong></li>
 </ul>
@@ -1716,14 +1704,12 @@
 <th>示例：<code>^abc</code> 可以匹配以 “abc” 开头的字符串。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>$</code></td>
 <td>匹配字符串的结束。</td>
 <td>示例：<code>xyz$</code> 可以匹配以 “xyz” 结尾的字符串。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>特殊字符匹配：</strong></li>
 </ul>
@@ -1744,17 +1730,15 @@
 <tr>
 <th><code>()</code></th>
 <th>用于将多个元素分组。</th>
-<th>示例：<code>(abc)+</code> 可以匹配 “abc”、“abcabc” 等。</th>
+<th>示例：<code>(abc)+</code> 可以匹配 “abc”、”abcabc” 等。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>\n</code></td>
 <td>引用前面的第n个分组匹配到的文本。</td>
 <td>示例：<code>(\d&#123;2&#125;)-(\d&#123;2&#125;)-(\d&#123;4&#125;)</code> 可以匹配日期形式，如 “01-01-2022”，并通过引用获取年、月、日。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>边界匹配：</strong></li>
 </ul>
@@ -1766,14 +1750,12 @@
 <th>示例：<code>\bword\b</code> 可以匹配 “word”，但不匹配 “words” 或 “password”。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>\B</code></td>
 <td>匹配非单词边界。</td>
 <td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>量词：</strong></li>
 </ul>
@@ -1785,8 +1767,7 @@
 <th>示例：<code>a&#123;3&#125;</code> 可以匹配 “aaa”。</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>&#123;n,&#125;</code></td>
 <td>匹配前一个元素至少n次。</td>
 <td></td>
@@ -1796,87 +1777,65 @@
 <td>匹配前一个元素至少n次，最多m次。</td>
 <td></td>
 </tr>
-</tbody>
-</table>
-<h2 id="常用正则">常用正则</h2>
-<ul>
-<li>
-<p><strong>匹配邮箱地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配URL：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配日期：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配手机号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配身份证号码：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配IP地址：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配用户名（字母开头，允许字母数字下划线，长度6-20）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配密码（包含大小写字母和数字，长度8-16）：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配 HTML 标签：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>匹配中文字符：</strong></p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">\u</span>4e00-<span class="keyword">\u</span>9fa5]</span><br></pre></td></tr></table></figure>
-</li>
+</tbody></table>
+<h2 id="常用正则"><a href="#常用正则" class="headerlink" title="常用正则"></a>常用正则</h2><ul>
+<li><p><strong>匹配邮箱地址：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z0-9.<span class="built_in">_</span><span class="comment">%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配URL：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(https?|ftp):<span class="keyword">\/</span><span class="keyword">\/</span>[<span class="built_in">^</span><span class="keyword">\s</span>/<span class="built_in">$</span>.?<span class="params">#</span>].[<span class="built_in">^</span><span class="keyword">\s</span>]*<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配日期：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;4&#125;-<span class="keyword">\d</span>&#123;2&#125;-<span class="keyword">\d</span>&#123;2&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配手机号码：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span><span class="keyword">\d</span>&#123;11&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配身份证号码：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(<span class="built_in">^</span><span class="keyword">\d</span>&#123;17&#125;(<span class="keyword">\d</span>|X|x))<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配IP地址：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?:[0-9]&#123;1,3&#125;<span class="keyword">\.</span>)&#123;3&#125;[0-9]&#123;1,3&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配用户名（字母开头，允许字母数字下划线，长度6-20）：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>[a-zA-Z][a-zA-Z0-9<span class="built_in">_</span>]&#123;5,19&#125;<span class="built_in">$</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配密码（包含大小写字母和数字，长度8-16）：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="built_in">^</span>(?=.*[a-z])(?=.*[A-Z])(?=.*<span class="keyword">\d</span>)[a-zA-Z<span class="keyword">\d</span>]&#123;8,16&#125;<span class="built_in">$</span> </span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配 HTML 标签：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&lt;[<span class="built_in">^</span>&gt;]+&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>匹配中文字符：</strong></p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">\u</span>4e00-<span class="keyword">\u</span>9fa5]</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="正则处理类">正则处理类</h2>
-<ul>
-<li>
-<p>Pattern：正则表达式编译；</p>
+<h2 id="正则处理类"><a href="#正则处理类" class="headerlink" title="正则处理类"></a>正则处理类</h2><ul>
+<li><p>Pattern：正则表达式编译；</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将给定的正则表达式编译为模式。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Pattern <span class="title function_">compile</span><span class="params">(String regex)</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>正则拆分</li>
 </ul>
 <figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 将给定的输入分成这个规则的匹配。</span><br><span class="line">public String[] split(CharSequence input)</span><br></pre></td></tr></table></figure>
+
 <p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>Matcher：正则表达式匹配，实现了正则表达式的处理类，对象的实例化依靠Pattern类完成；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要拆分的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;apple,orange,banana,grape&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用逗号作为分隔符进行拆分</span></span><br><span class="line">    String[] fruits = splitString(inputString, <span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出拆分后的结果</span></span><br><span class="line">    System.out.println(<span class="string">&quot;拆分后的水果:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (String fruit : fruits) &#123;</span><br><span class="line">        System.out.println(fruit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String[] splitString(String input, String delimiter) &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> Pattern.quote(delimiter);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用正则表达式拆分字符串</span></span><br><span class="line">    <span class="keyword">return</span> input.split(regex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Matcher：正则表达式匹配，实现了正则表达式的处理类，对象的实例化依靠Pattern类完成；</p>
 <ul>
 <li>获取matcher对象</li>
 </ul>
 <figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">// 获取matcher对象</span><br><span class="line">public Matcher matcher(CharSequence input)</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>正则表达式匹配</li>
 </ul>
 <figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">public static boolean matches(String regex,CharSequence input)</span><br></pre></td></tr></table></figure>
+
 <p>示例：</p>
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 要匹配的字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">inputString</span> <span class="operator">=</span> <span class="string">&quot;The quick brown fox jumps over the lazy dog&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 匹配包含 &quot;fox&quot; 的单词</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">pattern</span> <span class="operator">=</span> <span class="string">&quot;\\bfox\\b&quot;</span>;</span><br><span class="line">  	<span class="type">boolean</span> <span class="variable">isMatch</span> <span class="operator">=</span> isPatternMatch(inputString, pattern);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出匹配结果</span></span><br><span class="line">    <span class="keyword">if</span> (isMatch) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;字符串中不包含 &#x27;fox&#x27;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isPatternMatch</span><span class="params">(String input, String regex)</span> &#123;</span><br><span class="line">    <span class="comment">// 构建正则表达式</span></span><br><span class="line">    <span class="type">Pattern</span> <span class="variable">pattern</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建Matcher对象</span></span><br><span class="line">    <span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> pattern.matcher(input);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行匹配</span></span><br><span class="line">    <span class="keyword">return</span> matcher.find();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>
-<p>正则分组</p>
+<li><p>正则分组</p>
 <p>正则表达式中的分组是用括号 <code>()</code> 包围的部分，可以用来实现匹配的分组操作。</p>
 </li>
 </ul>
 <p>示例：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO dept(deptno, dname, loc) VALUES(#&#123;deptno&#125;, #&#123;dname&#125;, #&#123;loc&#125;)&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">regex</span> <span class="operator">=</span> <span class="string">&quot;#\\&#123;\\w+\\&#125;+&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译正则表达式</span></span><br><span class="line"><span class="type">Pattern</span> <span class="variable">compile</span> <span class="operator">=</span> Pattern.compile(regex);</span><br><span class="line"><span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> compile.matcher(sql);</span><br><span class="line"><span class="keyword">while</span> (matcher.find()) &#123; <span class="comment">// 是否有匹配成功的内容</span></span><br><span class="line">		System.out.println(matcher.group().replaceAll(<span class="string">&quot;#|\\&#123;|\\&#125;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="自动生成正则">自动生成正则</h2>
-<p>如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。</p>
+
+<h2 id="自动生成正则"><a href="#自动生成正则" class="headerlink" title="自动生成正则"></a>自动生成正则</h2><p>如果记不住那些复杂的正则标记，有没有办法可以根据我们的提供的需求，自动生成正则表达式呢？当然是可以的。那么你可以使用ChatGPT大语言模型，来根据我们的提供的需求自动帮我们生成正则，甚至可以可以帮我写好样例代码，拿来用就好了。</p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224628057-20240109211112575.png" alt="image-20240106224628057"></p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224709864-20240109211121630.png" alt="image-20240106224709864"></p>
 <p><img src="https://qiniu-image.gotojava.cn/blog/image-20240106224721804-20240109211132362.png" alt="image-20240106224721804"></p>
@@ -1893,11 +1852,13 @@
     <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
     <url>/article/b0b9894c.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <span id="more"></span>
-<h2 id="是什么？">是什么？</h2>
-<aside>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
 💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
 </aside>
+
 <p>针对不同的用户，MySQL分为两个版本：</p>
 <ol>
 <li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
@@ -1906,8 +1867,8 @@
 <aside>
 ⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
 </aside>
-<h2 id="命名机制（版本号）">命名机制（版本号）</h2>
-<p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
 <ul>
 <li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
 <li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
@@ -1919,8 +1880,7 @@
 <li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
 <li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
 </ul>
-<h2 id="特点、优势">特点、优势</h2>
-<p>MySQL数据库管理系统具有很多的优势。</p>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
 <ol>
 <li>MySQL是开放源代码的数据库</li>
 </ol>
@@ -1938,8 +1898,7 @@
 </ol>
 <p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
 <p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景">适用场景</h2>
-<ol>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
 <li>Web网站系统</li>
 </ol>
 <p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
@@ -1954,9 +1913,9 @@
 </ol>
 <p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
 <ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I/O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I/O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I/O性能问题，成本也很低廉。</li>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
 <li>嵌入式系统</li>
 </ol>
 <p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
@@ -1972,10 +1931,11 @@
     <title>电子邮件礼仪</title>
     <url>/article/b01acda2.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
 <p>电子邮件是我们沟通方式的一部分，在早期网络不发达的时代，写信成了重要的沟通方式。那么如何写好一封得体的邮件，也成为了个人发展的重要技能之一。</p>
 <span id="more"></span>
-<h2 id="为什么需要？">为什么需要？</h2>
-<ul>
+
+<h2 id="为什么需要？"><a href="#为什么需要？" class="headerlink" title="为什么需要？"></a>为什么需要？</h2><ul>
 <li>彰显工作能力和专业性</li>
 </ul>
 <p>通过使用合适的邮件语言，你开业传达出一个专业的形象，显得”我很专业！“。</p>
@@ -1988,13 +1948,10 @@
 <li>严肃性</li>
 </ul>
 <p>商务电子邮件不同于私人邮件、它具备严肃性和商务规范性。</p>
-<h2 id="电子邮件礼仪">电子邮件礼仪</h2>
-<h3 id="及时回复">及时回复</h3>
-<p>邮件应尽量及时回复，就像别人给你发的微信一样，你要给别人一个反馈，告诉别人你收到了消息。</p>
+<h2 id="电子邮件礼仪"><a href="#电子邮件礼仪" class="headerlink" title="电子邮件礼仪"></a>电子邮件礼仪</h2><h3 id="及时回复"><a href="#及时回复" class="headerlink" title="及时回复"></a>及时回复</h3><p>邮件应尽量及时回复，就像别人给你发的微信一样，你要给别人一个反馈，告诉别人你收到了消息。</p>
 <p>回复不一定是要给出解决方案，有时只是一个”好的“、”收到“、”了解“。</p>
 <p>及时回复代表了礼貌和对别人的尊重，如果不能及时回复，也请简单说明理由。特别是在别人协助你解决问题的时候。</p>
-<h3 id="收件人、抄送、密送">收件人、抄送、密送</h3>
-<ul>
+<h3 id="收件人、抄送、密送"><a href="#收件人、抄送、密送" class="headerlink" title="收件人、抄送、密送"></a>收件人、抄送、密送</h3><ul>
 <li>收件人（To List）</li>
 </ul>
 <p>需要回复或者采取行动的人，不要把仅需要了解此邮件事项的人放入收件人。</p>
@@ -2006,43 +1963,36 @@
 <li>密送（BCC List）</li>
 </ul>
 <p>发件人想把此邮件发送给他，但又不想被收件人或者抄送者知道。</p>
-<h3 id="邮件主题">邮件主题</h3>
-<ol>
-<li>
-<p>主题一定要写，不能为空。</p>
+<h3 id="邮件主题"><a href="#邮件主题" class="headerlink" title="邮件主题"></a>邮件主题</h3><ol>
+<li><p>主题一定要写，不能为空。</p>
 </li>
-<li>
-<p>主题必须具体、不含糊、且有意义，比如：”关于20231123研发部二组周工作例会会议记录“。</p>
+<li><p>主题必须具体、不含糊、且有意义，比如：”关于20231123研发部二组周工作例会会议记录“。</p>
 </li>
-<li>
-<p>当回复邮件时，要修改主题以反映新的内容。</p>
+<li><p>当回复邮件时，要修改主题以反映新的内容。</p>
 <p>邮件回复或转发多次后，主题前面会自动添加”回复“、”Re“、”Fw“等，要适当删除，保留最多两个。反例：</p>
 <blockquote>
 <p>Re: Re: Re: Re: Re: 清明节放假事宜</p>
 </blockquote>
 </li>
-<li>
-<p>主题内容包含附件时，要删除主题中的“发送附件：”，不要存在”发送附件：XXXX“的内容。</p>
+<li><p>主题内容包含附件时，要删除主题中的“发送附件：”，不要存在”发送附件：XXXX“的内容。</p>
 </li>
 </ol>
-<h3 id="称呼">称呼</h3>
-<ol>
+<h3 id="称呼"><a href="#称呼" class="headerlink" title="称呼"></a>称呼</h3><ol>
 <li>邮件要有称呼。称呼要和收件人清单一致，不含抄送人。</li>
 </ol>
 <p>不少人写邮件一上来就直接说事情，给人的感觉是“你应该知道我是谁”；有的至多用个“你好”，这些都是不礼貌的做法。</p>
-<p>正确的做法是：如果对方有职位要称呼职位（姓氏+职位）；如果不清楚职位，可用姓氏+先生/小姐。当然十分熟悉的情况下，可以用双方习惯的称呼方式，而这种情况仅限于非正式邮件。值得注意的是，通常用“您好”比用“你好”更有礼貌，除非确定自己是上级或长者。</p>
+<p>正确的做法是：如果对方有职位要称呼职位（姓氏+职位）；如果不清楚职位，可用姓氏+先生&#x2F;小姐。当然十分熟悉的情况下，可以用双方习惯的称呼方式，而这种情况仅限于非正式邮件。值得注意的是，通常用“您好”比用“你好”更有礼貌，除非确定自己是上级或长者。</p>
 <p>比较忌讳的是管所有人都叫经理，普通员工自然很高兴，但会冒犯比经理职位高的人。    通常称呼他人可省去“副”字，但尽量不要跳级，更不可给别人降级。例如对方是副经理，可以称呼“姓氏+经理”，但不要称呼“姓氏+总”；而如果对方是副总裁，则不可称呼对方为经理或总经理。</p>
 <ol start="2">
 <li>当收件人为多人时，称呼可以使用：”各位：“、”各位领导：“、”各位同事“、”Dear all.“</li>
 </ol>
-<h3 id="邮件正文">邮件正文</h3>
-<p>正文要从”称呼“下另起一行，不要从”称呼“在同一行开始。</p>
+<h3 id="邮件正文"><a href="#邮件正文" class="headerlink" title="邮件正文"></a>邮件正文</h3><p>正文要从”称呼“下另起一行，不要从”称呼“在同一行开始。</p>
 <p>按照逻辑顺序安排邮件内容。</p>
 <ul>
-<li>**首先：**开门见山，点明问题；</li>
-<li>**其次：**细节描述、背景说明；</li>
-<li>**接着：**提供支持性材料或附件；</li>
-<li>**留意：**原邮件（先前的邮件）加在回复内容之后；</li>
+<li><strong>首先：</strong>开门见山，点明问题；</li>
+<li><strong>其次：</strong>细节描述、背景说明；</li>
+<li><strong>接着：</strong>提供支持性材料或附件；</li>
+<li><strong>留意：</strong>原邮件（先前的邮件）加在回复内容之后；</li>
 </ul>
 <blockquote>
 <p>“6W1H”是一个用于提出问题、进行调查或分析的工具，尤其在新闻报道、项目管理和问题解决等领域中常被使用。它代表着六个问句和一个问词，具体如下：</p>
@@ -2059,8 +2009,8 @@
 <aside>
 ⚠️ 通过6W1H清楚表达你的观点。
 </aside>
-<h3 id="回复或转发">回复或转发</h3>
-<ul>
+
+<h3 id="回复或转发"><a href="#回复或转发" class="headerlink" title="回复或转发"></a>回复或转发</h3><ul>
 <li>收件人和抄送</li>
 </ul>
 <p>回复或转发时，检查 “收件人”、“抄送”内的名单，加上那些必须包括的，删除那些不需要抄送的。</p>
@@ -2079,14 +2029,12 @@
 <li>回复错发的邮件</li>
 </ul>
 <p>由于邮箱地址类似等原因，发件人可能会错发邮件。如果收到别人错发的邮件，请回复发件人“我是XXX，你是否错发邮件？”当然，附上原邮件。</p>
-<h3 id="如何更新邮件">如何更新邮件</h3>
-<p>邮件发出后，发现内容有错，或情况有变化，则需更新邮件。</p>
+<h3 id="如何更新邮件"><a href="#如何更新邮件" class="headerlink" title="如何更新邮件"></a>如何更新邮件</h3><p>邮件发出后，发现内容有错，或情况有变化，则需更新邮件。</p>
 <ol>
 <li>用原邮件转发，原主题后加update 或—更新, 表明这是更新的邮件</li>
 <li>转发的内容中说明原邮件中哪里有错，更新为新的内容</li>
 </ol>
-<h3 id="邮件沟通原则">邮件沟通原则</h3>
-<ul>
+<h3 id="邮件沟通原则"><a href="#邮件沟通原则" class="headerlink" title="邮件沟通原则"></a>邮件沟通原则</h3><ul>
 <li>跟进</li>
 </ul>
 <p>对于紧急或重要的事情，应该打电话给相关人员，以确定其收到邮件并明白要做的事情。</p>
@@ -2096,56 +2044,50 @@
 <p>“我发邮件了，他没看”（把责任推给别人）</p>
 <p>“我收到他的邮件回执，说明他收到邮件了”。</p>
 <p>要确定收人人收到邮件并了解要做什么事情，什么时候要完成，不要只做邮递员。</p>
-<h3 id="缩略语">缩略语</h3>
-<p>当邮件是发给客户时，请使用规范的缩略语</p>
+<h3 id="缩略语"><a href="#缩略语" class="headerlink" title="缩略语"></a>缩略语</h3><p>当邮件是发给客户时，请使用规范的缩略语</p>
 <p>可以使用: ASAP, FYI, FYR 等.</p>
 <p>不要使用：</p>
 <table>
 <thead>
 <tr>
 <th>缩写</th>
-<th style="text-align:left">解释</th>
+<th align="left">解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>ref</td>
-<td style="text-align:left">refer</td>
+<td align="left">refer</td>
 </tr>
 <tr>
 <td>Attn</td>
-<td style="text-align:left">attention</td>
+<td align="left">attention</td>
 </tr>
 <tr>
 <td>pls</td>
-<td style="text-align:left">please</td>
+<td align="left">please</td>
 </tr>
 <tr>
 <td>q’ty</td>
-<td style="text-align:left">quantity or qty</td>
+<td align="left">quantity or qty</td>
 </tr>
 <tr>
 <td>per</td>
-<td style="text-align:left">as per</td>
+<td align="left">as per</td>
 </tr>
 <tr>
 <td>B’R, BstRdgs</td>
-<td style="text-align:left">Best Regards</td>
+<td align="left">Best Regards</td>
 </tr>
 <tr>
 <td>Thks</td>
-<td style="text-align:left">thanks or thank you</td>
+<td align="left">thanks or thank you</td>
 </tr>
-</tbody>
-</table>
-<h3 id="Confidentiality-Note">Confidentiality Note</h3>
-<p>对于部分法务性邮件或商务性邮件，可能涉及保密资料或所有权资料，这类邮件通常在最后加这样一段文字：</p>
+</tbody></table>
+<h3 id="Confidentiality-Note"><a href="#Confidentiality-Note" class="headerlink" title="Confidentiality Note"></a>Confidentiality Note</h3><p>对于部分法务性邮件或商务性邮件，可能涉及保密资料或所有权资料，这类邮件通常在最后加这样一段文字：</p>
 <blockquote>
-<p>Confidentiality note:The information in this email and any attachment may contain confidential and proprietary information of ABC Company  and/or its affiliates  may be privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that any review, reliance or distribution by others or forwarding without express permission is strictly prohibited and may cause liability. In case you have received this message due to an error in transmission, we kindly ask you to notify the sender immediately and to delete this email and any attachment from your system.</p>
+<p>Confidentiality note:The information in this email and any attachment may contain confidential and proprietary information of ABC Company  and&#x2F;or its affiliates  may be privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that any review, reliance or distribution by others or forwarding without express permission is strictly prohibited and may cause liability. In case you have received this message due to an error in transmission, we kindly ask you to notify the sender immediately and to delete this email and any attachment from your system.</p>
 </blockquote>
-<h2 id="注意事项">注意事项</h2>
-<h3 id="收件人、抄送、密送-2">收件人、抄送、密送</h3>
-<ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="收件人、抄送、密送-1"><a href="#收件人、抄送、密送-1" class="headerlink" title="收件人、抄送、密送"></a>收件人、抄送、密送</h3><ul>
 <li>出部门的邮件，必须抄送给部门主管（总监、经理、副经理）。</li>
 <li>出公司的邮件，必须抄送给分管副总或总经理。</li>
 <li>公司内部沟通邮件不可抄送给公司外部人员，因为有些涉及商业机密，防止泄密问题。</li>
@@ -2153,8 +2095,7 @@
 <li>不建议使用密送，密送有可能看不到收件人和抄送的人，密送的回复有可能会被收件人和抄送的人看到。</li>
 <li>回复邮件时需要注意，不要随便就回复给所有人，通常不使用”回复全部“，要根据邮件内容修改收件人和抄送名单。</li>
 </ul>
-<h3 id="邮件主题-2">邮件主题</h3>
-<ul>
+<h3 id="邮件主题-1"><a href="#邮件主题-1" class="headerlink" title="邮件主题"></a>邮件主题</h3><ul>
 <li>不要使用“万金油”邮件主题</li>
 </ul>
 <p>反例：<img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190843.png" alt="image-20231123182550920"></p>
@@ -2169,62 +2110,51 @@
 <p>不要把邮件正文内容写在主题中, 除非只有简单的一句话。以下是不恰当的邮件主题：</p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190847.png" alt="image-20231123183151947"></p>
 <p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-190849.png" alt="image-20231123183211769"></p>
-<h3 id="特别注意不要使用感叹号">特别注意不要使用感叹号</h3>
-<blockquote>
+<h3 id="特别注意不要使用感叹号"><a href="#特别注意不要使用感叹号" class="headerlink" title="特别注意不要使用感叹号"></a>特别注意不要使用感叹号</h3><blockquote>
 <p>感叹号：主要用在感叹句的句末，表示强烈的感情。感叹句是以抒发感情为主的句子，它所抒发的感情有赞颂、喜悦、愤怒、叹息、惊讶、伤悼等，句末都要用感叹号。《百度百科》</p>
 </blockquote>
 <p>除了“您好！”、“谢谢！”之外，都不要使用感叹号。</p>
 <p>在书面沟通和电子邮件沟通中，使用感叹号就表示拍桌子、大声吼叫、挥舞拳头、用中指指人。</p>
 <p>有的人甚至用一个感叹号还觉得不够，还用三个！！！，这是非常强烈的咆哮。</p>
-<h3 id="忌回复所有人">忌回复所有人</h3>
-<p>通常只需要答复发件人，很少有需要全部回复的情况，尽管对方可能同时发给了很多人。为了减少给别人带来的不必要麻烦，用“回复”功能即可；如果很有必要抄送给其他人，则尽量自己根据实际需要有选择性地写上去。</p>
+<h3 id="忌回复所有人"><a href="#忌回复所有人" class="headerlink" title="忌回复所有人"></a>忌回复所有人</h3><p>通常只需要答复发件人，很少有需要全部回复的情况，尽管对方可能同时发给了很多人。为了减少给别人带来的不必要麻烦，用“回复”功能即可；如果很有必要抄送给其他人，则尽量自己根据实际需要有选择性地写上去。</p>
 <p>尤其需要注意的是，好的事情可以抄送给他人，不好的事情尽量一对一处理；这与表扬当众，批评不当众是一个道理。当然，那种利用便利的往来邮件打嘴仗的行为只能影响个人形象。</p>
 <p>发件人为了避免出现对方随意点击“回复所有人”的不职业情况，可以把大批量的收件人地址放在“密送”处，然后在正文起始位置写上收信人的群体名称，例如“致：各事业部经理”等，有利于收信人清晰了解与自己同时收到邮件的还有哪些人，同时避免了垃圾邮件的产生。</p>
-<h3 id="忌不分段">忌不分段</h3>
-<p>有的人整篇邮件从头至尾写成一大片，象小说一样，给人眉目不清晰的感觉，不想看下去，从而自然影响处理的效率。</p>
+<h3 id="忌不分段"><a href="#忌不分段" class="headerlink" title="忌不分段"></a>忌不分段</h3><p>有的人整篇邮件从头至尾写成一大片，象小说一样，给人眉目不清晰的感觉，不想看下去，从而自然影响处理的效率。</p>
 <p>推荐的方式是，尽量在一个显示页面完成全文，一段一个核心意思，然后空行写第二段；如果说的事项较多，建议加上序号，但一次最好不超过三项，否则不容易记住。</p>
 <p>当然，如果能根据收件人的具体情况调整字号大小、字体样式等，则为最佳。例如对方均是五十多岁的领导，可以适当调大字号，以便对方阅读，从而也提高了回复效率。</p>
-<h3 id="忌重点不突出">忌重点不突出</h3>
-<p>现在的职场压力和信息的充斥已很难容许人们逐字逐句地阅读一个完整的邮件。所以写信人可以把最核心的词用突出标识加以强调，包括加粗、增大字号或换字体、颜色等。但公文中通常只允许黑色和蓝色，只有相当于海报作用时才可以适当用彩色。</p>
+<h3 id="忌重点不突出"><a href="#忌重点不突出" class="headerlink" title="忌重点不突出"></a>忌重点不突出</h3><p>现在的职场压力和信息的充斥已很难容许人们逐字逐句地阅读一个完整的邮件。所以写信人可以把最核心的词用突出标识加以强调，包括加粗、增大字号或换字体、颜色等。但公文中通常只允许黑色和蓝色，只有相当于海报作用时才可以适当用彩色。</p>
 <p>邮件的标题至关重要，要行动性很强，只用核心词，去掉虚词。与行动、结果相关的字眼可放在句首的【】内，然后再写具体内容，例如标题可写为“【请9日前确认】xx会议日程”。</p>
-<h3 id="忌不感谢">忌不感谢</h3>
-<p>有些人没有感谢的习惯，而这往往是邮件回复率低的一个主要原因。不论是寻求合作、请教问题、请人帮助，还是只是告知，都可以感谢对方的善意或配合。即便是领导命令对方与自己合作，说句感谢只能表明自己有修养；更何况自己请对方帮忙呢。</p>
-<h3 id="忌不署名">忌不署名</h3>
-<p>不署名，言外之意，对方应该能从邮件地址判断出自己是谁，或者“不用那么客气”，而这样做会给对方造成很多不便，也较影响办事效率，想打电话沟通具体事宜时，还需要再查找。</p>
-<h3 id="避免错别字">避免错别字</h3>
-<p>邮件中出现错别字会被认为是做事不认真，客户由此判断一个团队做事不认真。因此，一个有错别字的邮件可能导致几百万上千万订单的损失。</p>
+<h3 id="忌不感谢"><a href="#忌不感谢" class="headerlink" title="忌不感谢"></a>忌不感谢</h3><p>有些人没有感谢的习惯，而这往往是邮件回复率低的一个主要原因。不论是寻求合作、请教问题、请人帮助，还是只是告知，都可以感谢对方的善意或配合。即便是领导命令对方与自己合作，说句感谢只能表明自己有修养；更何况自己请对方帮忙呢。</p>
+<h3 id="忌不署名"><a href="#忌不署名" class="headerlink" title="忌不署名"></a>忌不署名</h3><p>不署名，言外之意，对方应该能从邮件地址判断出自己是谁，或者“不用那么客气”，而这样做会给对方造成很多不便，也较影响办事效率，想打电话沟通具体事宜时，还需要再查找。</p>
+<h3 id="避免错别字"><a href="#避免错别字" class="headerlink" title="避免错别字"></a>避免错别字</h3><p>邮件中出现错别字会被认为是做事不认真，客户由此判断一个团队做事不认真。因此，一个有错别字的邮件可能导致几百万上千万订单的损失。</p>
 <p>如果使用outlook等写英文邮件，则每次使用“拼写检查”。如果写中文邮件，则自己要会检查。或者贴到word中进行中文语法检查。</p>
 <p>特别注意不要把人名写错。写错人名给人的感觉是极不尊重对方。(自己的名字按身份证上写，不要说“身份证是错的”，更不要按自己的喜欢来写)常见写错的名字有：丽莉利，平苹萍，洪红宏，华桦，清青菁，林淋琳，玲铃，民明名，生升，娇姣，英瑛。</p>
-<h3 id="语气">语气</h3>
-<p>使用“请求”的语气以示尊重，不要用“命令”的语气。</p>
+<h3 id="语气"><a href="#语气" class="headerlink" title="语气"></a>语气</h3><p>使用“请求”的语气以示尊重，不要用“命令”的语气。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">语气词</th>
-<th style="text-align:left">例子</th>
+<th align="left">语气词</th>
+<th align="left">例子</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">不好</td>
-<td style="text-align:left">请各事业部将XX表于明天报上来，谢谢。（你认为很客气？，其实存在着严重官僚）</td>
+<tbody><tr>
+<td align="left">不好</td>
+<td align="left">请各事业部将XX表于明天报上来，谢谢。（你认为很客气？，其实存在着严重官僚）</td>
 </tr>
 <tr>
-<td style="text-align:left">好</td>
-<td style="text-align:left">请各事业部将XX表于明天发给我，谢谢。</td>
+<td align="left">好</td>
+<td align="left">请各事业部将XX表于明天发给我，谢谢。</td>
 </tr>
 <tr>
-<td style="text-align:left">不好</td>
-<td style="text-align:left">附件是XXX文件，请查收！（除了“你好！”“谢谢！”再不要用感叹号）</td>
+<td align="left">不好</td>
+<td align="left">附件是XXX文件，请查收！（除了“你好！”“谢谢！”再不要用感叹号）</td>
 </tr>
 <tr>
-<td style="text-align:left">好</td>
-<td style="text-align:left">附件是XXX文件，请查收，谢谢！</td>
+<td align="left">好</td>
+<td align="left">附件是XXX文件，请查收，谢谢！</td>
 </tr>
-</tbody>
-</table>
-<h3 id="字体、颜色、缩减">字体、颜色、缩减</h3>
-<ul>
+</tbody></table>
+<h3 id="字体、颜色、缩减"><a href="#字体、颜色、缩减" class="headerlink" title="字体、颜色、缩减"></a>字体、颜色、缩减</h3><ul>
 <li>商务邮件具有其严肃性。</li>
 </ul>
 <p>不要采用不同的字体，除非很必要不要使用不同的颜色，除非你想用不同的颜色强调某些东西。</p>
@@ -2234,8 +2164,7 @@
 <p>例如“删除线”，在另一邮件系统中可能不显示。</p>
 <p>在邮件中不要使用“缩进式”和“制表符(Tab)”，因为用另一软件打开它们可能导致文本不对齐</p>
 <p>发给公司外部的邮件，避免使用上述不兼容的格式</p>
-<h2 id="培训资料获取">培训资料获取</h2>
-<p>电子邮件礼仪（PPT）</p>
+<h2 id="培训资料获取"><a href="#培训资料获取" class="headerlink" title="培训资料获取"></a>培训资料获取</h2><p>电子邮件礼仪（PPT）</p>
 <p>链接: <span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVYtTHdNNThvUThLRThUSmJWNzlDNFE/cHdkPTg4ODg=">https://pan.baidu.com/s/1V-LwM58oQ8KE8TJbV79C4Q?pwd=8888<i class="fa fa-external-link-alt"></i></span> 提取码: 8888</p>
 ]]></content>
       <categories>
