@@ -6,7 +6,7 @@
   <link href="https://gotojava.cn/atom.xml" rel="self"/>
   
   <link href="https://gotojava.cn/"/>
-  <updated>2024-04-29T20:47:49.050Z</updated>
+  <updated>2024-06-02T20:39:22.208Z</updated>
   <id>https://gotojava.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS7 安装 gcc/gcc-c++</title>
+    <link href="https://gotojava.cn/article/aba7d07.html"/>
+    <id>https://gotojava.cn/article/aba7d07.html</id>
+    <published>2024-06-02T20:18:38.000Z</published>
+    <updated>2024-06-02T20:39:22.208Z</updated>
+    
+    
+    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+
+&lt;p&gt;本文用于记录gcc、gcc+c++在CentOS 7下的在线安装、离线安装两种安装方式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="开发者笔记" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="CentOS" scheme="https://gotojava.cn/tags/CentOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Easy Excel 的基本使用</title>
@@ -382,25 +403,6 @@
     <id>https://gotojava.cn/article/a639d743.html</id>
     <published>2023-06-08T06:05:15.000Z</published>
     <updated>2024-04-08T17:07:57.369Z</updated>
-    
-    
-    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
-    
-    
-    
-    <category term="开发者手册" scheme="https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/"/>
-    
-    
-    <category term="Oracle" scheme="https://gotojava.cn/tags/Oracle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>达梦查询分页排序问题</title>
-    <link href="https://gotojava.cn/article/e057bf2e.html"/>
-    <id>https://gotojava.cn/article/e057bf2e.html</id>
-    <published>2023-06-08T06:00:55.000Z</published>
-    <updated>2024-04-08T17:07:34.133Z</updated>
     
     
     <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</summary>
