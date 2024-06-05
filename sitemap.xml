@@ -266,13 +266,6 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/tags/MySQL/</loc>
-    <lastmod>2024-06-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://gotojava.cn/tags/MacOS/</loc>
     <lastmod>2024-06-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -281,6 +274,13 @@
   
   <url>
     <loc>https://gotojava.cn/tags/Oracle/</loc>
+    <lastmod>2024-06-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://gotojava.cn/tags/MySQL/</loc>
     <lastmod>2024-06-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -324,14 +324,14 @@
   </url>
   
   <url>
-    <loc>https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</loc>
     <lastmod>2024-06-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://gotojava.cn/categories/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</loc>
+    <loc>https://gotojava.cn/categories/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2024-06-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

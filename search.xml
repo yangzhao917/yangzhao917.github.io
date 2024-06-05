@@ -29,6 +29,79 @@
       </tags>
   </entry>
   <entry>
+    <title>Easy Excel 的基本使用</title>
+    <url>/article/c0347fb7.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS8=">Easy Excel<i class="fa fa-external-link-alt"></i></span> 是一个基于 Java 的、快速、简洁、解决大文件内存溢出的 Excel 处理工具。它能让你在不用考虑性能、内存的因素情况下，快速完成 Excel 的读、写等功能。</p>
+<span id="more"></span>
+
+<p><strong>优点：</strong></p>
+<p>快速：快速的读取 Excel 中的数据。</p>
+<p>简洁：映射 Excel 和实体类，让代码变的更加简洁。</p>
+<p>大文件：在读写大文件的时候使用磁盘做缓存，更加的节约内存。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。</li>
+<li>easyexcel重写了poi对07版Excel的解析，一个3M的excel用POI sax解析依然需要100M左右内存，改用easyexcel可以降低到几M，并且再大的excel也不会出现内存溢出；03版依赖POI的sax模式，在上层做了模型转换的封装，让使用者更加简单方便。</li>
+</ul>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ul>
+<li>Maven 引入</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- Easy Excel --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 日志打印 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.7.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 简化setter/getter方法 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.18.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 单元测试 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><ul>
+<li>映射实体</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReadExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer product_id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer categories;</span><br><span class="line">    <span class="keyword">private</span> Integer sku;</span><br><span class="line">    <span class="keyword">private</span> Integer location;</span><br><span class="line">    <span class="keyword">private</span> Integer quantity;</span><br><span class="line">    <span class="keyword">private</span> String model;</span><br><span class="line">    <span class="keyword">private</span> String manufacturer;</span><br><span class="line">    <span class="keyword">private</span> String image_name;</span><br><span class="line">    <span class="keyword">private</span> String requires_shipping;</span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_added;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_modified;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_available;</span><br><span class="line">    <span class="keyword">private</span> Double weight;</span><br><span class="line">    <span class="keyword">private</span> String unit;</span><br><span class="line">    <span class="keyword">private</span> Integer length;</span><br><span class="line">    <span class="keyword">private</span> Integer width;</span><br><span class="line">    <span class="keyword">private</span> Integer height;</span><br><span class="line">    <span class="keyword">private</span> String length_unit;</span><br><span class="line">    <span class="keyword">private</span> Boolean status_enabled;</span><br><span class="line">    <span class="keyword">private</span> Integer tax_class_id;</span><br><span class="line">    <span class="keyword">private</span> Integer viewed;</span><br><span class="line">    <span class="keyword">private</span> Integer language_id;</span><br><span class="line">    <span class="keyword">private</span> String seo_keyword;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> String meta_description;</span><br><span class="line">    <span class="keyword">private</span> String meta_keywords;</span><br><span class="line">    <span class="keyword">private</span> String additional_image_names;</span><br><span class="line">    <span class="keyword">private</span> Integer stock_status_id;</span><br><span class="line">    <span class="keyword">private</span> Integer store_ids;</span><br><span class="line">    <span class="keyword">private</span> String related_ids;</span><br><span class="line">    <span class="keyword">private</span> String tags;</span><br><span class="line">    <span class="keyword">private</span> Integer sort_order;</span><br><span class="line">    <span class="keyword">private</span> Boolean subtract;</span><br><span class="line">    <span class="keyword">private</span> Integer minimum;</span><br><span class="line">    <span class="keyword">private</span> Double cost;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>核心代码</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testReadExcel</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass().getClassLoader().getResource(<span class="string">&quot;test.xls&quot;</span>);</span><br><span class="line">    EasyExcel.read(resource.getPath(), ReadExcel.class, <span class="keyword">new</span> <span class="title class_">ExcelDataListener</span>()).sheet(<span class="string">&quot;Products&quot;</span>).doRead();</span><br><span class="line">    <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    log.info(<span class="string">&quot;耗时：&#123;&#125;ms&quot;</span>, endTime - startTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>监听器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取对象的监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExcelDataListener</span> <span class="keyword">extends</span> <span class="title class_">AnalysisEventListener</span>&lt;ReadExcel&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每隔 500 条存储数据库，然后清理list，方便内存回收</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BATCH_COUNT</span> <span class="operator">=</span> <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;ReadExcel&gt; cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这个每一条数据解析都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> readExcel</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(ReadExcel readExcel, AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;解析到一条数据：&#123;&#125;&quot;</span>, readExcel);</span><br><span class="line">        cacheDataList.add(readExcel);</span><br><span class="line">        <span class="keyword">if</span> (cacheDataList.size() &gt;= BATCH_COUNT)&#123;</span><br><span class="line">            <span class="comment">// saveData();</span></span><br><span class="line">            cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 所有数据解析完成了 都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfterAllAnalysed</span><span class="params">(AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.saveData();</span><br><span class="line">        log.info(<span class="string">&quot;所有数据解析完成!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveData</span><span class="params">()</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;条数据，开始存储数据库!&quot;</span>, cacheDataList.size());</span><br><span class="line">        log.info(<span class="string">&quot;存储数据库成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>单元测试结果</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430043257016.png" alt="Easy Excel 读取测试"></p>
+<h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><ul>
+<li>实体对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 写Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WriteExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;编号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long no;    <span class="comment">// 编号</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;性别&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sex; <span class="comment">// 性别</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;地址&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String address; <span class="comment">// 地址</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;手机号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tel; <span class="comment">// 手机号</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>核心代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 写入Excel</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testWriteExcel()&#123;</span><br><span class="line">    long startTime = System.currentTimeMillis();</span><br><span class="line">    // 指定写入到哪个Excel文件</span><br><span class="line">    String fileName = String.format(&quot;/Users/yangzhao/Desktop/write-excel-%s%s&quot;, startTime, FILE_SUFFIX_XLSX);</span><br><span class="line">    EasyExcel.write(fileName, WriteExcel.class).sheet(&quot;模板&quot;).doWrite(generateData());</span><br><span class="line">    long endTime = System.currentTimeMillis();</span><br><span class="line">    log.info(&quot;耗时：&#123;&#125;ms&quot;, endTime - startTime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 模拟数据库</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">private List&lt;WriteExcel&gt; generateData() &#123;</span><br><span class="line">    int writeNubmer = 65535;</span><br><span class="line">    List&lt;WriteExcel&gt; dataList = new ArrayList&lt;&gt;(writeNubmer);</span><br><span class="line">    for (int i = 0; i &lt;= writeNubmer; i++) &#123;</span><br><span class="line">        WriteExcel data = new WriteExcel();</span><br><span class="line">        data.setNo((long) i + 1);</span><br><span class="line">        data.setName(GenerateInfoUtils.generateRandomName());</span><br><span class="line">        data.setSex(GenerateInfoUtils.generateRandomGender());</span><br><span class="line">        data.setAddress(GenerateInfoUtils.generateRandomAddress());</span><br><span class="line">        data.setTel(GenerateInfoUtils.generateRandomTel());</span><br><span class="line">        dataList.add(data);</span><br><span class="line">    &#125;</span><br><span class="line">    return dataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>随机信息生成工具类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 信息生成工具，用于随机生成姓名、地址、性别、手机号</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GenerateInfoUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的姓</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; SURNAMES = Arrays.asList(<span class="string">&quot;王&quot;</span>, <span class="string">&quot;李&quot;</span>, <span class="string">&quot;张&quot;</span>, <span class="string">&quot;刘&quot;</span>, <span class="string">&quot;陈&quot;</span>, <span class="string">&quot;杨&quot;</span>, <span class="string">&quot;黄&quot;</span>, <span class="string">&quot;吴&quot;</span>, <span class="string">&quot;赵&quot;</span>, <span class="string">&quot;周&quot;</span>, <span class="string">&quot;庄&quot;</span>, <span class="string">&quot;诸葛&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; FIRST_NAMES = Arrays.asList(<span class="string">&quot;伟&quot;</span>, <span class="string">&quot;勇&quot;</span>, <span class="string">&quot;芳&quot;</span>, <span class="string">&quot;娜&quot;</span>, <span class="string">&quot;敏&quot;</span>, <span class="string">&quot;磊&quot;</span>, <span class="string">&quot;静&quot;</span>, <span class="string">&quot;丽&quot;</span>, <span class="string">&quot;强&quot;</span>, <span class="string">&quot;鹏&quot;</span>, <span class="string">&quot;钊&quot;</span>, <span class="string">&quot;能&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的性别常量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] GENDERS = &#123;<span class="string">&quot;男&quot;</span>, <span class="string">&quot;女&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的城市、街道和房号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; CITIES = Arrays.asList(<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;上海&quot;</span>, <span class="string">&quot;广州&quot;</span>, <span class="string">&quot;深圳&quot;</span>, <span class="string">&quot;成都&quot;</span>, <span class="string">&quot;重庆&quot;</span>, <span class="string">&quot;杭州&quot;</span>, <span class="string">&quot;南京&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; STREETS = Arrays.asList(<span class="string">&quot;长安街&quot;</span>, <span class="string">&quot;南京路&quot;</span>, <span class="string">&quot;解放大道&quot;</span>, <span class="string">&quot;人民路&quot;</span>, <span class="string">&quot;复兴路&quot;</span>, <span class="string">&quot;中山路&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义国内常见的手机号前缀</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PHONE_PREFIXES = &#123;<span class="string">&quot;139&quot;</span>, <span class="string">&quot;138&quot;</span>, <span class="string">&quot;137&quot;</span>, <span class="string">&quot;136&quot;</span>, <span class="string">&quot;135&quot;</span>, <span class="string">&quot;134&quot;</span>, <span class="string">&quot;159&quot;</span>, <span class="string">&quot;158&quot;</span>, <span class="string">&quot;157&quot;</span>, <span class="string">&quot;150&quot;</span>, <span class="string">&quot;151&quot;</span>, <span class="string">&quot;152&quot;</span>, <span class="string">&quot;188&quot;</span>, <span class="string">&quot;187&quot;</span>, <span class="string">&quot;186&quot;</span>, <span class="string">&quot;183&quot;</span>, <span class="string">&quot;182&quot;</span>, <span class="string">&quot;181&quot;</span>, <span class="string">&quot;180&quot;</span>, <span class="string">&quot;178&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机数生成器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Random</span> <span class="variable">RANDOM</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成手机号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomTel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 随机生成前缀</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phonePrefix</span> <span class="operator">=</span> PHONE_PREFIXES[RANDOM.nextInt(PHONE_PREFIXES.length)];</span><br><span class="line">        <span class="comment">// 随机生成后8位数字</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">phoneNumber</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(phonePrefix);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">            phoneNumber.append(RANDOM.nextInt(<span class="number">10</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> phoneNumber.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">city</span> <span class="operator">=</span> CITIES.get(RANDOM.nextInt(CITIES.size()));    <span class="comment">// 城市</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">street</span> <span class="operator">=</span> STREETS.get(RANDOM.nextInt(STREETS.size()));    <span class="comment">// 街道</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">houseNumber</span> <span class="operator">=</span> MIN_HOUSE_NUMBER + RANDOM.nextInt(MAX_HOUSE_NUMBER);  <span class="comment">// 房号</span></span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">&quot;%s%s%d号&quot;</span>, city, street, houseNumber);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成性别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomGender</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> RANDOM.nextInt(GENDERS.length);</span><br><span class="line">        <span class="keyword">return</span> GENDERS[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从姓氏和名字列表中随机选择</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">surname</span> <span class="operator">=</span> SURNAMES.get(RANDOM.nextInt(SURNAMES.size()));</span><br><span class="line">        <span class="type">String</span> <span class="variable">firstName</span> <span class="operator">=</span> FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size()));</span><br><span class="line">        <span class="keyword">return</span> surname + firstName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>单元测试结果</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044041091.png" alt="Easy Excel 写数据"></p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044122868.png" alt="image-20240430044122868"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82OTU1MzQ0NDU5MDc2NzMwODg3">Easy Excel 的使用<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS9kb2NzL2N1cnJlbnQv">Easy Excel 官方文档<i class="fa fa-external-link-alt"></i></span>&#96;&#96;</li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>Easy Excel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GitHub大师之道：搜索、浏览、发现项目、Git初学者攻略</title>
     <url>/article/d6bf6e8c.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -169,76 +242,142 @@
       </categories>
   </entry>
   <entry>
-    <title>Easy Excel 的基本使用</title>
-    <url>/article/c0347fb7.html</url>
+    <title>MacOS修改文件时间属性</title>
+    <url>/article/43757ee8.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<p><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS8=">Easy Excel<i class="fa fa-external-link-alt"></i></span> 是一个基于 Java 的、快速、简洁、解决大文件内存溢出的 Excel 处理工具。它能让你在不用考虑性能、内存的因素情况下，快速完成 Excel 的读、写等功能。</p>
+<p>记录在MacOS下修改文件的时间属性。</p>
 <span id="more"></span>
 
-<p><strong>优点：</strong></p>
-<p>快速：快速的读取 Excel 中的数据。</p>
-<p>简洁：映射 Excel 和实体类，让代码变的更加简洁。</p>
-<p>大文件：在读写大文件的时候使用磁盘做缓存，更加的节约内存。</p>
-<p><strong>特点：</strong></p>
-<ul>
-<li>Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。</li>
-<li>easyexcel重写了poi对07版Excel的解析，一个3M的excel用POI sax解析依然需要100M左右内存，改用easyexcel可以降低到几M，并且再大的excel也不会出现内存溢出；03版依赖POI的sax模式，在上层做了模型转换的封装，让使用者更加简单方便。</li>
-</ul>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ul>
-<li>Maven 引入</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- Easy Excel --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.7&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 日志打印 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;slf4j-simple&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.7.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 简化setter/getter方法 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.18.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- 单元测试 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.12&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改文件创建时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
 
-<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><ul>
-<li>映射实体</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReadExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer product_id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer categories;</span><br><span class="line">    <span class="keyword">private</span> Integer sku;</span><br><span class="line">    <span class="keyword">private</span> Integer location;</span><br><span class="line">    <span class="keyword">private</span> Integer quantity;</span><br><span class="line">    <span class="keyword">private</span> String model;</span><br><span class="line">    <span class="keyword">private</span> String manufacturer;</span><br><span class="line">    <span class="keyword">private</span> String image_name;</span><br><span class="line">    <span class="keyword">private</span> String requires_shipping;</span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_added;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_modified;</span><br><span class="line">    <span class="meta">@DateTimeFormat(value = &quot;yyyy-MM-dd&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String date_available;</span><br><span class="line">    <span class="keyword">private</span> Double weight;</span><br><span class="line">    <span class="keyword">private</span> String unit;</span><br><span class="line">    <span class="keyword">private</span> Integer length;</span><br><span class="line">    <span class="keyword">private</span> Integer width;</span><br><span class="line">    <span class="keyword">private</span> Integer height;</span><br><span class="line">    <span class="keyword">private</span> String length_unit;</span><br><span class="line">    <span class="keyword">private</span> Boolean status_enabled;</span><br><span class="line">    <span class="keyword">private</span> Integer tax_class_id;</span><br><span class="line">    <span class="keyword">private</span> Integer viewed;</span><br><span class="line">    <span class="keyword">private</span> Integer language_id;</span><br><span class="line">    <span class="keyword">private</span> String seo_keyword;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> String meta_description;</span><br><span class="line">    <span class="keyword">private</span> String meta_keywords;</span><br><span class="line">    <span class="keyword">private</span> String additional_image_names;</span><br><span class="line">    <span class="keyword">private</span> Integer stock_status_id;</span><br><span class="line">    <span class="keyword">private</span> Integer store_ids;</span><br><span class="line">    <span class="keyword">private</span> String related_ids;</span><br><span class="line">    <span class="keyword">private</span> String tags;</span><br><span class="line">    <span class="keyword">private</span> Integer sort_order;</span><br><span class="line">    <span class="keyword">private</span> Boolean subtract;</span><br><span class="line">    <span class="keyword">private</span> Integer minimum;</span><br><span class="line">    <span class="keyword">private</span> Double cost;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>核心代码</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testReadExcel</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass().getClassLoader().getResource(<span class="string">&quot;test.xls&quot;</span>);</span><br><span class="line">    EasyExcel.read(resource.getPath(), ReadExcel.class, <span class="keyword">new</span> <span class="title class_">ExcelDataListener</span>()).sheet(<span class="string">&quot;Products&quot;</span>).doRead();</span><br><span class="line">    <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    log.info(<span class="string">&quot;耗时：&#123;&#125;ms&quot;</span>, endTime - startTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>批量修改文件修改时间：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MacOS常用软件记录</title>
+    <url>/article/2878e73f.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<ul>
-<li>监听器</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Excel读取对象的监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExcelDataListener</span> <span class="keyword">extends</span> <span class="title class_">AnalysisEventListener</span>&lt;ReadExcel&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每隔 500 条存储数据库，然后清理list，方便内存回收</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">BATCH_COUNT</span> <span class="operator">=</span> <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;ReadExcel&gt; cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这个每一条数据解析都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> readExcel</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(ReadExcel readExcel, AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;解析到一条数据：&#123;&#125;&quot;</span>, readExcel);</span><br><span class="line">        cacheDataList.add(readExcel);</span><br><span class="line">        <span class="keyword">if</span> (cacheDataList.size() &gt;= BATCH_COUNT)&#123;</span><br><span class="line">            <span class="comment">// saveData();</span></span><br><span class="line">            cacheDataList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(BATCH_COUNT);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 所有数据解析完成了 都会来调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> analysisContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfterAllAnalysed</span><span class="params">(AnalysisContext analysisContext)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.saveData();</span><br><span class="line">        log.info(<span class="string">&quot;所有数据解析完成!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">saveData</span><span class="params">()</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;条数据，开始存储数据库!&quot;</span>, cacheDataList.size());</span><br><span class="line">        log.info(<span class="string">&quot;存储数据库成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
+</blockquote>
+<span id="more"></span>
 
+<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
+<li>Windows：✨<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN-itellyou<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<blockquote>
+<p>推荐使用LTSC版本的操作系统，系统比较纯净，但需要<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wMDlkVDVGbXZGVzFkVmpXVlI4WGtGblNBI0hFVV9LTVNfQWN0aXZhdG9y">激活<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
 <ul>
-<li>单元测试结果</li>
+<li>Linux：<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2VudG9zLm9yZy9kb3dubG9hZC8=">CentOS<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430043257016.png" alt="Easy Excel 读取测试"></p>
-<h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><ul>
-<li>实体对象</li>
+<blockquote>
+<p>比较推荐直接去一些软件源上下载，这里举例<span class="exturl" data-url="aHR0cHM6Ly9taXJyb3JzLnR1bmEudHNpbmdodWEuZWR1LmNuL3VidW50dS1jZGltYWdlL3JlbGVhc2VzLzIzLjA0L3JlbGVhc2Uv">清华源<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
+<li><strong>视频会议</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly9tZWV0aW5nLnRlbmNlbnQuY29tLw==">腾讯会议<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>文件解压缩：</strong><span class="exturl" data-url="aHR0cHM6Ly9lemlwLmF3ZWh1bnQuY29tLw==">MacZip<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>待办提醒</strong>：苹果提醒事项</li>
+<li><strong>电子邮件</strong>：苹果邮件</li>
+<li><strong>聊天工具</strong>：<span class="exturl" data-url="aHR0cHM6Ly93ZWl4aW4ucXEuY29tLw==">微信<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93b3JrLndlaXhpbi5xcS5jb20v">企业微信<i class="fa fa-external-link-alt"></i></span></li>
+<li>翻译：<span class="exturl" data-url="aHR0cHM6Ly9jaWRpYW4ueW91ZGFvLmNvbS9kb3dubG9hZC1hcHAvP2tleWZyb209ZGljdF93ZWJfcHJvZHVjdA==">有道词典<i class="fa fa-external-link-alt"></i></span></li>
+<li>VPN：✨<span class="exturl" data-url="aHR0cHM6Ly9yaWMuYXNpd2F5Lm9yZy8/c2hvcnRsaW5rPTBnZXNnaml1JmM9Y3MtYXJ0aWNsZXMmcGlkPWFjdGl2aXR5JmFmX3hwPWN1c3RvbSZzb3VyY2VfY2FsbGVyPXVp">LetsVPN<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly92cG4ubXVjLmVkdS5jbi9wb3J0YWwvIyEvbG9naW4=">EasyConnect<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>备忘录</strong>：苹果备忘录</li>
+<li>日程管理：苹果日历</li>
+<li>写作工具：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wN2R3N2J6UzZlY19YQm5HUWR3b1hnY1B3I1R5cG9yYV8xLjYuN19vc3g=">Typora<i class="fa fa-external-link-alt"></i></span></li>
+<li>图床：<span class="exturl" data-url="aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS9jbi9hcHAvaWQxMTAxMjQ0Mjc4P210PTEy">iPic<i class="fa fa-external-link-alt"></i></span></li>
+<li>输入法：<span class="exturl" data-url="aHR0cHM6Ly9waW55aW4uc29nb3UuY29tL21hYy8=">搜狗输入法<i class="fa fa-external-link-alt"></i></span></li>
+<li>软件包管理：<span class="exturl" data-url="aHR0cHM6Ly9icmV3LnNoLw==">Homebrew<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 写Excel</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WriteExcel</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;编号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Long no;    <span class="comment">// 编号</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;    <span class="comment">// 姓名</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;性别&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sex; <span class="comment">// 性别</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;地址&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String address; <span class="comment">// 地址</span></span><br><span class="line">    <span class="meta">@ExcelProperty(&quot;手机号&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tel; <span class="comment">// 手机号</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>核心代码</li>
+<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
+<li><strong>代码编辑器</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuamV0YnJhaW5zLmNvbS8=">IDEA<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpc3VhbHN0dWRpby5jb20v">VSCode<i class="fa fa-external-link-alt"></i></span></li>
+<li>Git：<span class="exturl" data-url="aHR0cHM6Ly9naXQtc2NtLmNvbS9kb3dubG9hZA==">Git<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9mb3JtdWxhZS5icmV3LnNoL2Zvcm11bGEvc3VidmVyc2lvbiNkZWZhdWx0">Svn<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>浏览器</strong>：<span class="exturl" data-url="aHR0cDovL3d3dy5maXJlZm94LmNvbS5jbi8=">Firefox<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNuL2Nocm9tZS9pbmRleC5odG1s">Google Chrome<i class="fa fa-external-link-alt"></i></span></li>
+<li><strong>虚拟化</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZG9ja2VyLmNvbS8=">Docker<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wNTFMd1lsejlJNXEtNzVtUWp1ZXNxUERnI1BhcmFsbGVsc0Rlc2t0b3AtMTguMS4xLTUzMzI4X01fb3N4">Parallels Desktop<i class="fa fa-external-link-alt"></i></span></li>
+<li>终端工具：✨<span class="exturl" data-url="aHR0cDovL3d3dy5ob3N0YnVmLmNvbS90Lzk4OC5odG1s">FinalShell<i class="fa fa-external-link-alt"></i></span></li>
+<li>数据库工具：<span class="exturl" data-url="aHR0cHM6Ly9kYmVhdmVyLmlvL2Rvd25sb2FkLw==">DBeaver<i class="fa fa-external-link-alt"></i></span>、RDM、✨Navicat、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGFtZW5nLmNvbS9ETTguaHRtbA==">达梦数据库<i class="fa fa-external-link-alt"></i></span></li>
+<li>远程工具：<span class="exturl" data-url="aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS90dy9hcHAvbWljcm9zb2Z0LXJlbW90ZS1kZXNrdG9wL2lkMTI5NTIwMzQ2Ng==">Microsoft Remote Desktop<i class="fa fa-external-link-alt"></i></span></li>
+<li>数据库设计工具：✨<span class="exturl" data-url="aHR0cHM6Ly9naXRlZS5jb20vcm9iZXJncm91cC9wZG1hbmVyL3JlbGVhc2Vz">PDManer<i class="fa fa-external-link-alt"></i></span></li>
+<li>接口测试工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucG9zdG1hbi5jb20vZG93bmxvYWRzLw==">Postman<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9qbWV0ZXIuYXBhY2hlLm9yZy8=">Jemter<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 写入Excel</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testWriteExcel()&#123;</span><br><span class="line">    long startTime = System.currentTimeMillis();</span><br><span class="line">    // 指定写入到哪个Excel文件</span><br><span class="line">    String fileName = String.format(&quot;/Users/yangzhao/Desktop/write-excel-%s%s&quot;, startTime, FILE_SUFFIX_XLSX);</span><br><span class="line">    EasyExcel.write(fileName, WriteExcel.class).sheet(&quot;模板&quot;).doWrite(generateData());</span><br><span class="line">    long endTime = System.currentTimeMillis();</span><br><span class="line">    log.info(&quot;耗时：&#123;&#125;ms&quot;, endTime - startTime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 模拟数据库</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">private List&lt;WriteExcel&gt; generateData() &#123;</span><br><span class="line">    int writeNubmer = 65535;</span><br><span class="line">    List&lt;WriteExcel&gt; dataList = new ArrayList&lt;&gt;(writeNubmer);</span><br><span class="line">    for (int i = 0; i &lt;= writeNubmer; i++) &#123;</span><br><span class="line">        WriteExcel data = new WriteExcel();</span><br><span class="line">        data.setNo((long) i + 1);</span><br><span class="line">        data.setName(GenerateInfoUtils.generateRandomName());</span><br><span class="line">        data.setSex(GenerateInfoUtils.generateRandomGender());</span><br><span class="line">        data.setAddress(GenerateInfoUtils.generateRandomAddress());</span><br><span class="line">        data.setTel(GenerateInfoUtils.generateRandomTel());</span><br><span class="line">        dataList.add(data);</span><br><span class="line">    &#125;</span><br><span class="line">    return dataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>随机信息生成工具类</li>
+<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
+<li>文件查找搜索：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cudm9pZHRvb2xzLmNvbS96aC1jbi8=">Everything<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 信息生成工具，用于随机生成姓名、地址、性别、手机号</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GenerateInfoUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的姓</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; SURNAMES = Arrays.asList(<span class="string">&quot;王&quot;</span>, <span class="string">&quot;李&quot;</span>, <span class="string">&quot;张&quot;</span>, <span class="string">&quot;刘&quot;</span>, <span class="string">&quot;陈&quot;</span>, <span class="string">&quot;杨&quot;</span>, <span class="string">&quot;黄&quot;</span>, <span class="string">&quot;吴&quot;</span>, <span class="string">&quot;赵&quot;</span>, <span class="string">&quot;周&quot;</span>, <span class="string">&quot;庄&quot;</span>, <span class="string">&quot;诸葛&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; FIRST_NAMES = Arrays.asList(<span class="string">&quot;伟&quot;</span>, <span class="string">&quot;勇&quot;</span>, <span class="string">&quot;芳&quot;</span>, <span class="string">&quot;娜&quot;</span>, <span class="string">&quot;敏&quot;</span>, <span class="string">&quot;磊&quot;</span>, <span class="string">&quot;静&quot;</span>, <span class="string">&quot;丽&quot;</span>, <span class="string">&quot;强&quot;</span>, <span class="string">&quot;鹏&quot;</span>, <span class="string">&quot;钊&quot;</span>, <span class="string">&quot;能&quot;</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的性别常量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] GENDERS = &#123;<span class="string">&quot;男&quot;</span>, <span class="string">&quot;女&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 预定义的城市、街道和房号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; CITIES = Arrays.asList(<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;上海&quot;</span>, <span class="string">&quot;广州&quot;</span>, <span class="string">&quot;深圳&quot;</span>, <span class="string">&quot;成都&quot;</span>, <span class="string">&quot;重庆&quot;</span>, <span class="string">&quot;杭州&quot;</span>, <span class="string">&quot;南京&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;String&gt; STREETS = Arrays.asList(<span class="string">&quot;长安街&quot;</span>, <span class="string">&quot;南京路&quot;</span>, <span class="string">&quot;解放大道&quot;</span>, <span class="string">&quot;人民路&quot;</span>, <span class="string">&quot;复兴路&quot;</span>, <span class="string">&quot;中山路&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_HOUSE_NUMBER</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义国内常见的手机号前缀</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PHONE_PREFIXES = &#123;<span class="string">&quot;139&quot;</span>, <span class="string">&quot;138&quot;</span>, <span class="string">&quot;137&quot;</span>, <span class="string">&quot;136&quot;</span>, <span class="string">&quot;135&quot;</span>, <span class="string">&quot;134&quot;</span>, <span class="string">&quot;159&quot;</span>, <span class="string">&quot;158&quot;</span>, <span class="string">&quot;157&quot;</span>, <span class="string">&quot;150&quot;</span>, <span class="string">&quot;151&quot;</span>, <span class="string">&quot;152&quot;</span>, <span class="string">&quot;188&quot;</span>, <span class="string">&quot;187&quot;</span>, <span class="string">&quot;186&quot;</span>, <span class="string">&quot;183&quot;</span>, <span class="string">&quot;182&quot;</span>, <span class="string">&quot;181&quot;</span>, <span class="string">&quot;180&quot;</span>, <span class="string">&quot;178&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机数生成器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Random</span> <span class="variable">RANDOM</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成手机号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomTel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 随机生成前缀</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phonePrefix</span> <span class="operator">=</span> PHONE_PREFIXES[RANDOM.nextInt(PHONE_PREFIXES.length)];</span><br><span class="line">        <span class="comment">// 随机生成后8位数字</span></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">phoneNumber</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(phonePrefix);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">            phoneNumber.append(RANDOM.nextInt(<span class="number">10</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> phoneNumber.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">city</span> <span class="operator">=</span> CITIES.get(RANDOM.nextInt(CITIES.size()));    <span class="comment">// 城市</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">street</span> <span class="operator">=</span> STREETS.get(RANDOM.nextInt(STREETS.size()));    <span class="comment">// 街道</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">houseNumber</span> <span class="operator">=</span> MIN_HOUSE_NUMBER + RANDOM.nextInt(MAX_HOUSE_NUMBER);  <span class="comment">// 房号</span></span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">&quot;%s%s%d号&quot;</span>, city, street, houseNumber);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 随机生成性别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomGender</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> RANDOM.nextInt(GENDERS.length);</span><br><span class="line">        <span class="keyword">return</span> GENDERS[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成随机姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateRandomName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从姓氏和名字列表中随机选择</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">surname</span> <span class="operator">=</span> SURNAMES.get(RANDOM.nextInt(SURNAMES.size()));</span><br><span class="line">        <span class="type">String</span> <span class="variable">firstName</span> <span class="operator">=</span> FIRST_NAMES.get(RANDOM.nextInt(FIRST_NAMES.size()));</span><br><span class="line">        <span class="keyword">return</span> surname + firstName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>单元测试结果</li>
+<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
+<li>✨腾讯杂项在线工具：<span class="exturl" data-url="aHR0cHM6Ly90b29sLmJyb3dzZXIucXEuY29tLw==">杂项工具箱<i class="fa fa-external-link-alt"></i></span></li>
+<li>✨画图工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucHJvY2Vzc29uLmNvbS8=">ProcessOn<i class="fa fa-external-link-alt"></i></span></li>
+<li>✨<span class="exturl" data-url="aHR0cHM6Ly93ZXJlYWQucXEuY29tLw==">微信读书<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044041091.png" alt="Easy Excel 写数据"></p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240430044122868.png" alt="image-20240430044122868"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82OTU1MzQ0NDU5MDc2NzMwODg3">Easy Excel 的使用<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9lYXN5ZXhjZWwub3BlbnNvdXJjZS5hbGliYWJhLmNvbS9kb2NzL2N1cnJlbnQv">Easy Excel 官方文档<i class="fa fa-external-link-alt"></i></span>&#96;&#96;</li>
+<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
+<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvYWRndWFyZC1hZGJsb2NrZXIvYmdua2hobm5hbWljbXBlZW5hZWxuamZoaWtnYmtsbGc=">AdGuard AdBlocker<i class="fa fa-external-link-alt"></i></span>拦截广告</li>
+<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvdGFrZS13ZWJwYWdlLXNjcmVlbnNob3RzL21jYnBibG9jZ21nZm5wampwcG5kamttZ2phb2dmY2Vn">FireShot<i class="fa fa-external-link-alt"></i></span> 捕捉网页截图</li>
+<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvZ2l0emlwLWZvci1naXRodWIvZmZhYm1ra2xoYmVwZ2NnZm9uYWJhbWduZmFmYmRsa24=">GitZip for github<i class="fa fa-external-link-alt"></i></span> 下载GitHub部分文件</li>
+<li>✨<span class="exturl" data-url="aHR0cHM6Ly93d3cud2FwcGFseXplci5jb20vYXBwcy8/dXRtX3NvdXJjZT1wb3B1cCZ1dG1fbWVkaXVtPWV4dGVuc2lvbiZ1dG1fY2FtcGFpZ249d2FwcGFseXplcg==">Wappalyzer<i class="fa fa-external-link-alt"></i></span> <em>分析网站所使用的组件</em></li>
 </ul>
 ]]></content>
       <categories>
         <category>开发者手册</category>
       </categories>
       <tags>
-        <tag>Easy Excel</tag>
+        <tag>MacOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>达梦查询分页排序问题</title>
+    <url>/article/e057bf2e.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
+<li>环境：达梦7</li>
+</ul>
+<p>查询SQL如下</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
+<p>发现数据库的查询结果数据是正确的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
+<p>但页面返回的数据排序是有问题的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
+<p>那么拼接后的SQL就是这样</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
+<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -592,135 +731,68 @@
       </tags>
   </entry>
   <entry>
-    <title>MacOS修改文件时间属性</title>
-    <url>/article/43757ee8.html</url>
+    <title>SSH 连接不到 EC2 Linux 实例原因排查</title>
+    <url>/article/306847ba.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<p>记录在MacOS下修改文件的时间属性。</p>
+<p>Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展计算能力的按需计算服务。本文用于记录MacOS环境下连接EC2实例的排查过程。</p>
 <span id="more"></span>
 
-<blockquote>
-<p>修改文件创建时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -t 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
+<p>当时由于第一次接触AWS的EC2产品，对AWS除了知道它和阿里云一样都属于云计算公司以外，并没有过多的了解。但在之前已经使用过腾讯云、阿里云的相关云服务产品，有一定的云上使用经验。</p>
+<p>网上的大多数方案都是基于Windows的方法，对于MacOS的平台的资料并不多或者没法通过验证。因对AWS产品的不熟，在困扰许久的情况下，我联系了AWS的中国区的官方支持人员。在与亚马逊的小姐姐沟通后，她们针对我的问题与技术进行了沟通并对我的问题进行了邮件回复和文档支持。</p>
+<p>以下是邮件回复的的文档资料（部分内容）</p>
+<ol>
+<li>在 Linux 或者 mac 环境下，常见的ssh的命令：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i /path/&lt;替换为您自己的秘钥名称&gt;.pem ec2-user@publicdns-hostname-or-ipv4-address</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 201209160330.00 /Users/name/Desktop/somefile.jpg</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>批量修改文件修改时间：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> -mt 200801120000 /Volumes/Mac\ HD/Pictures/Album/*</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>MacOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MacOS常用软件记录</title>
-    <url>/article/2878e73f.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<blockquote>
-<p>💡本文整理记录一下工作中以及日常生活中常用的一些软件和下载链接</p>
-</blockquote>
-<span id="more"></span>
-
-<h3 id="操作系统-镜像"><a href="#操作系统-镜像" class="headerlink" title="操作系统-[镜像]"></a>操作系统-[镜像]</h3><ul>
-<li>Windows：✨<span class="exturl" data-url="aHR0cHM6Ly9tc2RuLml0ZWxseW91LmNuLw==">MSDN-itellyou<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<blockquote>
-<p>推荐使用LTSC版本的操作系统，系统比较纯净，但需要<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wMDlkVDVGbXZGVzFkVmpXVlI4WGtGblNBI0hFVV9LTVNfQWN0aXZhdG9y">激活<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
+<ol start="2">
+<li>在 windows 下，请参考使用 <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmF3cy5hbWF6b24uY29tL3poX2NuL0FXU0VDMi9sYXRlc3QvVXNlckd1aWRlL3B1dHR5Lmh0bWw=">putty 从 windows 连接到 linux 实例<i class="fa fa-external-link-alt"></i></span>。通常分为两步，秘钥格式的转换，以及连接。</li>
+</ol>
+<p>连接时，请使用 <code>ec2-user</code>账户进行登陆，对于 <code>publicdns-hostname-or-ipv4-address</code> 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 <code>Ipv4</code> 同样是可以去连接的。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119043653371.png" alt="image-20240119043653371"></p>
+<p>在连接之前，首先要确定，我们的实例地址是可以连接的。这个可以通过 <code>ping</code> 来确认。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119044001526.png" alt="image-20240119044001526"></p>
+<p>如果发现连接可达，但是SSH连接无法建立的时候，可以通过配置AWS的配置安全组来解决。配置一条SSH的安全组规则就可以了。（这种情况通常是最常见的）</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119044450513.png" alt="image-20240119044450513"></p>
+<p>虽然上面使用命令解决了SSH连接实例的问题，但是每次连接还是很麻烦的，最后找到了一个比较友好的MacOS下的一个开源工具 <span class="exturl" data-url="aHR0cHM6Ly90YWJieS5zaC8=">Tabby<i class="fa fa-external-link-alt"></i></span> ，可以很好解决秘钥连接的问题。国产的 FinalShell 工具也是支持的，但是我没有验证成功。下图是 Tabby的截图，颜值还是不错的~</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119050926033.png" alt="image-20240119050926033"></p>
+<p>参考文档：</p>
 <ul>
-<li>Linux：<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2VudG9zLm9yZy9kb3dubG9hZC8=">CentOS<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<blockquote>
-<p>比较推荐直接去一些软件源上下载，这里举例<span class="exturl" data-url="aHR0cHM6Ly9taXJyb3JzLnR1bmEudHNpbmdodWEuZWR1LmNuL3VidW50dS1jZGltYWdlL3JlbGVhc2VzLzIzLjA0L3JlbGVhc2Uv">清华源<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<h3 id="操作系统工具-Mac"><a href="#操作系统工具-Mac" class="headerlink" title="操作系统工具-[Mac]"></a>操作系统工具-[Mac]</h3><h4 id="日常使用："><a href="#日常使用：" class="headerlink" title="日常使用："></a>日常使用：</h4><ul>
-<li><strong>视频会议</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly9tZWV0aW5nLnRlbmNlbnQuY29tLw==">腾讯会议<i class="fa fa-external-link-alt"></i></span></li>
-<li><strong>文件解压缩：</strong><span class="exturl" data-url="aHR0cHM6Ly9lemlwLmF3ZWh1bnQuY29tLw==">MacZip<i class="fa fa-external-link-alt"></i></span></li>
-<li><strong>待办提醒</strong>：苹果提醒事项</li>
-<li><strong>电子邮件</strong>：苹果邮件</li>
-<li><strong>聊天工具</strong>：<span class="exturl" data-url="aHR0cHM6Ly93ZWl4aW4ucXEuY29tLw==">微信<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93b3JrLndlaXhpbi5xcS5jb20v">企业微信<i class="fa fa-external-link-alt"></i></span></li>
-<li>翻译：<span class="exturl" data-url="aHR0cHM6Ly9jaWRpYW4ueW91ZGFvLmNvbS9kb3dubG9hZC1hcHAvP2tleWZyb209ZGljdF93ZWJfcHJvZHVjdA==">有道词典<i class="fa fa-external-link-alt"></i></span></li>
-<li>VPN：✨<span class="exturl" data-url="aHR0cHM6Ly9yaWMuYXNpd2F5Lm9yZy8/c2hvcnRsaW5rPTBnZXNnaml1JmM9Y3MtYXJ0aWNsZXMmcGlkPWFjdGl2aXR5JmFmX3hwPWN1c3RvbSZzb3VyY2VfY2FsbGVyPXVp">LetsVPN<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly92cG4ubXVjLmVkdS5jbi9wb3J0YWwvIyEvbG9naW4=">EasyConnect<i class="fa fa-external-link-alt"></i></span></li>
-<li><strong>备忘录</strong>：苹果备忘录</li>
-<li>日程管理：苹果日历</li>
-<li>写作工具：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wN2R3N2J6UzZlY19YQm5HUWR3b1hnY1B3I1R5cG9yYV8xLjYuN19vc3g=">Typora<i class="fa fa-external-link-alt"></i></span></li>
-<li>图床：<span class="exturl" data-url="aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS9jbi9hcHAvaWQxMTAxMjQ0Mjc4P210PTEy">iPic<i class="fa fa-external-link-alt"></i></span></li>
-<li>输入法：<span class="exturl" data-url="aHR0cHM6Ly9waW55aW4uc29nb3UuY29tL21hYy8=">搜狗输入法<i class="fa fa-external-link-alt"></i></span></li>
-<li>软件包管理：<span class="exturl" data-url="aHR0cHM6Ly9icmV3LnNoLw==">Homebrew<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<h4 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h4><ul>
-<li><strong>代码编辑器</strong>：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuamV0YnJhaW5zLmNvbS8=">IDEA<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpc3VhbHN0dWRpby5jb20v">VSCode<i class="fa fa-external-link-alt"></i></span></li>
-<li>Git：<span class="exturl" data-url="aHR0cHM6Ly9naXQtc2NtLmNvbS9kb3dubG9hZA==">Git<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9mb3JtdWxhZS5icmV3LnNoL2Zvcm11bGEvc3VidmVyc2lvbiNkZWZhdWx0">Svn<i class="fa fa-external-link-alt"></i></span></li>
-<li><strong>浏览器</strong>：<span class="exturl" data-url="aHR0cDovL3d3dy5maXJlZm94LmNvbS5jbi8=">Firefox<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNuL2Nocm9tZS9pbmRleC5odG1s">Google Chrome<i class="fa fa-external-link-alt"></i></span></li>
-<li><strong>虚拟化</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZG9ja2VyLmNvbS8=">Docker<i class="fa fa-external-link-alt"></i></span>、✨<span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNsb3VkLmNvbS5jbi9pY2xvdWRkcml2ZS8wNTFMd1lsejlJNXEtNzVtUWp1ZXNxUERnI1BhcmFsbGVsc0Rlc2t0b3AtMTguMS4xLTUzMzI4X01fb3N4">Parallels Desktop<i class="fa fa-external-link-alt"></i></span></li>
-<li>终端工具：✨<span class="exturl" data-url="aHR0cDovL3d3dy5ob3N0YnVmLmNvbS90Lzk4OC5odG1s">FinalShell<i class="fa fa-external-link-alt"></i></span></li>
-<li>数据库工具：<span class="exturl" data-url="aHR0cHM6Ly9kYmVhdmVyLmlvL2Rvd25sb2FkLw==">DBeaver<i class="fa fa-external-link-alt"></i></span>、RDM、✨Navicat、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGFtZW5nLmNvbS9ETTguaHRtbA==">达梦数据库<i class="fa fa-external-link-alt"></i></span></li>
-<li>远程工具：<span class="exturl" data-url="aHR0cHM6Ly9hcHBzLmFwcGxlLmNvbS90dy9hcHAvbWljcm9zb2Z0LXJlbW90ZS1kZXNrdG9wL2lkMTI5NTIwMzQ2Ng==">Microsoft Remote Desktop<i class="fa fa-external-link-alt"></i></span></li>
-<li>数据库设计工具：✨<span class="exturl" data-url="aHR0cHM6Ly9naXRlZS5jb20vcm9iZXJncm91cC9wZG1hbmVyL3JlbGVhc2Vz">PDManer<i class="fa fa-external-link-alt"></i></span></li>
-<li>接口测试工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucG9zdG1hbi5jb20vZG93bmxvYWRzLw==">Postman<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9qbWV0ZXIuYXBhY2hlLm9yZy8=">Jemter<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<h3 id="操作系统工具-Windows"><a href="#操作系统工具-Windows" class="headerlink" title="操作系统工具-[Windows]"></a>操作系统工具-[Windows]</h3><ul>
-<li>文件查找搜索：✨<span class="exturl" data-url="aHR0cHM6Ly93d3cudm9pZHRvb2xzLmNvbS96aC1jbi8=">Everything<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<h3 id="网页工具"><a href="#网页工具" class="headerlink" title="网页工具"></a>网页工具</h3><ul>
-<li>✨腾讯杂项在线工具：<span class="exturl" data-url="aHR0cHM6Ly90b29sLmJyb3dzZXIucXEuY29tLw==">杂项工具箱<i class="fa fa-external-link-alt"></i></span></li>
-<li>✨画图工具：<span class="exturl" data-url="aHR0cHM6Ly93d3cucHJvY2Vzc29uLmNvbS8=">ProcessOn<i class="fa fa-external-link-alt"></i></span></li>
-<li>✨<span class="exturl" data-url="aHR0cHM6Ly93ZXJlYWQucXEuY29tLw==">微信读书<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<h3 id="浏览器插件"><a href="#浏览器插件" class="headerlink" title="浏览器插件"></a>浏览器插件</h3><ul>
-<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvYWRndWFyZC1hZGJsb2NrZXIvYmdua2hobm5hbWljbXBlZW5hZWxuamZoaWtnYmtsbGc=">AdGuard AdBlocker<i class="fa fa-external-link-alt"></i></span>拦截广告</li>
-<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvdGFrZS13ZWJwYWdlLXNjcmVlbnNob3RzL21jYnBibG9jZ21nZm5wampwcG5kamttZ2phb2dmY2Vn">FireShot<i class="fa fa-external-link-alt"></i></span> 捕捉网页截图</li>
-<li>✨<span class="exturl" data-url="aHR0cHM6Ly9jaHJvbWUuZ29vZ2xlLmNvbS93ZWJzdG9yZS9kZXRhaWwvZ2l0emlwLWZvci1naXRodWIvZmZhYm1ra2xoYmVwZ2NnZm9uYWJhbWduZmFmYmRsa24=">GitZip for github<i class="fa fa-external-link-alt"></i></span> 下载GitHub部分文件</li>
-<li>✨<span class="exturl" data-url="aHR0cHM6Ly93d3cud2FwcGFseXplci5jb20vYXBwcy8/dXRtX3NvdXJjZT1wb3B1cCZ1dG1fbWVkaXVtPWV4dGVuc2lvbiZ1dG1fY2FtcGFpZ249d2FwcGFseXplcg==">Wappalyzer<i class="fa fa-external-link-alt"></i></span> <em>分析网站所使用的组件</em></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVZJR1ktN29CVmJkeVVlQldRVWhXVWc/cHdkPTg4ODg=">启动&amp;连接EC2指导-新版<i class="fa fa-external-link-alt"></i></span>（pdf）</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVZJR1ktN29CVmJkeVVlQldRVWhXVWc/cHdkPTg4ODg=">SSH 连接不到 EC2 Linux 实例原因排查<i class="fa fa-external-link-alt"></i></span>（pdf）</li>
 </ul>
 ]]></content>
       <categories>
         <category>开发者手册</category>
       </categories>
       <tags>
-        <tag>MacOS</tag>
+        <tag>Amazon</tag>
       </tags>
   </entry>
   <entry>
-    <title>达梦查询分页排序问题</title>
-    <url>/article/e057bf2e.html</url>
+    <title>Windows环境Oracle数据库自动备份的实现</title>
+    <url>/article/a639d743.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <span id="more"></span>
 
-<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
-<li>环境：达梦7</li>
-</ul>
-<p>查询SQL如下</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 
-<p>发现数据库的查询结果数据是正确的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
-<p>但页面返回的数据排序是有问题的</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
-<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
-<p>那么拼接后的SQL就是这样</p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
-<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
+<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
+<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
+<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
+<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
+<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
+<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
+<blockquote>
+<p>点击“完成”，完成定时任务的创建。</p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/github_34013496/article/details/74938788&quot;&gt;</code>Oracle数据库中分页排序 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
+<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
 </ul>
 ]]></content>
       <categories>
@@ -840,46 +912,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSH 连接不到 EC2 Linux 实例原因排查</title>
-    <url>/article/306847ba.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>Amazon Elastic Compute Cloud (EC2) 是一个在 AWS 云平台上提供可扩展计算能力的按需计算服务。本文用于记录MacOS环境下连接EC2实例的排查过程。</p>
-<span id="more"></span>
-
-<p>当时由于第一次接触AWS的EC2产品，对AWS除了知道它和阿里云一样都属于云计算公司以外，并没有过多的了解。但在之前已经使用过腾讯云、阿里云的相关云服务产品，有一定的云上使用经验。</p>
-<p>网上的大多数方案都是基于Windows的方法，对于MacOS的平台的资料并不多或者没法通过验证。因对AWS产品的不熟，在困扰许久的情况下，我联系了AWS的中国区的官方支持人员。在与亚马逊的小姐姐沟通后，她们针对我的问题与技术进行了沟通并对我的问题进行了邮件回复和文档支持。</p>
-<p>以下是邮件回复的的文档资料（部分内容）</p>
-<ol>
-<li>在 Linux 或者 mac 环境下，常见的ssh的命令：</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i /path/&lt;替换为您自己的秘钥名称&gt;.pem ec2-user@publicdns-hostname-or-ipv4-address</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在 windows 下，请参考使用 <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmF3cy5hbWF6b24uY29tL3poX2NuL0FXU0VDMi9sYXRlc3QvVXNlckd1aWRlL3B1dHR5Lmh0bWw=">putty 从 windows 连接到 linux 实例<i class="fa fa-external-link-alt"></i></span>。通常分为两步，秘钥格式的转换，以及连接。</li>
-</ol>
-<p>连接时，请使用 <code>ec2-user</code>账户进行登陆，对于 <code>publicdns-hostname-or-ipv4-address</code> 的获取可以通过 AWS 控制台的 EC2 实例列表中获取。但是公共的DNS地址会比较长，我们使用公有的 <code>Ipv4</code> 同样是可以去连接的。</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119043653371.png" alt="image-20240119043653371"></p>
-<p>在连接之前，首先要确定，我们的实例地址是可以连接的。这个可以通过 <code>ping</code> 来确认。</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119044001526.png" alt="image-20240119044001526"></p>
-<p>如果发现连接可达，但是SSH连接无法建立的时候，可以通过配置AWS的配置安全组来解决。配置一条SSH的安全组规则就可以了。（这种情况通常是最常见的）</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119044450513.png" alt="image-20240119044450513"></p>
-<p>虽然上面使用命令解决了SSH连接实例的问题，但是每次连接还是很麻烦的，最后找到了一个比较友好的MacOS下的一个开源工具 <span class="exturl" data-url="aHR0cHM6Ly90YWJieS5zaC8=">Tabby<i class="fa fa-external-link-alt"></i></span> ，可以很好解决秘钥连接的问题。国产的 FinalShell 工具也是支持的，但是我没有验证成功。下图是 Tabby的截图，颜值还是不错的~</p>
-<p><img src="https://qiniu-image.gotojava.cn/blog/image-20240119050926033.png" alt="image-20240119050926033"></p>
-<p>参考文档：</p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVZJR1ktN29CVmJkeVVlQldRVWhXVWc/cHdkPTg4ODg=">启动&amp;连接EC2指导-新版<i class="fa fa-external-link-alt"></i></span>（pdf）</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMVZJR1ktN29CVmJkeVVlQldRVWhXVWc/cHdkPTg4ODg=">SSH 连接不到 EC2 Linux 实例原因排查<i class="fa fa-external-link-alt"></i></span>（pdf）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>Amazon</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UOS升级OpenSSH</title>
     <url>/article/947b9fd7.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -958,38 +990,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows环境Oracle数据库自动备份的实现</title>
-    <url>/article/a639d743.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="1-创建批处理文件（-bat）"><a href="#1-创建批处理文件（-bat）" class="headerlink" title="1.创建批处理文件（.bat）"></a>1.创建批处理文件（.bat）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off   </span><br><span class="line"><span class="built_in">echo</span> ================================================   </span><br><span class="line"><span class="built_in">echo</span>  Windows环境下Oracle数据库的自动备份脚本  </span><br><span class="line"><span class="built_in">echo</span>  1. 使用当前日期命名备份文件。  </span><br><span class="line"><span class="built_in">echo</span>  2. 自动删除7天前的备份。  </span><br><span class="line"><span class="built_in">echo</span> ================================================  </span><br><span class="line">::以“YYYYMMDD”格式取出当前时间。  </span><br><span class="line"><span class="built_in">set</span> BACKUPDATE=%<span class="built_in">date</span>:~0,4%%<span class="built_in">date</span>:~5,2%%<span class="built_in">date</span>:~8,2%  </span><br><span class="line">::设置用户名、密码和要备份的数据库。  </span><br><span class="line"><span class="built_in">set</span> USER=xxx  </span><br><span class="line"><span class="built_in">set</span> PASSWORD=123456  </span><br><span class="line"><span class="built_in">set</span> DATABASE=dbtest  </span><br><span class="line">::创建备份目录。  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\data&quot;</span>       <span class="built_in">mkdir</span> D:\backup\data  </span><br><span class="line"><span class="keyword">if</span> not exist <span class="string">&quot;D:\backup\log&quot;</span>        <span class="built_in">mkdir</span> D:\backup\<span class="built_in">log</span>  </span><br><span class="line"><span class="built_in">set</span> DATADIR=D:\backup\data  </span><br><span class="line"><span class="built_in">set</span> LOGDIR=D:\backup\<span class="built_in">log</span>  </span><br><span class="line">exp %USER%/%PASSWORD%@%DATABASE%  file=%DATADIR%\data_%BACKUPDATE%.dmp <span class="built_in">log</span>=%LOGDIR%\log_%BACKUPDATE%.<span class="built_in">log</span>  </span><br><span class="line">::删除7天前的备份。  </span><br><span class="line">forfiles /p <span class="string">&quot;%DATADIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line">forfiles /p <span class="string">&quot;%LOGDIR%&quot;</span> /s /m *.* /d -7 /c <span class="string">&quot;cmd /c del @path&quot;</span>  </span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-添加定时任务执行计划"><a href="#2-添加定时任务执行计划" class="headerlink" title="2.添加定时任务执行计划"></a>2.添加定时任务执行计划</h2><h3 id="2-1打开任务计划程序"><a href="#2-1打开任务计划程序" class="headerlink" title="2.1打开任务计划程序"></a>2.1打开任务计划程序</h3><p>【控制面板】-【管理工具】-【任务计划程序】</p>
-<h3 id="2-2创建计划任务"><a href="#2-2创建计划任务" class="headerlink" title="2.2创建计划任务"></a>2.2创建计划任务</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191139.jpg"></p>
-<h3 id="2-3选择计划任务的执行循环周期"><a href="#2-3选择计划任务的执行循环周期" class="headerlink" title="2.3选择计划任务的执行循环周期"></a>2.3选择计划任务的执行循环周期</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191142.jpg"></p>
-<h3 id="2-4选择计划任务的执行时间"><a href="#2-4选择计划任务的执行时间" class="headerlink" title="2.4选择计划任务的执行时间"></a>2.4选择计划任务的执行时间</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191144.jpg"></p>
-<h3 id="2-5选择程序位置"><a href="#2-5选择程序位置" class="headerlink" title="2.5选择程序位置"></a>2.5选择程序位置</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191147.jpg"></p>
-<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191149.jpg"></p>
-<h3 id="2-6确认任务摘要"><a href="#2-6确认任务摘要" class="headerlink" title="2.6确认任务摘要"></a>2.6确认任务摘要</h3><p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191152.jpg"></p>
-<blockquote>
-<p>点击“完成”，完成定时任务的创建。</p>
-</blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/johnhery/p/9941963.html&quot;&gt;</code>%date<del>0,4%和 %time</del>0,2%等用法详解 <code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://www.cnblogs.com/login2012/p/5794572.html&quot;&gt;</code>Windows环境下Oracle数据库的自动备份脚本 <code>&lt;/a&gt;</code></li>
-<li><code>&lt;a href=&quot;https://blog.csdn.net/YBaog/article/details/100023073&quot;&gt;</code>Windows Server 2012 &#x2F; 2016 定时任务设置和无法执行的解决方法 <code>&lt;/a&gt;</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -1151,41 +1151,6 @@
       <tags>
         <tag>MySQL</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>为什么PPT不如备忘录</title>
-    <url>/article/60bd0b8.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-
-
-<span id="more"></span>
-
-<blockquote>
-<p>原文<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDI0LzAxL3dlZWtseS1pc3N1ZS0yODUuaHRtbA==">《科技爱好者周刊（第 285 期）：为什么 PPT 不如备忘录》<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：”我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
-<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。”新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
-<p>“会议的前30分钟，我们是不说话的。大家在会议室中安静地坐在一起，阅读这份六页的备忘录，在空白处做笔记，过了30分钟才开始讨论。”</p>
-<p>这真的很奇怪，你见过半个小时没人说话的会议吗？</p>
-<p>贝佐斯解释：”你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
-<p>“我们索性在会议上留出时间，让大家现场阅读材料，然后就可以进行真正高层次的讨论了，所有人都跟得上讨论的主题，不会搞不清一些基本的事实。”</p>
-<p>那么，为什么一定要当事人提交六页的备忘录，而不是现场主讲 PPT 呢？</p>
-<p>贝佐斯说，<strong>书面的备忘录要比 PPT 演示，效果好得多</strong>，主要有以下几点原因。</p>
-<p>（1）PPT 的设计目的是说服，这是一种销售工具。但是在公司内部，你想要的是真相，而不是业务主管的推销。</p>
-<p>（2）PPT 的缺点是，它对作者相对容易，对观众来说却很难抓住要点。备忘录正好相反，写好一份六页的备忘录，对于作者是很难的。</p>
-<p>你可能需要两周的时间，先写出初稿，然后再重写，不断加工，确保你的文字是准确和可靠的。所以，备忘录对作者非常困难，但对观众就好多了，半小时的阅读就能搞清楚事情的来龙去脉，也看得出作者对这个问题的熟悉程度。</p>
-<p>（3）备忘录可以节省会议时间。如果是 PPT 演示，高管们会不停地打断提问，结果发现答案就在下一张幻灯片。</p>
-<p>但是，阅读备忘录时，你必须先把所有问题写在空白处，当你读到最后一页时，发现很多问题已经得到了解答，这就节省了当众提问的时间。</p>
-<p>（4）PPT 演示过程中，主讲人也许会根据现场情况，临时决定隐藏或修改一些讲法。备忘录就没有这个问题，主讲人必须事先给出完整描述，你更能了解他的真实想法。</p>
-<p>（5）PPT 通常只是一些要点，不是完整的句子，有利于隐藏很多草率的想法。而备忘录是完整的段落，必须有主题句，有动词和名词，你很难隐藏自己的草率思维。</p>
-<p>备忘录迫使作者处于最佳状态，你能得到一个人真正最好的想法。如果 PPT 演示，你们可能要讨论很久，发言人才能进入最佳状态。从长远来看，备忘录节省了你的时间。</p>
-<p>以上就是贝佐斯不允许使用 PPT 的五点理由。</p>
-<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的”备忘录开会法”—-<strong>先写成文档，再进行讨论</strong>—-可能是更好更正确的做法。</p>
-]]></content>
-      <categories>
-        <category>杂文随笔</category>
-      </categories>
   </entry>
   <entry>
     <title>使用ChatGPT的提问技巧</title>
@@ -1986,85 +1951,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
-    <url>/article/b0b9894c.html</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<span id="more"></span>
-
-<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
-💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
-</aside>
-
-<p>针对不同的用户，MySQL分为两个版本：</p>
-<ol>
-<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
-<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
-</ol>
-<aside>
-⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
-</aside>
-
-<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
-<ul>
-<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
-<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
-<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
-</ul>
-<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
-<ul>
-<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
-<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
-<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
-</ul>
-<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
-<ol>
-<li>MySQL是开放源代码的数据库</li>
-</ol>
-<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
-<ol>
-<li>MySQL的跨平台性</li>
-</ol>
-<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
-<ol>
-<li>价格优势</li>
-</ol>
-<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
-<ol>
-<li>功能强大且使用方便</li>
-</ol>
-<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
-<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
-<li>Web网站系统</li>
-</ol>
-<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
-<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
-<p>MySQL是开放源代码的，完全可以免费使用。</p>
-<ol>
-<li>日志记录系统</li>
-</ol>
-<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
-<ol>
-<li>数据仓库系统</li>
-</ol>
-<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
-<ol>
-<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
-<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
-<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
-<li>嵌入式系统</li>
-</ol>
-<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
-]]></content>
-      <categories>
-        <category>开发者手册</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>电子邮件礼仪</title>
     <url>/article/b01acda2.html</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -2307,5 +2193,119 @@
       <categories>
         <category>杂文随笔</category>
       </categories>
+  </entry>
+  <entry>
+    <title>为什么PPT不如备忘录</title>
+    <url>/article/60bd0b8.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+<blockquote>
+<p>原文<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDI0LzAxL3dlZWtseS1pc3N1ZS0yODUuaHRtbA==">《科技爱好者周刊（第 285 期）：为什么 PPT 不如备忘录》<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p>亚马逊公司的创始人贝佐斯在做客美国著名的主持人<code>莱克斯·弗里德曼（Lex Fridman）</code>博客专访节目时，主持人问贝佐斯：”我听说<strong>亚马逊开会时，不准使用 PPT，发言人必须提交一份六页的备忘录</strong>。这是真的吗？”</p>
+<p>这个事情一直是传闻，但这一次，贝佐斯亲口承认确实如此。”新来的人可能会大吃一惊，我们的开会方式与众不同。”</p>
+<p>“会议的前30分钟，我们是不说话的。大家在会议室中安静地坐在一起，阅读这份六页的备忘录，在空白处做笔记，过了30分钟才开始讨论。”</p>
+<p>这真的很奇怪，你见过半个小时没人说话的会议吗？</p>
+<p>贝佐斯解释：”你可以说，更好的做法是，大家都提前阅读这些备忘录。但问题是，人们没有时间这样做，他们参加会议只是因为必须出席。”</p>
+<p>“我们索性在会议上留出时间，让大家现场阅读材料，然后就可以进行真正高层次的讨论了，所有人都跟得上讨论的主题，不会搞不清一些基本的事实。”</p>
+<p>那么，为什么一定要当事人提交六页的备忘录，而不是现场主讲 PPT 呢？</p>
+<p>贝佐斯说，<strong>书面的备忘录要比 PPT 演示，效果好得多</strong>，主要有以下几点原因。</p>
+<p>（1）PPT 的设计目的是说服，这是一种销售工具。但是在公司内部，你想要的是真相，而不是业务主管的推销。</p>
+<p>（2）PPT 的缺点是，它对作者相对容易，对观众来说却很难抓住要点。备忘录正好相反，写好一份六页的备忘录，对于作者是很难的。</p>
+<p>你可能需要两周的时间，先写出初稿，然后再重写，不断加工，确保你的文字是准确和可靠的。所以，备忘录对作者非常困难，但对观众就好多了，半小时的阅读就能搞清楚事情的来龙去脉，也看得出作者对这个问题的熟悉程度。</p>
+<p>（3）备忘录可以节省会议时间。如果是 PPT 演示，高管们会不停地打断提问，结果发现答案就在下一张幻灯片。</p>
+<p>但是，阅读备忘录时，你必须先把所有问题写在空白处，当你读到最后一页时，发现很多问题已经得到了解答，这就节省了当众提问的时间。</p>
+<p>（4）PPT 演示过程中，主讲人也许会根据现场情况，临时决定隐藏或修改一些讲法。备忘录就没有这个问题，主讲人必须事先给出完整描述，你更能了解他的真实想法。</p>
+<p>（5）PPT 通常只是一些要点，不是完整的句子，有利于隐藏很多草率的想法。而备忘录是完整的段落，必须有主题句，有动词和名词，你很难隐藏自己的草率思维。</p>
+<p>备忘录迫使作者处于最佳状态，你能得到一个人真正最好的想法。如果 PPT 演示，你们可能要讨论很久，发言人才能进入最佳状态。从长远来看，备忘录节省了你的时间。</p>
+<p>以上就是贝佐斯不允许使用 PPT 的五点理由。</p>
+<p>我觉得这些理由很有说服力。PPT 在国内已经泛滥成灾，大家好像默认，它是开会的标准方式，缺了还不行。这真的要改一下，学习亚马逊的”备忘录开会法”—-<strong>先写成文档，再进行讨论</strong>—-可能是更好更正确的做法。</p>
+]]></content>
+      <categories>
+        <category>杂文随笔</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>深入了解MySQL：功能全解析、优势与劣势以及最佳应用场景</title>
+    <url>/article/b0b9894c.html</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><aside>
+💡 MySQL是最流行的关系型数据库之一，是一个免费开源的关系型数据库管理系统，但也不意味着该数据库是完全免费的。MySQL由瑞典MySQL AB公司开发，目前是属于Oracle公司。MySQL适合中小型软件，被个人用户以及中小企业青睐。
+</aside>
+
+<p>针对不同的用户，MySQL分为两个版本：</p>
+<ol>
+<li>MySQL Communtiy Server（社区版本）：该版本是自由下载且完全免费的，但是官方不提供技术支持。</li>
+<li>MySQL Enterprise Server（企业版）：该版本是收费的，而且不能下载，但是该版本拥有完善的技术支持。（官方提供电话技术支持）。</li>
+</ol>
+<aside>
+⚠️ MySQL Cluster主要用于架设集群服务器，需要在社区服务或企业版的基础上使用。
+</aside>
+
+<h2 id="命名机制（版本号）"><a href="#命名机制（版本号）" class="headerlink" title="命名机制（版本号）"></a>命名机制（版本号）</h2><p>MySQL的命名机制由三个数字和一个后缀组成，例如：mysql-5.7.41</p>
+<ul>
+<li>第一个数字”5“是主版本号，用于描述文件的格式，所有版本5的发行版都有相同的文件夹格式。</li>
+<li>第二个数字“7”是发行级别，主版本号和发行级别组合在一起便构成了发行序列号。</li>
+<li>第三个数字“41”是在此发行系列的版本号，随每次新发行的版本递增。通常选择已经发行的最新版本。</li>
+</ul>
+<p>在MySQL的开发过程中，同时存在多个发布系列，每个发布系列的成熟度处在不同阶段。</p>
+<ul>
+<li>MySQL5.7是最新开发的稳定（GA）发布系列，是将执行新功能的系列，目前已经可以正常使用。</li>
+<li>MySQL5.6是比较稳定的（GA）发布系列，只针对漏洞修复重新发布，不增加会影响稳定性的新功能。</li>
+<li>MySQL5.1是一个稳定的（产品质量）发布系列，只针对严重漏洞修复和安全修复重新发布，不增加影响该系列稳定性的重要功能。</li>
+</ul>
+<h2 id="特点、优势"><a href="#特点、优势" class="headerlink" title="特点、优势"></a>特点、优势</h2><p>MySQL数据库管理系统具有很多的优势。</p>
+<ol>
+<li>MySQL是开放源代码的数据库</li>
+</ol>
+<p>MySQL是开放源代码的数据库，任何人都可以获取该数据库的源代码。这就使得任何人都可以修正MySQL的缺陷，并且任何人都能以任何目的来使用该数据库。MySQL是一款可以自由使用的数据库。</p>
+<ol>
+<li>MySQL的跨平台性</li>
+</ol>
+<p>MySQL不仅可以在Windows系列的操作系统上运行，还可以在Unix、Linux和Mac OS等操作系统上运行。因为很多网站都选择Unix、Linux作为网站的服务器，所以MySQL的跨平台性保证了其在Web应用方面的优势。虽然Microsoft公司的SQL Server数据库是一款很优秀的商业数据库，但是其只能在Windows系列的操作系统上运行。因为，MySQL数据库的跨平台性是一个很大的优势。</p>
+<ol>
+<li>价格优势</li>
+</ol>
+<p>MySQL数据库是一个自由软件，任何人都可以从MySQL的官方网站上下载该软件，这些社区版本的MySQL都是免费试用的，即使是需要付费的附加功能，其价格也是很便宜的。相对于Oracle、DB2和SQL Server这些价格昂贵的商业软件，MySQL具有绝对的价格优势。</p>
+<ol>
+<li>功能强大且使用方便</li>
+</ol>
+<p>MySQL是一个真正的多用户、多线程SQL数据库服务器。它能够快速、有效和安全的处理大量的数据。相对于Oracle等数据库来说，MySQL的使用是非常简单的。MySQL的主要目标是快速、健壮和易用。</p>
+<p>MySQL与常用的主流数据库Oracle、SQL Server相比，主要特点就是免费，并且在任何平台上都能使用，占用的空间相对较小。但是MySQL也有一些不足，比如对于大型项目来说，MySQL的容量和安全性就略逊于Oracle数据库。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ol>
+<li>Web网站系统</li>
+</ol>
+<p>Web网站的开发者是MySQL最大的客户群，也是MySQL发展史上最为重要的支撑力量。</p>
+<p>MySQL数据库的安装配置都非常简单，使用过程中的维护也不像很多大型商业数据库管理系统那么复杂，而且性能出色。</p>
+<p>MySQL是开放源代码的，完全可以免费使用。</p>
+<ol>
+<li>日志记录系统</li>
+</ol>
+<p>MySQL的数据库的插入和查询性能都非常的高效，如果设计的好，在使用MyISAM存储引擎的时候，两者可以做到互不锁定，达到很高的并发性能。对需要大量的插入和查询日志记录的系统来说，是一个很好的选择。</p>
+<ol>
+<li>数据仓库系统</li>
+</ol>
+<p>随着现在数据仓库数据量的飞速增长，我们需要的存储空间越来越大。数据量的不断增长，使数据的统计分析变得越来越低效，也越来越困难。几个主要解决思路如下：</p>
+<ol>
+<li>采用昂贵的高性能主机以提高计算性能，用高端存储设备提高I&#x2F;O性能，效果理想，但是成本非常高；</li>
+<li>通过将数据复制到多台使用大容量硬盘的廉价服务器上，以提高整体计算性能和I&#x2F;O能力，效果还可以，但存储空间有一定的限制，成本低廉。</li>
+<li>通过将数据水平拆分，使用多台廉价的服务器和本地磁盘来存放数据，每台机器上面都只有所有数据的一部分，解决了数据量的问题，所有服务器一起并行计算，也解决了计算能力问题，通过中间代理程序调配各台机器的运算任务，既可以解决计算性能问题又可以解决I&#x2F;O性能问题，成本也很低廉。</li>
+<li>嵌入式系统</li>
+</ol>
+<p>MySQL在资源的使用方面的伸缩性非常大，可以在资源充裕的环境下使用，也可以在资源紧凑的环境下使用，对于嵌入式环境，MySQL也有专门针对嵌入式环境的版本。</p>
+]]></content>
+      <categories>
+        <category>开发者手册</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
   </entry>
 </search>
