@@ -160,6 +160,8 @@ MySQL在安装完成后，会生成一个随机密码，我们通过root用户�
 mysql> ALTER USER user() identified by "root";
 Query OK, 0 rows affected (0.00 sec)
 
+# 遇到：MySQL ERROR 1819 (HY000): Your password does not satisfy the current policy requirements 问题参考：https://ostechnix.com/fix-mysql-error-1819-hy000-your-password-does-not-satisfy-the-current-policy-requirements/
+
 # 刷新权限
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
