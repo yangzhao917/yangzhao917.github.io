@@ -3,7 +3,7 @@ title: Redis7的单实例安装与基本配置
 categories:
   - 开发者笔记
 tags:
-  - Redis
+  - Redis7
 abbrlink: 242fe420
 date: 2024-06-05 19:31:21
 ---

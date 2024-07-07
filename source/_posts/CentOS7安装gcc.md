@@ -1,7 +1,7 @@
 ---
 title: CentOS7 安装 gcc/gcc-c++
 categories: ['开发者笔记']
-tags: ['CentOS']
+tags: ['Linux']
 abbrlink: aba7d07
 date: 2024-06-03 04:18:38
 ---

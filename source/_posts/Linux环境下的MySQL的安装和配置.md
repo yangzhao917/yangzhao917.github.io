@@ -1,7 +1,7 @@
 ---
 title: Linux环境下的MySQL的安装和配置
 categories:
-  - 开发者手册
+  - 开发者笔记
 tags:
   - MySQL
 abbrlink: 2306cec7

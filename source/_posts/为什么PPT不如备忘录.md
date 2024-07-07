@@ -1,7 +1,5 @@
 ---
 title: 为什么PPT不如备忘录
-categories:
-  - 杂文随笔
 abbrlink: 60bd0b8
 date: 2024-01-19 02:49:07
 ---

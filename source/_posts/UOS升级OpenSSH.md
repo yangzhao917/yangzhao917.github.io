@@ -1,7 +1,7 @@
 ---
 title: UOS升级OpenSSH
 categories:
-  - 开发者手册
+  - 开发者笔记
 tags:
   - Linux
 abbrlink: 947b9fd7
