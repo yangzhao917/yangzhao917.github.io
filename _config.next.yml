@@ -98,10 +98,9 @@ creative_commons:
 menu:
   home: / || fa fa-home
   archives: /archives/ || fa fa-archive
-  links: /links/ || fa fa-link
-  about: /about/ || fa fa-user
-  # tags: /tags/ || fa fa-tags
-  # categories: /categories/ || fa fa-th
+  # about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
   # schedule: /schedule/ || fa fa-calendar
   # sitemap: /sitemap.xml || fa fa-sitemap
   # commonweal: /404/ || fa fa-heartbeat
@@ -133,7 +132,7 @@ sidebar:
   #  - always  expand for all pages automatically.
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  totally remove sidebar including sidebar toggle.
-  display: post
+  display: always
 
   # Sidebar padding in pixels.
   padding: 18
@@ -220,7 +219,7 @@ footer:
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
   # Set to `false` to disable the copyright statement.
-  copyright: "澄澈少年的网络日志"
+  copyright: "杨钊的网络日志"
 
   # Powered by Hexo & NexT
   powered: false
@@ -299,7 +298,6 @@ related_posts:
 post_edit:
   enable: false
   url: https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/ # Link for view source
-  #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
 # 如果存在，在帖子页脚显示上一个帖子和下一个帖子
 # Available values: left | right | false

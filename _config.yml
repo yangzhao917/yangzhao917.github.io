@@ -3,17 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: '澄澈少年的网络日志'
+title: '杨钊的网络日志'
 subtitle: ''
 description: ''
-keywords: '澄澈少年的网络日志,澄澈少年'
-author: '澄澈少年'
+keywords: '杨钊的网络日志'
+author: '杨钊'
 language: zh-CN
 timezone: ''
 
-# URL
-## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-#url: https://yangzhao917.github.io
 url: https://gotojava.cn
 root: /
 # permalink: :year/:month/:day/:title/
@@ -23,8 +20,10 @@ abbrlink:
   rep: hex
 permalink_defaults:
 pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+  # Set to false to remove trailing 'index.html' from permalinks
+  trailing_index: true
+  # Set to false to remove trailing '.html' from permalinks
+  trailing_html: true
 
 Plugins:
 - hexo-generator-baidu-sitemap

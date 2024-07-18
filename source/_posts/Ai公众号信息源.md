@@ -1,5 +1,5 @@
 ---
-title: Ai公众号信息源（持续更新版）
+title: Ai公众号信息源
 abbrlink: e9e37e93
 date: 2024-07-05 14:56:34
 ---
