@@ -98,12 +98,8 @@ creative_commons:
 menu:
   home: / || fa fa-home
   archives: /archives/ || fa fa-archive
-  # about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
-  # schedule: /schedule/ || fa fa-calendar
-  # sitemap: /sitemap.xml || fa fa-sitemap
-  # commonweal: /404/ || fa fa-heartbeat
 
 
 # Enable / Disable menu icons / item badges.
@@ -132,7 +128,7 @@ sidebar:
   #  - always  expand for all pages automatically.
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  totally remove sidebar including sidebar toggle.
-  display: always
+  display: post
 
   # Sidebar padding in pixels.
   padding: 18
@@ -159,17 +155,10 @@ social:
   GitHub: https://github.com/yangzhao917 || fab fa-github
   E-Mail: mailto:yz0917@foxmail.com || fa fa-envelope
   RSS: /atom.xml || fa fa-rss
-  Weibo: https://weibo.com/u/6508635183 || fab fa-weibo
-  #Twitter: https://twitter.com/yourname || fab fa-twitter
-  #FB Page: https://www.facebook.com/yourname || fab fa-facebook
-  #StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
-  #YouTube: https://youtube.com/@zhaoyang9975 || fab fa-youtube
-  #Instagram: https://instagram.com/yourname || fab fa-instagram
-  #Skype: skype:yourname?call|chat || fab fa-skype
 
 
 social_icons:
-  enable: true
+  enable: false
   icons_only: false
   transition: false
 
@@ -314,7 +303,7 @@ tagcloud:
   min: 12 # 最小字体大小，单位为px
   max: 30 # Maximum font size in px
   amount: 200 # 标签总数
-  orderby: name # Order of tags
+  orderby: tags # Order of tags
   order: 1 # Sort order
 
 # Google Calendar
@@ -347,7 +336,7 @@ text_align:
   mobile: justify
 
 # 减少窄宽度设备上的填充/边距缩进。
-mobile_layout_economy: false
+mobile_layout_economy: true
 
 # 浏览器标题面板颜色。
 theme_color:
