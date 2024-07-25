@@ -145,8 +145,7 @@ neat_js:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: Hacker
-theme: "next"
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
