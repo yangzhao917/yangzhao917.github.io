@@ -1,7 +1,4 @@
 ---
-categories: []
-tags: []
+title: {{ title }}
+tags:
 ---
-<meta name="referrer" content="no-referrer" />
-
-<!--more-->
