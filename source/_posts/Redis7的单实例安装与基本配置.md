@@ -7,6 +7,7 @@ tags:
   - Redis7
 abbrlink: 242fe420
 date: 2024-06-05 19:31:21
+toc: true
 ---
 
 <meta name="referrer" content="no-referrer" />

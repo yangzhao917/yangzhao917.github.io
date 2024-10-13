@@ -7,6 +7,7 @@ tags:
   - Linux
 abbrlink: 1836dc99
 date: 2023-08-25 02:33:57
+toc: true
 ---
 <meta name="referrer" content="no-referrer" />
 
