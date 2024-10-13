@@ -1,4 +1,5 @@
 ---
+uuid: b916a4a6-3bb6-2fd5-e30b-7261da1ea53e
 title: UOS升级OpenSSH
 categories:
   - 开发者笔记

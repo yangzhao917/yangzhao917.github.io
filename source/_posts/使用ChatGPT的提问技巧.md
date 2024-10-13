@@ -1,4 +1,5 @@
 ---
+uuid: 03d36348-6fc7-fb7f-c23b-a567d8160332
 title: 使用ChatGPT的提问技巧
 tags:
   - LLM

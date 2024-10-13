@@ -1,4 +1,5 @@
 ---
+uuid: 8cd7a292-8827-d583-9be3-db27b27ec954
 title: MacOS常用软件记录
 categories:
   - 开发者笔记

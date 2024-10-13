@@ -1,4 +1,5 @@
 ---
+uuid: 8b7a7275-1adc-6ac4-c744-ca0b584d5dee
 title: Redis7的单实例安装与基本配置
 categories:
   - 开发者笔记

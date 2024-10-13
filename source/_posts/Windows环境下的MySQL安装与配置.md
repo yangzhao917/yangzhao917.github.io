@@ -1,4 +1,5 @@
 ---
+uuid: f2ced23c-c84b-dce5-fad1-70efad956cc1
 title: Windows环境下的MySQL安装与配置
 categories:
   - 开发者笔记

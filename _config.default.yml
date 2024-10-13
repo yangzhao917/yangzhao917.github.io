@@ -1,0 +1,128 @@
+theme_color:
+  primary: indigo
+  accent: pink
+
+notice: 
+
+favicon: /images/favicon.png
+banner: /images/banner.png
+avatar: /images/avatar.png
+rss: /atom.xml
+
+email: yz0917@foxmail.com
+sns:
+  twitter:
+  facebook:
+  google_plus:
+  weibo:
+  instagram:
+  tumblr:
+  github: http://github.com/yangzhao917
+  linkedin:
+  zhihu:
+  douban:
+  qq:
+  wechat:
+
+open_graph:
+  twitter:
+  google_plus:
+  fb_admins:
+  fb_app_id:
+site_verification:
+  google:
+  baidu:
+analytics:
+  google_site_id:
+  baidu_site_id:
+  cnzz_site_id:
+
+pages:
+- name: 时间轴
+  link: /timeline
+- name: 标签云
+  link: /tagcloud
+
+
+since: 2024
+footer_text: 
+license: 本文遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a> 许可协议
+
+gallery:
+  fancybox_css: //cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css
+  fancybox_js: //cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js
+  jquery_js: //cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.min.js
+  lazyload_js: //cdn.bootcdn.net/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js
+busuanzi:
+  site: true
+  page: true
+  busuanzi_js: //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+qrcode:
+  caption: 发送到手机
+  use: online
+donate:
+search:
+  placeholder: 请输入关键字
+  path: /search.xml
+  use: plugin
+comment:
+  use: false
+  disqus_shortname:
+  gitalk_client_id:
+  gitalk_client_secret:
+  gitalk_repo:
+  gitalk_owner:
+  gitalk_sid_type:
+  livere_data_uid:
+  valine_leancloud_app_id:
+  valine_leancloud_app_key:
+  valine_placeholder:
+  valine_page_size:
+  valine_avatar:
+  valine_lang:
+  valine_guest_info:
+  valine_notify:
+  valine_verify:
+  valine_sid_type:
+  changyan_app_id:
+  changyan_app_key:
+  changyan_sid_type:
+
+# Markdown
+## Docs: https://github.com/niemingzhao/hexo-renderer-markdown#readme
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    langPrefix: language-
+    linkify: true
+    typographer: true
+    quotes: “”‘’
+  plugins:
+    markdown-it-anchor:
+      level: 1
+      permalink: true
+      slugify: function (s){return encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g,"-"))}
+      tabIndex: -1
+      uniqueSlugStartIndex: 1
+      renderPermalink: function (b,c,d,a){var f;var e=[Object.assign(new d.Token("link_open","a",1),{attrs:[["class",c.permalinkClass],["href",c.permalinkHref(b,d)],["aria-hidden",true]]}),new d.Token("link_close","a",-1)];(f=d.tokens[a+1].children)["push"].apply(f,e)}
+      permalinkClass: header-anchor
+      permalinkSpace: false
+      permalinkSymbol: ""
+      permalinkBefore: false
+    markdown-it-attrs:
+      leftDelimiter: "{"
+      rightDelimiter: "}"
+      allowedAttributes: []
+    markdown-it-checkbox:
+      divWrap: false
+      divClass: checkbox
+      idPrefix: checkbox
+    markdown-it-texmath:
+      katexCssSrc: //cdn.jsdelivr.net/npm/katex/dist/katex.min.css
+      texmathCssSrc: //cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css
+      texmathDelimiters: dollars
+      throwOnError: false
+      errorColor: "#cc0000"
+      macros: { "\\RR": "\\mathbb{R}" }
