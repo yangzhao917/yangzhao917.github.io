@@ -8,6 +8,7 @@ tags:
 abbrlink: a639d743
 date: 2023-06-08 14:05:15
 toc: true
+thumbnail: https://qiniu-image.gotojava.cn/blog/DamengV8.png
 ---
 <meta name="referrer" content="no-referrer" />
 
