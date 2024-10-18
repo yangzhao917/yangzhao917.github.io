@@ -56,7 +56,7 @@ gallery:
 busuanzi:
   site: true
   page: true
-  busuanzi_js: //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+  busuanzi_js: 
 qrcode:
   caption: 发送到手机
   use: online
