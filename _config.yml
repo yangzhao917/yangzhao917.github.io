@@ -50,7 +50,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false # 是否渲染拟稿文件
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: true
 syntax_highlighter: highlight.js
