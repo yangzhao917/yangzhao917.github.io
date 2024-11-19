@@ -9,8 +9,3 @@ title: 关于我
 - [GitHub](https://github.com/yangzhao917)
 - Email：yz0917@foxmail.com
 - ID：澄澈少年
-
-您也可以通过扫描下方的 WeChat 二维码加我微信：
-
-<img src="/images/Wechat-Me.jpg" width="300" height="300" />
-
