@@ -1,0 +1,13 @@
+menubar:
+  columns: 4 # 一行多少个
+  items: # 可按照自己需求增加，符合以下格式即可
+    - id: post
+      theme: '#1BCDFC'
+      icon: solar:documents-bold-duotone
+      title: 博客
+      url: /
+    - id: about
+      theme: '#FA6400'
+      icon: 'solar:planet-bold-duotone'
+      title: 关于
+      url: /about/
