@@ -1,46 +1,15 @@
-# Site
-title: 杨钊
-subtitle: '记录一些值得分享的东西'
-description: '杨钊'
+title: '阿钊的写字板'
+subtitle: ''
+description: '公众号：阿钊的写字板'
 keywords: '澄澈少年, Java, 全栈开发'
-author: 澄澈少年
-language: zh-CN
-timezone: 'Asia/Shanghai'
-url: http://gotojava.cn/
-avatar: 'avatar.png'
+author: '阿钊'
+url: http://blog.gotojava.cn/
 root: /
-
-permalink: /article/:abbrlink.html
+permalink: :year/:month/:day/:title/
 abbrlink:
-  alg: crc32  #support crc16(default) and crc32
-  rep: hex    #support dec(default) and hex
-  drafts: true
-  # Generate categories from directory-tree
-  # depth: the max_depth of directory-tree you want to generate, should > 0
-  auto_category:
-    enable: true
-    depth:
-permalink_defaults:
-pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: true # Set to false to remove trailing '.html' from permalinks
-
-# Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-i18n_dir: :lang
-skip_render: 404.html
-
-# Writing
-new_post_name: :title.md
-
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
-updated_option: 'mtime'
-
-theme: stellar
+  alg: crc32
+  rep: hex
+theme: Hacker
 
 deploy:
   type: 'git'

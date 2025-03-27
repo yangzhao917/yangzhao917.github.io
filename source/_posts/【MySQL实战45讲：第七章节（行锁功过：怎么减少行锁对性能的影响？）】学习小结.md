@@ -5,6 +5,9 @@ abbrlink: d6c36d88
 date: 2025-03-27 18:16:51
 tags: MySQL
 ---
+<meta name="referrer" content="no-referrer" />
+
+<!-- more -->
 
 MyISAM引擎为什么不支持行锁？Mysql的行锁是由存储引擎自己去实现的，在 MySQL中主流的存储引擎由两种：MyISAM和InnoDB，在新版本的 MySQL 中InnoDB 是作为默认的存储引擎的，MyISAM 的存储引擎就没有了。原因是MyISAM的存储引擎是不支持事务的，但行级锁需要有事务隔离级别的支持。对于使用MyISAM作为存储引擎的表，一般会使用metadata lock（MDL）来进行锁表，MDL 的特性在修改数据时允许其他的线程去读数据但允许改数据，同一张表任何时刻只能有一个更新在执行，这会影响业务表的并发性，也正是因为MyISAM不支持事务和并发性的问题，但InnoDB是支持事务和行级锁的，这也就导致新版本中MyISAM引擎被 InnoDB 所替代。
 

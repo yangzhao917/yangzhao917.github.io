@@ -10,6 +10,8 @@ date: 2024-10-30 12:39:07
 
 本文用于记录 SpringBoot 嵌入 东方通 Web 应用服务器的过程。
 
+<!-- more -->
+
 ## 背景
 
 [TongWeb](https://www.tongtech.com/pctype/25.html) 是国内开发的一款高性能应用服务器软件，可以替代 Tomcat。因项目的国产化要求，需要使用 TongWeb 来替代默认的 Tomcat 容器。
