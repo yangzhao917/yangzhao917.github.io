@@ -5,7 +5,7 @@ keywords: '澄澈少年, Java, 全栈开发'
 author: '阿钊'
 url: http://blog.gotojava.cn/
 root: /
-permalink: :year/:month/:day/:title/
+permalink: posts/:abbrlink.html
 abbrlink:
   alg: crc32
   rep: hex
