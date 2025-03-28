@@ -1,5 +1,4 @@
 ---
-uuid: e94eebcd-fc46-2e6f-cbd7-ada6f24cf679
 title: '关于SSH服务“Permission denied, please try again.”问题的解决方案'
 categories:
   - 开发者笔记

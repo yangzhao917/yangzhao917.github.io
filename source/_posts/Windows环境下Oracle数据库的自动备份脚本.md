@@ -1,5 +1,4 @@
 ---
-uuid: a850d8e1-1cd5-96db-5fee-732dd582d05a
 title: Windows环境Oracle数据库自动备份的实现
 categories:
   - 开发者笔记

@@ -1,5 +1,4 @@
 ---
-uuid: 50b7336f-b2c7-fd36-f332-5364d307a9f4
 title: Linux环境下的MySQL的安装和配置
 categories:
   - 开发者笔记

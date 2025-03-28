@@ -1,5 +1,4 @@
 ---
-uuid: c8b4fba1-d990-6e5d-ead9-c3d61e8629c2
 title: CentOS7 安装 gcc/gcc-c++
 categories: ['开发者笔记']
 tags: ['Linux']

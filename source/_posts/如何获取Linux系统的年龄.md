@@ -1,5 +1,4 @@
 ---
-uuid: 18ec0960-cb11-1fff-5b1c-bf7f9183e9d5
 title: 如何获取Linux系统的年龄
 tags:
   - Linux

@@ -1,5 +1,4 @@
 ---
-uuid: a2a36116-75d9-bf0f-5f8e-414dcb8ea570
 title: 使用Rsyslog归集系统日志
 categories:
   - 开发者笔记

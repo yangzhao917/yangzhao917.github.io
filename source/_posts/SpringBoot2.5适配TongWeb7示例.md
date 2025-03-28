@@ -1,5 +1,4 @@
 ---
-uuid: 5ded43e9-4546-7460-8555-4929471b9ae9
 title: SpringBoot2.5适配TongWeb7示例
 tags: [SpringBoot,东方通]
 toc: true

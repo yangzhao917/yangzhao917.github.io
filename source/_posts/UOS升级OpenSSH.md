@@ -1,14 +1,14 @@
 ---
-uuid: b916a4a6-3bb6-2fd5-e30b-7261da1ea53e
 title: UOS升级OpenSSH
 categories:
   - 开发者笔记
 tags:
   - Linux
 abbrlink: 947b9fd7
-date: 2023-09-14 14:46:11
 toc: true
+date: 2023-09-14 14:46:11
 ---
+
 <meta name="referrer" content="no-referrer" />
 
 因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程

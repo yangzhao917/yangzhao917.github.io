@@ -1,5 +1,4 @@
 ---
-uuid: 43dde236-74f2-d7ea-04b5-0d89dfc0eef9
 title: 记一次HTTPS证书过期的处置过程
 toc: true
 abbrlink: ac3d766f
