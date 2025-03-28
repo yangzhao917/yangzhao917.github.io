@@ -1,8 +1,8 @@
 title: '阿钊的写字板'
-subtitle: ''
-description: '公众号：阿钊的写字板'
-keywords: '澄澈少年, Java, 全栈开发'
-author: '阿钊'
+subtitle: '公众号：阿钊的写字板'
+description: '专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。'
+keywords: '阿钊的写字板, Java, 分布式'
+author: '阿钊的写字板'
 url: http://blog.gotojava.cn/
 root: /
 permalink: posts/:abbrlink.html
