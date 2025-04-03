@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS7 安装 gcc/gcc-c++ | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="CentOS7 安装 gcc/gcc-c++"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>CentOS7 安装 gcc/gcc-c++</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/aba7d07.html" rel="bookmark">
+        <time class="entry-date published" datetime="2024-06-03T04:18:38.000Z">
+          2024-06-03
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>本文用于记录gcc、gcc+c++在CentOS 7下的在线安装、离线安装两种安装方式。</p>
+<span id="more"></span>
+
+<h2 id="gcc是什么？"><a href="#gcc是什么？" class="headerlink" title="gcc是什么？"></a>gcc是什么？</h2><p>GCC（GNU Compiler Collection）是一个支持多种编程语言（如C、C++、Fortran等）的开源编译器系统，它能够将源代码编译成可执行的机器代码。</p>
+<h3 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a>在线安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/">https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/</a></p>
+<p>下载列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -P：指定到下载目录，如果目录不存在，则自动创建</span></span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/cpp-4.8.5-44.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/gcc-4.8.5-44.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/glibc-devel-2.17-317.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/glibc-headers-2.17-317.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/kernel-headers-3.10.0-1160.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libmpc-1.0.1-3.el7.x86_64.rpm</span><br><span class="line">wget -P ./gcc https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/mpfr-3.1.1-4.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># --nodeps 不检查包的依赖关系；--force强制安装</span></span><br><span class="line">rpm  -ivh  ./gcc/*.rpm --nodeps --force</span><br></pre></td></tr></table></figure>
+
+<h2 id="gcc-c-是什么"><a href="#gcc-c-是什么" class="headerlink" title="gcc+c++是什么"></a>gcc+c++是什么</h2><p>GCC-C++（也称为g++）是GCC（GNU Compiler Collection）中的一个编译器组件，用于编译C++语言的源代码。它是GCC的一个子集，专门处理C++代码。</p>
+<h3 id="在线安装-1"><a href="#在线安装-1" class="headerlink" title="在线安装"></a>在线安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++ -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="离线安装-1"><a href="#离线安装-1" class="headerlink" title="离线安装"></a>离线安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget -P gcc-c++ https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/gcc-c++-4.8.5-44.el7.x86_64.rpm</span><br><span class="line">wget -P gcc-c++ https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm</span><br><span class="line">wget -P gcc-c++ https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc++-devel-4.8.5-44.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># --nodeps 不检查包的依赖关系；--force强制安装</span></span><br><span class="line">rpm  -ivh  ./gcc-c++/*.rpm --nodeps --force</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Linux/">Linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

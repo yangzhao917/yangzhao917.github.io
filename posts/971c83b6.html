@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>苹果手机问题排查指导 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="苹果手机问题排查指导"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>苹果手机问题排查指导</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/971c83b6.html" rel="bookmark">
+        <time class="entry-date published" datetime="2025-03-28T05:46:15.000Z">
+          2025-03-28
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="iphone设置DNS"><a href="#iphone设置DNS" class="headerlink" title="iphone设置DNS"></a>iphone设置DNS</h2><p>针对部分终端上网异常的问题，如苹果手机，可以在对应终端上设置静态dns和关闭IP地址跟踪。如图所示：</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202503281352148.png"></p>
+<h2 id="iphone关闭限制IP地址跟踪"><a href="#iphone关闭限制IP地址跟踪" class="headerlink" title="iphone关闭限制IP地址跟踪"></a>iphone关闭限制IP地址跟踪</h2><p>针对部分终端上网异常的问题，如苹果手机，可以在对应终端上设置静态dns和关闭IP地址跟踪。隐私与安全，把所有跟踪都关闭。</p>
+<p>如图所示：</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202503281353281.png"></p>
+<h2 id="iphone隐私与安全，关闭所有跟踪"><a href="#iphone隐私与安全，关闭所有跟踪" class="headerlink" title="iphone隐私与安全，关闭所有跟踪"></a>iphone隐私与安全，关闭所有跟踪</h2><p><img src="https://qiniu-image.gotojava.cn/blog/202503281354275.png"></p>
+<h2 id="网关设置终端DNS来源"><a href="#网关设置终端DNS来源" class="headerlink" title="网关设置终端DNS来源"></a>网关设置终端DNS来源</h2><p>针对部分终端上网异常的问题，如苹果手机，可以在主网关上设置静态DNS，设置方法【网络】-【用户侧管理】-【IPv4配置】-【DNS来源】-选择静态配置，静态DNS可以填114.114.114.114加运营商DNS，如图所示：</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202503281354975.png"></p>
+<h2 id="网关关闭IPv6"><a href="#网关关闭IPv6" class="headerlink" title="网关关闭IPv6"></a>网关关闭IPv6</h2><p>集团规范要求IPv4&#x2F;IPv6双栈，实际各省份各运营商网络有差异，国内IPv6网络还没有完全覆盖，部分运营商以及网站服务器无法满足IPv6完全覆盖。为提升体验解决部分手机测试无法达到千兆的问题，解决京东、淘宝、腾讯网课等部分网站不支持IPv6数据流的问题，建议用户关闭IPv6。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202503281354382.png"></p>
+<h2 id="iphone开启Wi-Fi自动加入功能"><a href="#iphone开启Wi-Fi自动加入功能" class="headerlink" title="iphone开启Wi-Fi自动加入功能"></a>iphone开启Wi-Fi自动加入功能</h2><p>iphone手机首次关联路由器显示“无网络连接”，约20s~2分钟后“无网络连接”消失，实际上网络是通的。</p>
+<p>苹果手机的新IOS版本15.3以后，增加了特定服务器域名探测功能，以此来判断网络是否连通，该服务器不稳定，导致探测失败，进而导致iphone手机显示“无网络连接”问题；实际上网络是通的。</p>
+<p>iphone手机要打开自动关联功能，可以大概率规避“无网络连接”问题。</p>
+<h2 id="网关Wi-Fi配置加密模式建议wpa2方式AES算法"><a href="#网关Wi-Fi配置加密模式建议wpa2方式AES算法" class="headerlink" title="网关Wi-Fi配置加密模式建议wpa2方式AES算法"></a>网关Wi-Fi配置加密模式建议wpa2方式AES算法</h2><p><img src="https://qiniu-image.gotojava.cn/blog/202503281355012.png"></p>
+<h2 id="网关开启Wi-Fi5兼容模式，关闭802-11ax"><a href="#网关开启Wi-Fi5兼容模式，关闭802-11ax" class="headerlink" title="网关开启Wi-Fi5兼容模式，关闭802.11ax"></a>网关开启Wi-Fi5兼容模式，关闭802.11ax</h2><p>网关关闭Wi-Fi6（802.11ax），iphone重连。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202503281355083.png"></p>
+<h2 id="iphone恢复网络设置"><a href="#iphone恢复网络设置" class="headerlink" title="iphone恢复网络设置"></a>iphone恢复网络设置</h2><p>可以尝试苹果手机设置里面恢复网络设置尝试一下，是否能恢复正常。</p>
+<p>Checklist</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>检查清单</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>iphone设置DNS</td>
+</tr>
+<tr>
+<td>2</td>
+<td>iphone关闭限制IP地址跟踪</td>
+</tr>
+<tr>
+<td>3</td>
+<td>iphone隐私与安全，关闭所有跟踪</td>
+</tr>
+<tr>
+<td>4</td>
+<td>网关设置终端DNS来源</td>
+</tr>
+<tr>
+<td>5</td>
+<td>网关关闭IPv6</td>
+</tr>
+<tr>
+<td>6</td>
+<td>iphone开启Wi-Fi自动加入功能</td>
+</tr>
+<tr>
+<td>7</td>
+<td>网关Wi-Fi配置加密模式建议wpa2方式AES算法</td>
+</tr>
+<tr>
+<td>8</td>
+<td>网关开启Wi-Fi5兼容模式，关闭802.11ax</td>
+</tr>
+<tr>
+<td>9</td>
+<td>iphone恢复网络设置</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/IOS/">IOS</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

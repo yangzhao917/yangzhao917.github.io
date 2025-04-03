@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis7的单实例安装与基本配置 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Redis7的单实例安装与基本配置"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Redis7的单实例安装与基本配置</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/242fe420.html" rel="bookmark">
+        <time class="entry-date published" datetime="2024-06-05T19:31:21.000Z">
+          2024-06-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="Redis是什么"><a href="#Redis是什么" class="headerlink" title="Redis是什么"></a>Redis是什么</h2><p>Redis的全称是 <u>Remote Dictionary Server</u> 是一个开源的基于内存的高性能键值对（Key - Value）存储系统。可以用作数据库、缓存和消息代理。</p>
+<h2 id="为什么需要"><a href="#为什么需要" class="headerlink" title="为什么需要"></a>为什么需要</h2><ul>
+<li>作为缓存使用</li>
+</ul>
+<p>Redis 是基于内存做数据存储的，对于关系型数据库来说数据是保存在硬盘上，在读取方面Redis会更快，适合作为缓存使用。所以对于需要频繁查询的操作可以将数据存入Redis中，这样可以极大的减轻数据库服务的压力，提高系统的性能。</p>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202406030325885.png" alt="image-20240603032509698"></p>
+<ul>
+<li>完成一些特定场景的功能</li>
+</ul>
+<p>基于Redis一些数据结构的特性，完成一些类似于排行榜、用户点赞数、访问数、限流、Session会话共享、共同的社交关系、简单消息队列、分布式锁等等，这些功能虽然关系型数据库也能做，但是频繁的访问和修改操作会增加数据库访问压力，但对于Redis来说就非常适合、实现也更方便。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<p>⚠️注意：需要注意的是，Redis虽然性能很好，但也不是万能的，对于频繁访问的数据，Redis的缓存功能可以极大的减轻数据库的压力。但对于存储一些访问不太频繁的数据，虽然也不是不可以，但是会导致内存资源的浪费。</p>
+</blockquote>
+<blockquote>
+<p>Redis 不适合作为业务数据库使用，虽然 Redis 自身也有一些持久化的机制能将数据保存到硬盘，但是无法保证数据的可靠型，所以不要将 Redis 作为业务数据库使用，避免业务数据的丢失。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<li><p>本次所有的测试验证都是使用<a target="_blank" rel="noopener" href="https://github.com/redis/redis/releases/tag/7.0.0">Redis 7.0.0</a>来进行。获取和相关的变更信息可以通过 <a target="_blank" rel="noopener" href="https://github.com/redis/redis/releases">GitHub</a> 获取。</p>
+</li>
+<li><p>操作系统使用<u>CentOS 7</u>，使用 Parallels Desktop 来模拟主从复制、哨兵、和集群的验证。</p>
+</li>
+<li><p>Redis 可视化客户端可以使用 AnotherRedisDesktopManager，通过 <a target="_blank" rel="noopener" href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">GitHub</a> 获取。</p>
+</li>
+<li><p>版本号：Redis 使用标准的做法进行版本管理: <u>主版本号.副版本号.补丁号</u>。 偶数 <u>副版本号</u> 表示一个 <u>稳定的</u> 发布，像 1.2, 2.0, 2.2, 2.4, 2.6, 2.8。奇数副版本号表示 <u>不稳定的</u> 发布，例如 2.9.x 发布是一个不稳定版本，下一个稳定版本将会是Redis 3.0。</p>
+</li>
+<li><p>CentOS 7保证可以正常访问网络，修改 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38924500/article/details/109555882">yum 源为阿里云源</a>、安装 <a target="_blank" rel="noopener" href="https://gotojava.cn/article/aba7d07">GCC、GCC-C++</a>，以方便 Redis 的安装部署。</p>
+</li>
+</ul>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><blockquote>
+<p>生产环境的建议安装方式，使安装符合 Linux 文件系统的规范</p>
+</blockquote>
+<ul>
+<li>获取7.0.0安装包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/local/src 可以用来放自己安装的第三方源码文件</span></span><br><span class="line">wget -P /usr/local/src/ https://download.redis.io/releases/redis-7.0.0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/</span><br><span class="line">tar -zxf redis-7.0.0.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/redis-7.0.0/</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&#x2F;usr&#x2F;local&#x2F;bin下的Redis工具</li>
+</ul>
+<p><img src="https://qiniu-image.gotojava.cn/blog/202406030459591.png" alt="Redis 工具说明"></p>
+<ul>
+<li>创建redis的配置和数据放置目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /etc/redis/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据文件目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /var/lib/redis/6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志文件目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /var/log/redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>必要配置</li>
+</ul>
+<blockquote>
+<p>拷贝原始配置文件到配置文件目录中</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/src/redis-7.0.0/redis.conf /etc/redis/6379.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改6379.conf配置文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize <span class="built_in">yes</span> <span class="comment">#允许Redis在后台运行，默认为no</span></span><br><span class="line">protected-mode no <span class="comment">#关闭保护模式，允许远程客户端连接，默认为yes</span></span><br><span class="line"><span class="built_in">bind</span> 127.0.0.1 ::1 <span class="comment">#默认只允许本地机器连接，注释掉该行或者改成机器IP，否则影响远程机器连接</span></span><br><span class="line">requirepass 111111 <span class="comment">#设置Redis连接密码，远程客户端连接需要</span></span><br><span class="line"><span class="built_in">dir</span> /var/lib/redis/6379 <span class="comment"># 设置Redis数据文件目录，用于存放持久化文件RDB和AOF文件，默认为配置文件的所在目录（即安装目录）</span></span><br><span class="line">loglevel notice <span class="comment"># 设置日志级别（根据需要设置，默认:notice）</span></span><br><span class="line">logfile <span class="string">&quot;/var/log/redis/6379.log&quot;</span> <span class="comment"># 设置日志文件位置</span></span><br><span class="line">port 6379 <span class="comment"># 设置Redis运行端口，默认：6379</span></span><br><span class="line">save 3600 1 300 100 60 10000 <span class="comment"># 开启RDB持久化，默认注释掉，需要打开，如果作为缓存使用，可以不开启</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务自启动"><a href="#设置服务自启动" class="headerlink" title="设置服务自启动"></a>设置服务自启动</h3><h4 id="修改启动脚本"><a href="#修改启动脚本" class="headerlink" title="修改启动脚本"></a>修改启动脚本</h4><p>因为redis脚本中默认是无密码的，但我们设置了Redis的密码，导致通过服务停止的时候，没有权限访问。为了解决这个问题，需要修改启动脚本，以实现我们的需求。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REDIS_PASS=111111</span><br><span class="line"><span class="variable">$CLIEXEC</span> -p <span class="variable">$REDISPORT</span> -a <span class="variable">$REDIS_PASS</span> shutdown</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qiniu-image.gotojava.cn/blog/202406051916738.png" alt="image-20240605191616643"></p>
+<h4 id="配置服务自启动"><a href="#配置服务自启动" class="headerlink" title="配置服务自启动"></a>配置服务自启动</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/src/redis-7.0.0/utils/redis_init_script /etc/init.d/redis_6379</span><br><span class="line"><span class="built_in">cd</span> /etc/init.d/ &amp;&amp; chkconfig --level 35 redis_6379 on</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://qiniu-image.gotojava.cn/blog/202406030613228.png" alt="image-20240603061328082"></p>
+<h3 id="服务启停"><a href="#服务启停" class="headerlink" title="服务启停"></a>服务启停</h3><ul>
+<li>启动</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># redis-server 配置文件位置</span></span><br><span class="line">redis-server /etc/redis/6379.conf</span><br><span class="line">或</span><br><span class="line">service redis_6379 start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>停止</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># redis-cli -a 连接密码 -p 端口号(默认：6379)  shutdown</span></span><br><span class="line">redis-cli -a 111111 -p 6379 shutdown</span><br><span class="line">或</span><br><span class="line">service redis_6379 stop</span><br></pre></td></tr></table></figure>
+
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><blockquote>
+<p>如果需要卸载Redis，可以删除&#x2F;usr&#x2F;local&#x2F;bin目录下与redis相关的文件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /usr/local/bin/redis-*</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ggjucheng/archive/2012/08/20/2647788.html">https://www.cnblogs.com/ggjucheng/archive/2012/08/20/2647788.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://redis.com.cn/topics/why-use-redis.html">https://redis.com.cn/topics/why-use-redis.html</a></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Redis7/">Redis7</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

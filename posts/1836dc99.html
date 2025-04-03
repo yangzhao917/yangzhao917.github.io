@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Rsyslog归集系统日志 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="使用Rsyslog归集系统日志"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>使用Rsyslog归集系统日志</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/1836dc99.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-08-25T02:33:57.000Z">
+          2023-08-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>因为项目需要对私有云服务器的日志进行归集，以方便后续对日志进行分析处理。结合项目的实际需求研究了一下Rsyslog的基本使用并进行了有效性的验证，在此对实现过程进行一个记录</p>
+<span id="more"></span>
+
+<h2 id="Rsyslog是什么？"><a href="#Rsyslog是什么？" class="headerlink" title="Rsyslog是什么？"></a>Rsyslog是什么？</h2><blockquote>
+<p>Rsyslog是一个极快日志处理系统，能够接受来自各种来源的输入，对其进行转换，并将结果输出到不同的目的地。</p>
+</blockquote>
+<h2 id="测试环境说明"><a href="#测试环境说明" class="headerlink" title="测试环境说明"></a>测试环境说明</h2><p>操作系统：<code>统信UOS20企业版</code></p>
+<p>测试服务器IP：<code>172.25.16.29</code></p>
+<p>测试客户端IP：<code>172.25.16.34</code></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><blockquote>
+<p>启动UDP传输并进行端口监听</p>
+</blockquote>
+<p>修改 <code>/etc/rsyslog.conf</code>文件，如果没有则添加如下内容</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191033.png" alt="image-20230825160221797"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>创建default.conf配置文件</p>
+</blockquote>
+<p>在 <code>/etc/rsyslog.d/</code>目录下创建 <code>default.conf</code>文件，并加入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Use default timestamp format  <span class="comment"># 使用自定义的格式</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义日志模板，日志显示格式如下：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%<span class="variable">$now</span>%：当前日期，格式：2023-08-23，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%timestamp:8:15%：当前时间戳：时:分:秒，</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%hostname%：主机名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%FROMHOST-IP%：客户端IP</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogfacility-text%：客户端日志类型</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   auth         <span class="comment">#pam产生的日志，认证日志</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   authpriv     <span class="comment">#ssh,ftp等登录信息的验证信息，认证授权认证</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   cron         <span class="comment">#时间任务相关</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   kern         <span class="comment">#内核</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   lpr          <span class="comment">#打印</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mail         <span class="comment">#邮件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   mark(syslog) <span class="comment">#rsyslog服务内部的信息,时间标识</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   news         <span class="comment">#新闻组</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   user         <span class="comment">#用户程序产生的相关信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   uucp         <span class="comment">#unix to unix copy, unix主机之间相关的通讯</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   <span class="built_in">local</span> 1~7    <span class="comment">#自定义的日志设备</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%syslogseverity-text%：客户端日志级别</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   debug           <span class="comment">#有调式信息的，日志信息最多</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   info            <span class="comment">#一般信息的日志，最常用</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   notice          <span class="comment">#最具有重要性的普通条件的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   warning, warn   <span class="comment">#警告级别</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   err, error      <span class="comment">#错误级别，阻止某个功能或者模块不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   crit            <span class="comment">#严重级别，阻止整个系统或者整个软件不能正常工作的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   alert           <span class="comment">#需要立刻修改的信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">   emerg, panic    <span class="comment">#内核崩溃等严重信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%app-name%：客户端执行的程序名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">%msg%：消息体</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template myFormat,<span class="string">&quot;%<span class="variable">$now</span>% %timestamp:8:15% | %hostname%@%FROMHOST-IP% | %syslogfacility-text% | %syslogseverity-text% | %app-name% | %msg%\n&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ActionFileDefaultTemplate myFormat</span>   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据客户端的IP单独存放主机日志在不同目录，/data/rsyslog-bak需要手动创建</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">template RemoteLogs,<span class="string">&quot;/data/rsyslog-bak/%fromhost-ip%/%fromhost-ip%_%<span class="variable">$YEAR</span>%-%<span class="variable">$MONTH</span>%-%<span class="variable">$DAY</span>%.log&quot;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">排除本地主机IP日志记录，只记录远程主机日志</span></span><br><span class="line">:fromhost-ip, !isequal, &quot;127.0.0.1&quot; ?RemoteLogs</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">忽略之前所有的日志，远程主机日志记录完之后不再继续往下记录</span></span><br><span class="line">&amp; ~</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><p>修改 <code>/etc/rsyslog.conf</code>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若启用UDP进行传输，则取消下面两行的注释，如果没有则添加到modules下</span></span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line">或加入如下内容</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">ModLoad imudp</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">UDPServerRun 514</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使用UDP传输所有日志到日志服务器（在末尾添加如下内容）</span></span><br><span class="line">*.*    @172.25.16.29</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启服务端rsyslog服务</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>日期生成</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191035.png" alt="image-20230825210852478"></p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191037.png" alt="image-20230825160343801"></p>
+<blockquote>
+<p>客户端生成日志</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger &quot;rsyslog test&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191040.png" alt="image-20230825161141448"></p>
+<blockquote>
+<p>服务端监控输出</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -20f /rsyslog-bak/172.25.16.34/172.25.16.34_2023-08-25.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191042.png" alt="image-20230825161233634"></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Linux/">Linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

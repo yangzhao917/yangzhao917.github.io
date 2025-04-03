@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>UOS升级OpenSSH | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="UOS升级OpenSSH"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>UOS升级OpenSSH</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/947b9fd7.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-09-14T14:46:11.000Z">
+          2023-09-14
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>因密码测评的整改要求，需要对线上服务器进行OpenSSH的升级，遂在此记录一下升级过程</p>
+<span id="more"></span>
+
+<p>服务器使用的是统信的UOS，使用方式和Ubuntu的使用方式很像。</p>
+<ul>
+<li>操作系统版本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Uos</span><br><span class="line">Description:	UnionTech OS Server 20 Enterprise</span><br><span class="line">Release:	20</span><br><span class="line">Codename:	fou</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>升级前的OpenSSH版本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wsupport@wsupport-PC:~$ ssh -V</span><br><span class="line">OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新apt源"><a href="#更新apt源" class="headerlink" title="更新apt源"></a>更新apt源</h2><ol>
+<li>使用root用户修改 <code>/etc/apt/sources.list</code>文件</li>
+</ol>
+<blockquote>
+<p>vi &#x2F;etc&#x2F;apt&#x2F;sources.list</p>
+</blockquote>
+<ul>
+<li>政务网</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [by-hash=force] http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>互联网</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [trusted=yes] http://172.22.1.32/enterprise-packages.chinauos.com/server-enterprise/  fou/sp3  main contrib non-free</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>更新源</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt update</span></span><br><span class="line">命中:1 http://172.23.1.32/enterprise-packages.chinauos.com/server-enterprise fou/sp3 InRelease</span><br><span class="line">正在读取软件包列表... 完成</span><br><span class="line">正在分析软件包的依赖关系树   </span><br><span class="line">正在读取状态信息... 完成   </span><br><span class="line">有 140 个软件包可以升级。请执行 ‘apt list --upgradable’ 来查看它们。</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新OpenSSH"><a href="#更新OpenSSH" class="headerlink" title="更新OpenSSH"></a>更新OpenSSH</h2><ol>
+<li>安装 <code>libssl-dev</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt install libssl-dev -y</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>上传 <code>openssh</code>和 <code>zlib</code></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"><a target="_blank" rel="noopener" href="https://www.icloud.com.cn/iclouddrive/0a6Z5YjRTUOVDwyyjh69fLAoQ">ICloud获取</a></th>
+<th align="center"><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1N74CdsrofonJvyEmS87voA?pwd=ges3">百度网盘获取</a></th>
+</tr>
+</thead>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1.tar.gz  zlib-1.2.13.tar.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压源码包</span></span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf openssh-9.4p1.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# tar -zxf zlib-1.2.13.tar.gz </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# </span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads# ls</span><br><span class="line">install_package  openssh-9.4p1	openssh-9.4p1.tar.gz  zlib-1.2.13  zlib-1.2.13.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>编译安装</li>
+</ol>
+<ul>
+<li>安装zlib</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/zlib-1.2.13# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装open-ssh</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@wsupport-PC:/home/wsupport/Downloads# cd openssh-9.4p1</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# ./configure</span><br><span class="line">root@wsupport-PC:/home/wsupport/Downloads/openssh-9.4p1# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="升级验证"><a href="#升级验证" class="headerlink" title="升级验证"></a>升级验证</h2><p>再次查看OpenSSH的版本，发现已经升级成功，由原来的 <code>7.9p1 Debian-10+deb10u1</code>升级到了 <code>9.4p1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@wsupport-PC:~# ssh -V</span><br><span class="line">OpenSSH_9.4p1, OpenSSL 1.1.1d  10 Sep 2019</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Linux/">Linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

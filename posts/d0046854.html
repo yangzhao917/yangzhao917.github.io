@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>达梦数据库信创安全加固说明 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="达梦数据库信创安全加固说明"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>达梦数据库信创安全加固说明</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/d0046854.html" rel="bookmark">
+        <time class="entry-date published" datetime="2024-07-25T18:58:41.000Z">
+          2024-07-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="身份鉴别"><a href="#身份鉴别" class="headerlink" title="身份鉴别"></a>身份鉴别</h2><h3 id="W001-口令强度策略不够完善。"><a href="#W001-口令强度策略不够完善。" class="headerlink" title="W001-口令强度策略不够完善。"></a>W001-口令强度策略不够完善。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查看密码策略</span></span><br><span class="line"><span class="keyword">SELECT</span> PARA_NAME ,PARA_VALUE <span class="keyword">FROM</span> V$DM_INI <span class="keyword">WHERE</span> &quot;V$DM_INI&quot;.PARA_NAME <span class="operator">=</span> <span class="string">&#x27;PWD_POLICY&#x27;</span></span><br><span class="line"><span class="comment">--修改密码策略（只针对新的用户生效）  </span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> ‘PWD_POLICY’<span class="operator">=</span><span class="number">31</span>  <span class="keyword">BOTH</span>;  </span><br><span class="line"><span class="comment">--- 查看密码过期策略</span></span><br><span class="line"><span class="keyword">SELECT</span> A.USERNAME,B.LIFE_TIME ,GRACE_TIME <span class="keyword">FROM</span>  ALL_USERS A  ,SYSUSERS B <span class="keyword">WHERE</span> A.USER_ID <span class="operator">=</span>B.ID</span><br><span class="line"><span class="comment">--修改密码有效期90天,宽限期30天</span></span><br><span class="line"> <span class="keyword">ALTER</span> <span class="keyword">USER</span>  用户名  LIMIT PASSWORD_LIFE_TIME <span class="number">90</span>, PASSWORD_GRACE_TIME <span class="number">30</span>;  </span><br></pre></td></tr></table></figure>
+
+<h3 id="W002-无登录失败处理功能。"><a href="#W002-无登录失败处理功能。" class="headerlink" title="W002-无登录失败处理功能。"></a>W002-无登录失败处理功能。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查看失败处理策略</span></span><br><span class="line"><span class="keyword">SELECT</span> A.USERNAME,B.LOCK_TIME , b.FAILED_ATTEMPS ,b.CONN_IDLE_TIME <span class="keyword">FROM</span>  ALL_USERS A  ,SYSUSERS B <span class="keyword">WHERE</span> A.USER_ID <span class="operator">=</span>B.ID  </span><br><span class="line"><span class="comment">--修改用户登录失败三次，锁定1分钟，空闲连接时间10分钟</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> 用户名  LIMIT PASSWORD_LOCK_TIME <span class="number">1</span> , FAILED_LOGIN_ATTEMPS <span class="number">3</span> ,CONNECT_IDLE_TIME <span class="number">10</span>;  </span><br></pre></td></tr></table></figure>
+
+<h3 id="W003-远程管理时未采用加密措施。"><a href="#W003-远程管理时未采用加密措施。" class="headerlink" title="W003-远程管理时未采用加密措施。"></a>W003-远程管理时未采用加密措施。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用SSL认证登录需要用户自己提供相关的SSL证书。</span></span><br><span class="line"><span class="comment">--使用配通讯加密算法进行通讯加密(需要重启数据库生效）</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> <span class="string">&#x27;COMM_ENCRYPT_NAME&#x27;</span><span class="operator">=</span><span class="string">&#x27;DES_CFB&#x27;</span> SPFILE;</span><br><span class="line"><span class="comment">--可以使用的加密算法查询</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V$CIPHERS;</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问策略"><a href="#访问策略" class="headerlink" title="访问策略"></a>访问策略</h2><h3 id="W005-未实现操作系统和数据库特权用户权限分离。"><a href="#W005-未实现操作系统和数据库特权用户权限分离。" class="headerlink" title="W005-未实现操作系统和数据库特权用户权限分离。"></a>W005-未实现操作系统和数据库特权用户权限分离。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建普通用户语句。</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> 用户名 IDENTIFIED  <span class="keyword">BY</span> &quot;密码&quot;;</span><br><span class="line"><span class="comment">--授权</span></span><br><span class="line"><span class="keyword">GRANT</span> RESOURCE,PUBLIC,VTI,SOI <span class="keyword">TO</span> 用户;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安全审计"><a href="#安全审计" class="headerlink" title="安全审计"></a>安全审计</h2><blockquote>
+<p>使用SYSAUDITOR账户操作</p>
+</blockquote>
+<h3 id="W007-数据库审计开启"><a href="#W007-数据库审计开启" class="headerlink" title="W007-数据库审计开启"></a>W007-数据库审计开启</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--开启数据审计</span></span><br><span class="line">SP_SET_ENABLE_AUDIT (<span class="number">1</span>);</span><br><span class="line"><span class="comment">--添加审计规则(SYSDBA/SYSAUDITOR添加，用户审计、用户实施DDL审计、用户实施DML审计、用户的权限更改审计，相关数据操作员添加，用户审计、用户实施DDL审计、用户的权限更改审计)。</span></span><br><span class="line"><span class="comment">--用户审计</span></span><br><span class="line"><span class="comment">--添加用户创建／修改／删除用户操作的审计</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;USER&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户登陆登出的审计</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;CONNECT&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>)</span><br><span class="line"><span class="comment">--用户权限的更改审计</span></span><br><span class="line"><span class="comment">--添加用户回收权限操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;REVOKE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span> , <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户授权授予权限操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;GRANT&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--用户实施DML操作审计</span></span><br><span class="line"><span class="comment">--添加用户表上删除的权限</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;DELETE TABLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户表上更新的权限</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;UPDATE TABLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户调用存储过程或函数操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;EXECUTE PROCEDURE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户表上查询的权限</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;SELECT TABLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户表上插入的权限</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;INSERT TABLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--用户实施DDL操作审计</span></span><br><span class="line"><span class="comment">--添加用户创建／删除角色操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;ROLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／删除／设置当前模式操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;SCHEMA&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／删除包规范</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;PACKAGE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／删除包规范</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;PACKAGE BODY&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改／删除／清空基表操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;TABLE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／删除索引操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;INDEX&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改／删除视图操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;VIEW&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改／删除触发器操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;TRIGGER&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改／删除存储模块操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;PROCEDURE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改／删除全文索引操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;CONTEXT&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br><span class="line"><span class="comment">--添加用户创建／修改/删除序列操作</span></span><br><span class="line">SP_AUDIT_STMT(<span class="string">&#x27;SEQUENCE&#x27;</span>, <span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;ALL&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="W008-数据库审计日志查看"><a href="#W008-数据库审计日志查看" class="headerlink" title="W008-数据库审计日志查看"></a>W008-数据库审计日志查看</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查看审计日志</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> &quot;SYSAUDITOR&quot;.&quot;V$AUDITRECORDS&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="W009-审计日志文件定时备份"><a href="#W009-审计日志文件定时备份" class="headerlink" title="W009-审计日志文件定时备份"></a>W009-审计日志文件定时备份</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--本地磁盘空间充足，可以保留180天。</span></span><br><span class="line"><span class="comment">--备份通过操作系统命令定时将数据库实例目录下AUDIT开头的日志文件拷贝走。</span></span><br><span class="line"><span class="comment">--审计日志路径（默认数据库实例目录）</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V$DM_INI <span class="keyword">WHERE</span> &quot;V$DM_INI&quot;.PARA_NAME <span class="keyword">LIKE</span> <span class="string">&#x27;AUD_PATH%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="入侵规范"><a href="#入侵规范" class="headerlink" title="入侵规范"></a>入侵规范</h2><h3 id="W011-未限制对设备的访问控制规则。"><a href="#W011-未限制对设备的访问控制规则。" class="headerlink" title="W011-未限制对设备的访问控制规则。"></a>W011-未限制对设备的访问控制规则。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---添加允许IP地址连接用户登录数据库(做好记录服务器本地也需要相应IP登录）</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> &quot;用户名&quot; ALLOW_IP &quot;IP地址&quot;;</span><br><span class="line"><span class="comment">--查看允许登录IP。</span></span><br><span class="line"><span class="keyword">SELECT</span> A.USERNAME,B.LOCK_TIME , b.ALLOW_ADDR <span class="keyword">FROM</span>  ALL_USERS A  ,SYSUSERS B <span class="keyword">WHERE</span> A.USER_ID <span class="operator">=</span>B.ID</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据完整性"><a href="#数据完整性" class="headerlink" title="数据完整性"></a>数据完整性</h2><h3 id="W016-未采用密码技术进行通信完整性验证。"><a href="#W016-未采用密码技术进行通信完整性验证。" class="headerlink" title="W016-未采用密码技术进行通信完整性验证。"></a><span id="key1">W016-未采用密码技术进行通信完整性验证</span>。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用SSL认证登录需要用户自己提供相关的SSL证书。</span></span><br><span class="line"><span class="comment">--使用配通讯加密算法进行通讯加密(需要重启数据库生效）</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">SYSTEM</span> <span class="keyword">SET</span> <span class="string">&#x27;COMM_ENCRYPT_NAME&#x27;</span><span class="operator">=</span><span class="string">&#x27;DES_CFB&#x27;</span> SPFILE;</span><br><span class="line"><span class="comment">--可以使用的加密算法查询</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> V$CIPHERS;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据保密性"><a href="#数据保密性" class="headerlink" title="数据保密性"></a>数据保密性</h2><h3 id="W018-未对重要数据进行加密传输。"><a href="#W018-未对重要数据进行加密传输。" class="headerlink" title="W018-未对重要数据进行加密传输。"></a>W018-未对重要数据进行加密传输。</h3><p>参考数据<a href="#key1">完整性-W016</a></p>
+<h3 id="W019-未对重要数据进行加密存储。"><a href="#W019-未对重要数据进行加密存储。" class="headerlink" title="W019-未对重要数据进行加密存储。"></a>W019-未对重要数据进行加密存储。</h3><p>相关重要字段的加密存储参考<a target="_blank" rel="noopener" href="https://www.alipan.com/s/ktJNZEaNsmr">数据库安全管理手册</a>（存储加密）</p>
+<h2 id="个人信息保护"><a href="#个人信息保护" class="headerlink" title="个人信息保护"></a>个人信息保护</h2><h3 id="W024-数据库对个人信息明文存储。"><a href="#W024-数据库对个人信息明文存储。" class="headerlink" title="W024-数据库对个人信息明文存储。"></a>W024-数据库对个人信息明文存储。</h3><p>相关重要字段的加密存储参考<a target="_blank" rel="noopener" href="https://www.alipan.com/s/ktJNZEaNsmr">数据库安全管理手册</a>（存储加密）</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/达梦数据库/">达梦数据库</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux环境下的MySQL的安装和配置 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Linux环境下的MySQL的安装和配置"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Linux环境下的MySQL的安装和配置</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/2306cec7.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-11-13T13:55:23.000Z">
+          2023-11-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>本文记录MySQL5.7在CentOS7环境下的安装和配置过程。</p>
+<span id="more"></span>
+
+<h2 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h2><p>MySQL5.7有以下几个方面的新功能</p>
+<ol>
+<li>随机root密码</li>
+</ol>
+<p>MySQL5.7数据库初始化完成后，会自动生成一个root@localhost的用户，root用户的密码不为空，而是随机产生一个密码。</p>
+<ol start="2">
+<li>默认SSL加密</li>
+</ol>
+<p>MySQL5.7采用了更加简单的SSL安全访问机制，默认连接使用SSL的加密方式。</p>
+<ol start="3">
+<li>密码过期策略</li>
+</ol>
+<p>MySQL5.7支持用户设置密码过期策略，要求用户在一定时间过后必须修改密码。</p>
+<ol start="4">
+<li>用户锁</li>
+</ol>
+<p>MySQL5.7为管理员提供了暂时禁用某个用户的功能，使被锁定的用户无法访问和使用数据库。</p>
+<ol start="5">
+<li>全面支持JSON</li>
+</ol>
+<p>随着非结构化数据存储需求的持久增长，各种非结构化数据存储的数据应运而生，各大关系型数据库也不甘示弱，纷纷提供对JSON的支持，以应对非结构化数据库的挑战。</p>
+<p>MySQL5.7也提供了对JSON的支持，在服务器端提供了一组便于操作JSON的函数。存储的方法是将JOSN编码成BLOB后再由存储引擎进行处理。这样MySQL就同时拥有了关系型数据库和非关系型数据库的优点，并且可以提供完整的事务支持。</p>
+<ol>
+<li>支持两类生成列</li>
+</ol>
+<p>生成列是通过数据库中的其他列计算得到的一列。当为生成列创建索引时，可以便捷地加快查询速度。MySQL5.7支持虚拟生成列和存储生成列。虚拟生成列只是将数据保存在表的元数据中，作为缺省的生成列类型；存储生成列则是将数据永久保存在磁盘上，需要更多的磁盘空间。</p>
+<ol start="2">
+<li>引入系统库</li>
+</ol>
+<p>系统库中包含一系列视图、函数和存储过程，通过多线程、多进程、组合事务提交和基于行的优化方式将复制功能提高5倍以上，用户向外扩充其跨商品系统的工作负载时，得以大幅度提升复制的效能和效率。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>MySQL的版本分为：</p>
+<ul>
+<li>企业版</li>
+</ul>
+<p>MySQL企业版主要面向企业用户，不遵守社区版本的GPL开源协议。享受Oracle公司的7*24h的电话支持服务以及补丁更新服务（企业为此需要支付费用）。</p>
+<ul>
+<li>社区版</li>
+</ul>
+<p>社区版的维护由MySQL的开源社区提供支持，不能像商业版那样获取Oracle的电话支持和补丁服务。社区版是免费获取。MySQL的社区版可通过官网<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">MySQL Communify Downloads</a>获取。本文也主要针对该版本进行测试。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>实验使用环境为：</p>
+<p>操作系统（虚拟机环境）：CentOS Linux release 7.5.1804 (Core)</p>
+<p>MySQL版本：mysql-5.7.41-1.el7.x86_64</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# ls</span><br><span class="line">anaconda<span class="operator">-</span>ks.cfg  mysql<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm<span class="operator">-</span>bundle.tar</span><br><span class="line"># 解压归档tar包</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# tar <span class="operator">-</span>xf mysql<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm<span class="operator">-</span>bundle.tar</span><br><span class="line"></span><br><span class="line"># 卸载关于mariadb的依赖包文件，一台服务器只能安装一个MySQL<span class="operator">/</span>MariaDB软件</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>qa <span class="operator">|</span> grep mariadb</span><br><span class="line">mariadb<span class="operator">-</span>libs<span class="number">-5.5</span><span class="number">.56</span><span class="number">-2.</span>el7.x86_64</span><br><span class="line"># <span class="operator">-</span>e：删除指定的包；<span class="comment">--nodeps：在安装时不检查依赖关系</span></span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>e <span class="comment">--nodeps mariadb-libs-5.5.56-2.el7.x86_64</span></span><br><span class="line"></span><br><span class="line"># 服务器和客户端库的通用文件</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>common<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># MySQL数据库客户端应用程序的共享库</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>libs<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># MySQL客户端应用程序和工具</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>client<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># 数据库服务器和相关工具 </span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# rpm <span class="operator">-</span>ivh mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm </span><br><span class="line">警告：mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>el7.x86_64.rpm: 头V4 RSA<span class="operator">/</span>SHA256 Signature, 密钥 ID <span class="number">3</span>a79bd29: NOKEY</span><br><span class="line">准备中...                          ################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line">正在升级<span class="operator">/</span>安装...</span><br><span class="line">   <span class="number">1</span>:mysql<span class="operator">-</span>community<span class="operator">-</span>server<span class="number">-5.7</span><span class="number">.41</span><span class="number">-1.</span>e################################# [<span class="number">100</span><span class="operator">%</span>]</span><br><span class="line"></span><br><span class="line"># 启动MySQL服务</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# systemctl <span class="keyword">start</span> mysqld</span><br><span class="line"># 查看MySQL服务状态</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# systemctl status mysqld</span><br><span class="line">● mysqld.service <span class="operator">-</span> MySQL Server</span><br><span class="line">   Loaded: loaded (<span class="operator">/</span>usr<span class="operator">/</span>lib<span class="operator">/</span>systemd<span class="operator">/</span><span class="keyword">system</span><span class="operator">/</span>mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (<span class="keyword">running</span>) since 二 <span class="number">2023</span><span class="number">-11</span><span class="number">-07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">56</span> CST; <span class="number">2</span>s ago</span><br><span class="line">     Docs: man:mysqld(<span class="number">8</span>)</span><br><span class="line">           http:<span class="operator">/</span><span class="operator">/</span>dev.mysql.com<span class="operator">/</span>doc<span class="operator">/</span>refman<span class="operator">/</span>en<span class="operator">/</span><span class="keyword">using</span><span class="operator">-</span>systemd.html</span><br><span class="line">  Process: <span class="number">12837</span> ExecStart<span class="operator">=</span><span class="operator">/</span>usr<span class="operator">/</span>sbin<span class="operator">/</span>mysqld <span class="comment">--daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)</span></span><br><span class="line">  Process: <span class="number">12722</span> ExecStartPre<span class="operator">=</span><span class="operator">/</span>usr<span class="operator">/</span>bin<span class="operator">/</span>mysqld_pre_systemd (code<span class="operator">=</span>exited, status<span class="operator">=</span><span class="number">0</span><span class="operator">/</span>SUCCESS)</span><br><span class="line"> Main PID: <span class="number">12840</span> (mysqld)</span><br><span class="line">   CGroup: <span class="operator">/</span>system.slice<span class="operator">/</span>mysqld.service</span><br><span class="line">           └─<span class="number">12840</span> <span class="operator">/</span>usr<span class="operator">/</span>sbin<span class="operator">/</span>mysqld <span class="comment">--daemonize --pid-file=/var/run/mysqld/mysqld.pid</span></span><br><span class="line"></span><br><span class="line"><span class="number">11</span>月 <span class="number">07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">53</span> centos7 systemd[<span class="number">1</span>]: Starting MySQL Server...</span><br><span class="line"><span class="number">11</span>月 <span class="number">07</span> <span class="number">01</span>:<span class="number">08</span>:<span class="number">56</span> centos7 systemd[<span class="number">1</span>]: Started MySQL Server.</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="修改MySQL密码"><a href="#修改MySQL密码" class="headerlink" title="修改MySQL密码"></a>修改MySQL密码</h3><blockquote>
+<p>获取随机密码登陆</p>
+</blockquote>
+<p>MySQL在安装完成后，会生成一个随机密码，我们通过root用户➕随机密码便可以登陆MySQL服务器。随机密码会生成在 <code>/var/log/mysqld.log</code>中。我们可以通过 <code>tail -100f /var/log/mysqld.log | grep -i &quot;password”</code>来获取随机密码。</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191105.png" alt="Untitled"></p>
+<blockquote>
+<p>使用skip_grant_tables跳过密码验证</p>
+</blockquote>
+<p>也可以通过修改MySQL的配置文件my.cnf，通过跳过密码校验，来免登陆MySQL修改密码。通过在&#x2F;etc&#x2F;my.cnf配置文件中，添加 <code>skip_grant_tables</code>来实现跳过密码校验。</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191107.png" alt="Untitled"></p>
+<p>修改完成后，需要通过 <code>systemctl restart mysqld</code>重启MySQL服务，使配置文件的内容生效。</p>
+<p>通过mysql  -u root -p来登陆MySQL服务器，因为我们跳过了密码校验，所以在提示：“Enter password”时，回车即可。像下面这样：</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191110.png" alt="Untitled"></p>
+<aside>
+⚠️ 如果需要恢复密码验证，则移除”`skip_grant_tables`”这行内容，重启MySQL服务就可以了。
+
+</aside>
+
+<blockquote>
+<p>修改root密码</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 修改当前登陆用户的密码为root</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="keyword">user</span>() identified <span class="keyword">by</span> &quot;root&quot;;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"># 遇到：MySQL ERROR <span class="number">1819</span> (HY000): Your password does <span class="keyword">not</span> satisfy the <span class="keyword">current</span> policy requirements 问题参考：https:<span class="operator">/</span><span class="operator">/</span>ostechnix.com<span class="operator">/</span>fix<span class="operator">-</span>mysql<span class="operator">-</span>error<span class="number">-1819</span><span class="operator">-</span>hy000<span class="operator">-</span>your<span class="operator">-</span>password<span class="operator">-</span>does<span class="operator">-</span><span class="keyword">not</span><span class="operator">-</span>satisfy<span class="operator">-</span>the<span class="operator">-</span><span class="keyword">current</span><span class="operator">-</span>policy<span class="operator">-</span>requirements<span class="operator">/</span></span><br><span class="line"></span><br><span class="line"># 刷新权限</span><br><span class="line">mysql<span class="operator">&gt;</span> flush privileges;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="开放远程连接"><a href="#开放远程连接" class="headerlink" title="开放远程连接"></a>开放远程连接</h3><p>默认情况下MySQL是不允许本地以外的其他服务器远程访问的，这个时候需要我们进行授权操作。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 打开mysql数据库</span><br><span class="line">mysql<span class="operator">&gt;</span> use mysql;</span><br><span class="line">Reading <span class="keyword">table</span> information <span class="keyword">for</span> completion <span class="keyword">of</span> <span class="keyword">table</span> <span class="keyword">and</span> <span class="keyword">column</span> names</span><br><span class="line">You can turn off this feature <span class="keyword">to</span> <span class="keyword">get</span> a quicker startup <span class="keyword">with</span> <span class="operator">-</span>A</span><br><span class="line">Database changed</span><br><span class="line"># 修改记录，允许远程访问</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> <span class="string">&#x27;%&#x27;</span> <span class="keyword">where</span> <span class="keyword">user</span> <span class="operator">=</span><span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">1</span>  Changed: <span class="number">1</span>  Warnings: <span class="number">0</span></span><br><span class="line"># 刷新权限信息</span><br><span class="line">mysql<span class="operator">&gt;</span> flush privileges;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 开放防火墙<span class="number">3306</span>端口</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--zone=public --add-port=3306/tcp --permanent</span></span><br><span class="line"># 刷新防火墙规则</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--reload</span></span><br><span class="line"># 移除<span class="number">3306</span>端口</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--zone=public --remove-port=3306/tcp --permanent</span></span><br><span class="line"># 查看当前防火墙规则列表</span><br><span class="line">[root<span class="variable">@centos7</span> <span class="operator">~</span>]# firewall<span class="operator">-</span>cmd <span class="comment">--list-all</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取服务器状态信息"><a href="#获取服务器状态信息" class="headerlink" title="获取服务器状态信息"></a>获取服务器状态信息</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> status</span><br><span class="line"><span class="comment">--------------</span></span><br><span class="line">mysql  Ver <span class="number">14.14</span> Distrib <span class="number">5.7</span><span class="number">.41</span>, <span class="keyword">for</span> Linux (x86_64) <span class="keyword">using</span>  EditLine wrapper</span><br><span class="line"></span><br><span class="line">Connection id:          <span class="number">12</span></span><br><span class="line"><span class="keyword">Current</span> database:       mysql</span><br><span class="line"><span class="keyword">Current</span> <span class="keyword">user</span>:           root<span class="variable">@localhost</span></span><br><span class="line">SSL:                    <span class="keyword">Not</span> <span class="keyword">in</span> use</span><br><span class="line"><span class="keyword">Current</span> pager:          stdout</span><br><span class="line"><span class="keyword">Using</span> outfile:          <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">Using</span> delimiter:        ;</span><br><span class="line">Server version:         <span class="number">5.7</span><span class="number">.41</span> MySQL Community Server (GPL)</span><br><span class="line">Protocol version:       <span class="number">10</span></span><br><span class="line">Connection:             Localhost via UNIX socket</span><br><span class="line">Server characterset:    latin1</span><br><span class="line">Db     characterset:    latin1</span><br><span class="line">Client characterset:    utf8</span><br><span class="line">Conn.  characterset:    utf8</span><br><span class="line">UNIX socket:            <span class="operator">/</span>var<span class="operator">/</span>lib<span class="operator">/</span>mysql<span class="operator">/</span>mysql.sock</span><br><span class="line">Uptime:                 <span class="number">33</span> min <span class="number">20</span> sec</span><br><span class="line"></span><br><span class="line">Threads: <span class="number">1</span>  Questions: <span class="number">116</span>  Slow queries: <span class="number">0</span>  Opens: <span class="number">175</span>  Flush tables: <span class="number">1</span>  <span class="keyword">Open</span> tables: <span class="number">168</span>  Queries <span class="keyword">per</span> <span class="keyword">second</span> avg: <span class="number">0.058</span></span><br><span class="line"><span class="comment">--------------</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL安装目录说明"><a href="#MySQL安装目录说明" class="headerlink" title="MySQL安装目录说明"></a>MySQL安装目录说明</h3><table>
+<thead>
+<tr>
+<th>文件夹</th>
+<th>文件夹内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;var&#x2F;bin</td>
+<td>客户端和脚本（mysqladmin、mysqldump等命令）</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;sbin</td>
+<td>mysqld服务器</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;lib&#x2F;mysql</td>
+<td>日志文件、socket文件和数据库</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;share&#x2F;info</td>
+<td>信息格式的手册</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;share&#x2F;man</td>
+<td>UNIX帮助页</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;include&#x2F;mysql</td>
+<td>头文件</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;lib&#x2F;mysql</td>
+<td>MySQL的依赖库</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;share&#x2F;mysql</td>
+<td>错误消息、字符集、安装文件和配置文件</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;</td>
+<td>启动脚本文件的mysql目录，用来启动和停止MySQL服务</td>
+</tr>
+</tbody></table>
+<h3 id="MySQL数据目录说明"><a href="#MySQL数据目录说明" class="headerlink" title="MySQL数据目录说明"></a>MySQL数据目录说明</h3><aside>
+⚠️ MySQL数据目录的位置可以通过/etc/my.cnf配置文件中的datadir配置获得。
+
+</aside>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191111.png" alt="Untitled"></p>
+<table>
+<thead>
+<tr>
+<th>文件名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auto.cnf</td>
+<td>MySQL服务器的选项文件，用于存储server-uuid的值，server-uuid用于标识MySQL实例在集群中的唯一性。</td>
+</tr>
+<tr>
+<td>ca-key.pem</td>
+<td>CA 私钥, 用于生成服务器端&#x2F;客户端的数字证书</td>
+</tr>
+<tr>
+<td>ca.pem</td>
+<td>CA 证书, 用于生成服务器端&#x2F;客户端的数字证书</td>
+</tr>
+<tr>
+<td>client-cert.pem</td>
+<td>客户端连接时使用的证书</td>
+</tr>
+<tr>
+<td>client-key.pem</td>
+<td>客户端连接时使用的私钥</td>
+</tr>
+<tr>
+<td>ib_buffer_pool</td>
+<td>InnoDB引擎的缓存数据文件，用于存储缓存</td>
+</tr>
+<tr>
+<td>ibdata1</td>
+<td>共享表空间（系统表空间），如果使用的是InnoDB引擎，默认大小为10M</td>
+</tr>
+<tr>
+<td>ib_logfile0</td>
+<td>支持事务性引擎的redo日志文件</td>
+</tr>
+<tr>
+<td>ib_logfile1</td>
+<td>支持事务性引擎的redo日志文件</td>
+</tr>
+<tr>
+<td>ibtmp1</td>
+<td>存储临时对象的空间，比如临时表对象等</td>
+</tr>
+<tr>
+<td>mysql.sock</td>
+<td>Socket连接的文件，用于MySQL客户端和MySQL服务器的本地连接（同一机器）</td>
+</tr>
+<tr>
+<td>mysql.sock.lock</td>
+<td>MySQL的一个文件锁，用于控制并发访问数据库的情况</td>
+</tr>
+<tr>
+<td>private_key.pem</td>
+<td>密钥对的私钥</td>
+</tr>
+<tr>
+<td>public_key.pem</td>
+<td>密钥对的公钥</td>
+</tr>
+<tr>
+<td>server-cert.pem</td>
+<td>服务器端的数字证书</td>
+</tr>
+<tr>
+<td>server-key.pem</td>
+<td>服务器端的 RSA 私钥</td>
+</tr>
+<tr>
+<td>mysql、performance_schema、sys</td>
+<td>系统的内置数据库：</td>
+</tr>
+<tr>
+<td>information_schema：存储了数据库对象信息，包括用户表信息、列信息、权限信息、字符集信息、分区信息；</td>
+<td></td>
+</tr>
+<tr>
+<td>mysql：负责存储数据库用户、用户访问权限信息；</td>
+<td></td>
+</tr>
+<tr>
+<td>sys：MySQL5.7版本的数据库，提供了一些视图，用于帮助开发者和使用者更方便地查看性能问题。</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>test是我们自己创建的测试库，结构如下：</li>
+</ul>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191112.png" alt="Untitled"></p>
+<p>db.opt：用来保存数据库的配置信息，比如该库的默认字符集编码和字符集排序规则。</p>
+<blockquote>
+<p>InnoDB引擎</p>
+</blockquote>
+<p>*.frm：用来保存每个数据表的元数据和表结构信息，当数据库崩溃时，可以用.frm文件恢复表结构。</p>
+<p>*.ibd：用来存储表的数据。</p>
+<blockquote>
+<p>MyISAM引擎</p>
+</blockquote>
+<p>*.MYD：存储MyISAM表的数据。</p>
+<p>*.MYI：存储MyISAM表的索引及相关信息。</p>
+<aside>
+⚠️ 在MySQL中，一个数据库可以使用多个存储引擎。所以该数据库下可能既存在InnoDB引擎的文件，也存在MyISAM引擎的文件。
+
+</aside>
+
+<h3 id="MySQL配置文件（my-cnf）"><a href="#MySQL配置文件（my-cnf）" class="headerlink" title="MySQL配置文件（my.cnf）"></a>MySQL配置文件（my.cnf）</h3><blockquote>
+<p>服务器端参数“[mysqld]”</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>port</td>
+<td>表示MySQL服务器的端口号</td>
+</tr>
+<tr>
+<td>basedir</td>
+<td>表示MySQL的安装路径</td>
+</tr>
+<tr>
+<td>datadir</td>
+<td>MySQL数据文件的存储位置</td>
+</tr>
+<tr>
+<td>default_character_set</td>
+<td>服务端默认的字符集</td>
+</tr>
+<tr>
+<td>default_storage_engine</td>
+<td>创建数据表时，默认使用的存储引擎</td>
+</tr>
+<tr>
+<td>sql_mode</td>
+<td>sql模式的参数，该参数可以检验SQL语句的严格程度。sql_mode的参数参考：<a target="_blank" rel="noopener" href="http://www.gamecolg.com/program_m_onvideo_m_inkey_m_gta1662479699017.html">http://www.gamecolg.com/program_m_onvideo_m_inkey_m_gta1662479699017.html</a></td>
+</tr>
+<tr>
+<td>max_connections</td>
+<td>允许同时访问服务器的最大连接数</td>
+</tr>
+<tr>
+<td>query_cache_size</td>
+<td>查询时的缓存大小</td>
+</tr>
+<tr>
+<td>table_open_cache</td>
+<td>表示所有进程打开表的总数</td>
+</tr>
+<tr>
+<td>tmp_table_size</td>
+<td>内存中每个临时表允许的最大大小</td>
+</tr>
+<tr>
+<td>thread_cache_size</td>
+<td>缓存的最大线程数</td>
+</tr>
+<tr>
+<td>myisam_max_sort_file_size</td>
+<td>MySQL重建索引时所允许的最大临时文件大小</td>
+</tr>
+<tr>
+<td>myisam_sort_buffer_size</td>
+<td>重建索引时的缓存大小</td>
+</tr>
+<tr>
+<td>key_buffer_size</td>
+<td>关键词的缓存大小</td>
+</tr>
+<tr>
+<td>read_buffer_size</td>
+<td>MyISAM全表扫描的缓存大小</td>
+</tr>
+<tr>
+<td>read_rnd_buffer_size</td>
+<td>表示将排序好的数据存入该缓存中</td>
+</tr>
+<tr>
+<td>sort_buffer_size</td>
+<td>表示用于排序的缓存大小</td>
+</tr>
+<tr>
+<td>innodb_log_file_size</td>
+<td>InnoDB日志文件的大小</td>
+</tr>
+<tr>
+<td>innodb_log_buffer_size</td>
+<td>用于存储日志数据的缓存区大小</td>
+</tr>
+<tr>
+<td>innodb_buffer_pool_size</td>
+<td>缓存的大小，InnoDB使用一个缓冲池保存索引和原始数据</td>
+</tr>
+<tr>
+<td>innodb_thread_concurrency</td>
+<td>InnoDB存储引擎允许的线程最大数</td>
+</tr>
+<tr>
+<td>innodb_flush_log_at_trx_commit</td>
+<td>提交日志的时机，为1时会在每次提交后将事务日志写入到磁盘上</td>
+</tr>
+</tbody></table>
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><h3 id="CentOS7忘记密码怎么办？"><a href="#CentOS7忘记密码怎么办？" class="headerlink" title="CentOS7忘记密码怎么办？"></a>CentOS7忘记密码怎么办？</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45887180/article/details/115819136">CentOS7如果忘记密码，密码重置详细步骤_centos修改密码忘记密码-CSDN博客</a></p>
+<h3 id="ERROR-1820（HY000）"><a href="#ERROR-1820（HY000）" class="headerlink" title="ERROR 1820（HY000）"></a>ERROR 1820（HY000）</h3><p>错误提示：You must reset your password using ALTER USER statement before executing this statement.</p>
+<p>解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Wing_kin666/article/details/110921440">MySQL 报错：ERROR 1820 (HY000): You must reset your password using ALTER USER statement before-CSDN博客</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MySQL/">MySQL</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

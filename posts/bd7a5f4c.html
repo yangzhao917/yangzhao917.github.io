@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【高性能MySQL：第四章节（Schema与数据类型优化）】学习小节 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="【高性能MySQL：第四章节（Schema与数据类型优化）】学习小节"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>【高性能MySQL：第四章节（Schema与数据类型优化）】学习小节</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/bd7a5f4c.html" rel="bookmark">
+        <time class="entry-date published" datetime="2025-03-27T18:10:41.000Z">
+          2025-03-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>本章介绍了不同数据类型的细节差别以及表设计的原则。</p>
+<span id="more"></span>
+
+<p>问题一：如何选择合适的数据类型来存储数据？<br>在《高性能 MySQL 》中对于如何选择合适的类型提供了以下的几种建议，并做了一些解释。</p>
+<ul>
+<li>更小的通常更好。更小意味在存储空间上占用更少的存储，读取到内存中时占用更少的资源。比如要存储性别字段时，因为大陆由于国情问题，不承认双性人的存在，所以只可能会有男、女两种性别，这种情况可以用 char 来存，也可以用 tinyint 来存，还可以用 varchar 来存。但此时用 char 在可读性上可能是最合适的选择，但是用 tinyint 通过不同的数字来代表男、女也是一种不错的选择，尤其是需要存储用数字代表一些特定的状态标记的时候这是一种很常见的方案。但是在选择更小的同时要考虑数据的边界情况，因为当后期需要调整数据存储的类型时当表中的数据非常庞大时这是一个费时费力且不讨好的活。</li>
+<li>简单就好。简单的数据类型在操作上通过更简单，比如整数比字符串的操作代价要低很多，因为字符串受到语言的影响会存在字符集和排序规则的问题使操作字符串比操作数字更复杂。</li>
+<li>尽可能避免使用 NULL。在数据建表的过程中数据项为 NULL 可能是一个很常见的操作，因为在很多业务情况下很多字段的内容都不是必须要填写的，意味数据内容可以为空。在 MySQL 中 NULL也是列的默认属性。但一般最好不要为 NULL 值，因为记录为 NULL 时不论是索引还是通过函数进行统计都会比较复杂，有时候还需要额外对 NULL 的进行一些特殊的处理。如果 NULL 的项不作为索引或者统计字段，那么对于性能的影响可能比较小，其次记录为 NULL 时可能会使用更多的存储空间，可以使用空字符串的填充来代替 NULL。</li>
+</ul>
+<p>问题二：MySQL 中支持哪些数据类型？应用场景和优缺点是什么？<br>在 MySQL 中支持的数据类型有：整数（int）、小数（decimal）、字符串（char、varchar）、大文本、枚举、日期类型、位数据类型、标识符这几种。</p>
+<ul>
+<li><p>整数<br>对于整数 （int）可分为 8 位（tinyint）、16 位（smallint）、24 位（mediumint）、32 位（int）和 64 位存储空间（bigint），位数越小存储的范围越小，反之亦然。UNSIGNED 属性表示不允许存在负值，比如 tinyint unsigned 可以存储的范围是 0～255，而tinyint的存储范围是 -128 ~ 127。</p>
+</li>
+<li><p>小数<br>小数（decimal）与整数（int）不同的是，在 MySQL5.0 及以上的新版本中对小数支持精确计算，意味着不会四舍五入或者发生截断导致精度丢失问题。这对于财务或者金融领域中是个很大问题。<br>decimal 只是一种存储格式，在计算中decimal 会转换为 double 类型进行计算。float、double 和 decimal 都可以存储小数和指定精度，不同的是 decimal 的列可以指定小数点前后所允许的最大位数，比如 decimal(18,9) 小数点两边将各存储 9 个数字，一共使用 9 个字节，小数点前的数字用 4 个字节，小数点后的数字用 4 个字节，小数点本身占用 1 个字节，但这会占用更多的磁盘空间。在空间存储上 float 占用 4 个字节存储，double 占用 8 个字节。<br>对于在客户端中比如 navicat 或者 MySQL 客户端在建表的时候可以使用 int(10) 来指定存储的位数其实是个误解，int(10)只是用来显示字符的个数，对于存储空间的使用来说 int(1) 和 int(10) 是等价的。</p>
+</li>
+<li><p>字符串<br>MySQL 字符串类型中最常用的有两种：char 和 varchar 都可以用来存储字符串。其存储方式由存储引擎决定。优缺点：<br>优点：char 用于存储固定长度的字符串，对于长度固定的内容 char 有空间效率的优势，适合存储经常变更的数据且不容易产生碎片，比如身份证号。varchar 可用于存储可变长字符串，varchar 比 char 更节省存储空间，但如果通过使用参数 row_format&#x3D;fixed 固定行的长度的话，这个优势就不存在了。<br>缺点：varchar 在使用 update 做更新操作时，如果更新的内容长度比原来更长，如果行的占用空间增长，页内没有空间可以存储的情况下，InnoDB引擎需要通过分裂页来将内容放进页内，就像原来一行的东西是写在一页上的，但是内容增加了，就需要通过额外的页来记录新的内容。使用 char 类型来存储字符串的情况下，如果内容末尾有空格，char 会自动删除所有的末尾空格内容。<br>问题：varchar(5) 和 varchar(50)存储“hello”的所需要的存储空间都是一样的，那是不是意味varchar(5) 和 varchar(50) 没有区别？<br>varchar(5) 和 varchar(50) 虽然在实际的存储空间上没有区别，但varchar(50)会消耗更多的内存空间，因为需要分配固定大小的内存区域来保存内部值，也就是说一个是在写入到硬盘上的所消耗的存储空间，一个是读取到内存中所需要的内存空间。同时也不利于临时表的排序处理。</p>
+</li>
+<li><p>大文本<br>大文本类型的数据存储类型有两个：blob 和 text，二者都是字符串的数据类型，前者使用二进制存储，而后者采用字符方式存储。<br>text 的数据类型有：tinytext、smalltext、text、mediumtext、longtext，存储的字符，有字符集和排序规则；<br>blob 的数据类型有：tinyblob、smallblob、blob、mediumblob、longblob，存储的是二进制，所以没有字符集和排序规则；<br>需要注意的问题：</p>
+</li>
+</ul>
+<ol>
+<li>当存储的值太大时，InnoDB 会使用特定的存储区域来存储内容，通过在行内存储 1～4 个字节的文件地址，来指向实际的物理存储位置。</li>
+<li>排序时通过从头开始的 max_sort_length 参数长度做排序处理，而不是使用整个字符串做排序。如果需要指定长度有两种方式：修改 max_sort_length 的参数配置 或使用 order by substring(字段名,截取长度) 来实现。需要注意的是如果通过截取字符串的方式来排序要确保截取的字符串足够短，不要超过 max_heap_table_size 或 tmp_table_size，否则 MySQL 会将内存临时表转换为 MyISAM 磁盘临时表。通过 explain 执行计划的 extra 列是否包含“Using temporary” 来判断执行计划使用了隐式临时表。</li>
+<li>blob 和 text 列不能进行索引，也不能使用索引来解决排序问题。</li>
+<li>尽可能避免使用 blob 和 text 类型，在早期的系统中，会使用 blob 来直接存储图片或者文件的二进制内容，但会随着数据的增多导致 schema 的数据文件越来越大，读取性能下降，后来通过存储文件路径的方式改进了此类问题。在部分小说类的系统依然会使用 text 来存储大文本内容，因为你无法确定内容到底有多长。</li>
+</ol>
+<ul>
+<li><p>枚举<br>在开发过程中并没有使用过，因为字符串列表是固定的，添加或删除字符串必须使用 alter table 会导致表的重建，而且只能在列表末尾添加元素。</p>
+</li>
+<li><p>日期类型<br>MySQL 存储日期类型支持的有 datetime 和 timestrap。<br>datetime 存储的是一个日期格式（YYYYMMDDHHMMSS）的文本，精度为秒，时间范围从 1001 年 到 9999 年，显示采用 ANSI 标准，使用 8 个字节的存储空间（新版本使用 5 个字节）。一般也建议使用 datetime 来存储日期。<br>timestrap 类型保存了从 1970 年 1 月 1 日 到 2038 年的秒数，使用了 4 个字节的存储空间。可以通过时区自动更新时间戳，显示也依赖于时区的配置，timestrap 的默认为 NOT NULL。<br>在某些对时间要求极高的业务系统，会使用 bigint 来存储 Unix 时间戳。</p>
+</li>
+<li><p>位数据类型<br>没用过，如果要存储状态信息会优先考虑 tinyint，因为查询时返回的是二进制字符串。在书中也不推荐使用。</p>
+</li>
+<li><p>标识符（identifier ）<br>identifier：一般在实际的开发中用于区分特定字段的数据项在整张表中或者整个 schema 中是唯一的，用于和其他的 table 做数据关联使用。对于使用了 identifier 的字段可以使用 AUTO_INCREMENT 来自动增长，但在实际的业务中用到的场景不多，一般会使用雪花ID 或者 UUID 来做标识符的。</p>
+</li>
+</ul>
+<p>问题三：什么是范式和反范式，有哪些优缺点？<br>范式用于优化数据结构、避免存储相同的数据以节省存储空间，在修改数据的时候不用同时修改所处，也就说它是一种设计策略。<br>但是避免存储相同的数据就意味着要把数据拆开，各管各的数据，对于存在关联的数据通过标识符进行关联，此时如果业务系统比较复杂或者表结构庞大，比如一个中大型业务系统几百张表是很常见的事情。此时为了获取指定的数据结构就需要通过 join 去联表获取相应的数据，当 join 过多时就会产生性能问题（比如去 join 十几张表）。<br>为了解决这个问题，就需要在一些表上根据业务需求去做一些冗余字段（一般都会存储一些 ID 字段，或者必要的冗余），来减少联表查询的数量，因为范式的产生就是为了避免重复数据的问题，但为了提高查询效率就需要冗余一些字段来达到提升性能和方便维护的目的，这个就是反范式。<br>反范式虽然通过冗余来降低了 SQL 的查询逻辑优化了查询效率，但是会产生一些维护成本，比如需要同时在多处更新一些信息来达到数据一致性的目的，这对于不熟悉业务系统的人来说可能会产生一些因技术债务产生的数据 BUG。</p>
+<p>问题：</p>
+<ol>
+<li>数据存储是存储引擎的行为，那么 char 会自动删除所有的末尾空格内容的行为是属于存储引擎层还是服务层行为？</li>
+<li>timestrap 类型保存了从 1970 年 1 月 1 日 到 2038 年的秒数，那么对于 2038 年以后的日期系统会如何处理？</li>
+<li>当 MySQL 服务器存在多数据中心的情况下，timestrap 的时区问题由谁来决定？</li>
+</ol>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MySQL/">MySQL</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

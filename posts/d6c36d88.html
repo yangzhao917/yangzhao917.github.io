@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>【MySQL实战45讲：第七章节（行锁功过：怎么减少行锁对性能的影响？）】学习小结 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="【MySQL实战45讲：第七章节（行锁功过：怎么减少行锁对性能的影响？）】学习小结"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>【MySQL实战45讲：第七章节（行锁功过：怎么减少行锁对性能的影响？）】学习小结</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/d6c36d88.html" rel="bookmark">
+        <time class="entry-date published" datetime="2025-03-27T18:16:51.000Z">
+          2025-03-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<p>MyISAM引擎为什么不支持行锁？Mysql的行锁是由存储引擎自己去实现的，在 MySQL中主流的存储引擎由两种：MyISAM和InnoDB，在新版本的 MySQL 中InnoDB 是作为默认的存储引擎的，MyISAM 的存储引擎就没有了。原因是MyISAM的存储引擎是不支持事务的，但行级锁需要有事务隔离级别的支持。对于使用MyISAM作为存储引擎的表，一般会使用metadata lock（MDL）来进行锁表，MDL 的特性在修改数据时允许其他的线程去读数据但允许改数据，同一张表任何时刻只能有一个更新在执行，这会影响业务表的并发性，也正是因为MyISAM不支持事务和并发性的问题，但InnoDB是支持事务和行级锁的，这也就导致新版本中MyISAM引擎被 InnoDB 所替代。</p>
+<p>什么是行级锁？为什么行级锁会比表级锁更好呢？行级锁即行锁，是针对关系型数据表中行记录的锁。行锁的影响范围比表锁更小，影响的数据范围更小意味着业务的并发性会更高，业务并发性好系统的性能就会更好，能承载的数据处理能力就会更快、更高。比如张三此时更新了一条where id&#x3D;1的数据，此时李四也更新了这条数据，如果没有行锁这个东西，张三、李四就会对ID&#x3D;1的这条数据进行数据竞争，到底是谁先提交这个修改的事务不一定、修改数据结果更不好确定了，其次后修改的事务可能会覆盖先提交事务的更新，导致先提交事务的更新被覆盖了。</p>
+<p>什么是两阶段锁协议？为什么需要两阶段锁协议？如果没有这个协议会怎么样？在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。也就是锁是有两个阶段的：一个是访问行记录前的加锁阶段；一个是事务提交后的解锁阶段，这就是所谓的“两阶段锁”协议。那为什么需要“两阶段锁”呢？两阶段锁可以保证事务的一致性，在修改数据时其他用户线程不能修改这个记录，以保证事务的原子性。比如电影票在线交易的业务，顾客 A 和顾客 B 都需要同时在影院 C 买票看电影，同时记录一条交易日志。那么流程如下：<br>顾客 A：</p>
+<ol>
+<li>顾客 A（ID&#x3D;10） 发起下单扣款流程，从账户中扣除电影票价；</li>
+<li>给影院 C 的账户余额增加电影票价；</li>
+<li>记录一条顾客 A 购买影院某电影票的交易记录；<br>顾客 B：</li>
+<li>顾客 A（ID&#x3D;20） 发起下单扣款流程，从账户中扣除电影票价；</li>
+<li>给影院 C 的账户余额增加电影票价；</li>
+<li>记录一条顾客 B 购买影院某电影票的交易记录；<br>为了完成这个业务操作，需要同时更新两次影院 C 的账户余额，同时向交易表新增两条交易记录。为了保证业务操作的原子性都会把操作 1,2,3 放到一个事务里，这样如果某个步骤发生异常就会自动回滚，不会影响事务的一致性问题。但因为是同时提交的，都涉及到步骤 2 的修改操作，update 在修改时会对该条数据加读锁，此时其他的事务可以读但不能写，在事务 commit 后，改读锁释放，其他的用户线程才能改这条数据，不然会一直等待获取锁。所以当顾客 A 操作到第二步时因为已经拿到了读锁，会导致顾客 B 执行到这步时没有拿到读锁而一直等待，如果等待过长就会比较耗时，影响并发。如果调整顺序为 3,1,2 的情况下，步骤 3 的新增不会产生问题，访问到步骤 2 时拿到锁修改完成数据后，提交事务立即释放，从而减少了使用锁的时间，其他用户线程获取锁的等待时间也就变短了，那么访问并发性也就提高了。</li>
+</ol>
+<p>行级锁又会产生哪些问题，以及如何避免这些问题呢？行级锁在业务处理的时候，多个用户线程对同一数据访问的时候因为加锁问题产生锁的互斥，导致不同线程之间为了获取锁而出现循环资源依赖，涉及的线程都在等待别的线程释放锁，就会导致这几个线程都进入无限等待的状态。这个过程称之为“死锁”。避免这个死锁的问题可以下面的三种方式：</p>
+<ol>
+<li>通过调整修改语句的顺序，让获取锁的数据都是一样的，这样就不会产生死锁的问题。</li>
+<li>在修改语句的后面加入 for update 参数，这个参数可以让修改语句加读锁，让其他线程只能读取、不能修改。</li>
+<li>在业务系统层面使用乐观锁，其核心思想就是在数据库中添加一个版本号字段（存储的是时间戳或者数字），更新数据时，版本号会自动递增，修改前读取一下这条记录的版本号，并在提交时检查版本号是否发生变化，版本号没有变化则更新并将版本号+1；如果版本号发生变化，说明数据被修改，事务需要回滚。<br>如果已经出现了死锁，有两种策略可以解决：</li>
+<li>进入等待，直到锁的超时，超时时间可以通过参数innodb_lock_wait_timeout 来设置，这个值的默认值是50s，如果采用这个策略，被锁住的线程要超过 50s 才会自动退出，其他的线程才会继续执行，对于在线实时系统来说超过 3s 就算是慢的，50s 的等待时间更是无法接受的，因为可能还有有业务处理和网络传输的耗时。如果参数值设置的太短也不合适，会导致需要获取锁而等待的线程被误伤，从而自动释放锁。</li>
+<li>死锁检测，主动回顾死锁链中的某一个事务，让其他的事务得以继续执行，innodb_deadlock_detect 参数为on时表示开始这个逻辑，其默认状态就是on。但如果并发量大的情况下会导致大量的线程进行死锁检测，从而消耗大量的CPU资源，导致 CPU 利用率飙升。解决方式：<ol>
+<li>如果确保不会死锁可以设置 innodb_deadlock_detect &#x3D; off来关闭死锁检测，但关掉死锁检测如果出现死锁进行锁等待，导致出现大量的超时问题，这会对业务系统产生影响。所以一般不会使用这种方式；</li>
+<li>控制并发度。并发检测是有必要的，这可以避免大量的锁等待。通过排队机制比如消息队列来控制服务端的并发数，通过“排队取号”的机制也可以化解这个问题；</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MySQL/">MySQL</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

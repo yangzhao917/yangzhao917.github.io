@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Windows环境下的MySQL安装与配置 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Windows环境下的MySQL安装与配置"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Windows环境下的MySQL安装与配置</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/8df25a04.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-07-27T21:35:31.000Z">
+          2023-07-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>💡MySQL 是最流行的开源 SQL 数据库管理系统，由 Oracle 公司开发、分发和支持。本文将记录在Window7环境下安装MySQL的过程，用于快速查阅、验证和备忘。</p>
+<span id="more"></span>
+
+<h2 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h2><p>本文使用的版本是 <code>MySQL 5.7.43</code>，可通过🔗<a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/installer/">官网</a>获取最新版本，也可以直接通过我的网盘获取。</p>
+<p>🔗<a target="_blank" rel="noopener" href="https://www.icloud.com.cn/iclouddrive/0fdMqhG1ZbQzXTa-xT6Gq4jyQ#MySQL">ICloud的网盘</a>：</p>
+<ul>
+<li>基于32位的 <code>mysql-installer-community-5.7.42.0</code>安装版</li>
+<li>基于64位的 <code>mysql-5.7.43-winx64</code></li>
+<li>RPM版本的 <code>mysql-5.7.41-1.el7.x86_64.rpm-bundle.tar</code></li>
+</ul>
+<h2 id="Windows的安装"><a href="#Windows的安装" class="headerlink" title="Windows的安装"></a>Windows的安装</h2><blockquote>
+<p>Windows环境：Windows7旗舰版Service Pack 1</p>
+</blockquote>
+<ul>
+<li>将MySQL放到安装目录中</li>
+</ul>
+<p>此系统为了我的虚拟机，只有一个盘符 <code>C:</code>，所以我会放到 <code>C:\Program Files</code>目录下。对于MySQL的图形化 <code>.msi</code>的安装版本，会默认将安装到 <code>C:\Program Files\MySQL</code>目录下。</p>
+<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
+<li>添加系统环境变量 <code>MYSQL57_HOME</code></li>
+</ul>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191133.png" alt="image-20230727220925088"></p>
+<blockquote>
+<p>变量名：MYSQL57_HOME</p>
+<p>变量值：C:\Program Files\mysql-5.7.43-winx64</p>
+</blockquote>
+<ul>
+<li>修改系统环境变量 <code>Path</code></li>
+</ul>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191134.png" alt="image-20230727221424288"></p>
+<p>修改Path系统变量，在末尾添加 <code>;%MYSQL57_HOME%\bin;</code></p>
+<blockquote>
+<p>%环境变量名%表示引用一个已定义的环境变量</p>
+<p>“;”号表示分割符，用于分隔上一个环境变量的值</p>
+</blockquote>
+<ul>
+<li>测试环境变量</li>
+</ul>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191135.png" alt="image-20230727222026852"></p>
+<p>看到这个说明环境变量配置成功</p>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>在MySQL安装目录创建MySQL配置文件 <code>my.ini</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir=C:\\Program Files\mysql-5.7.43-winx64</span><br><span class="line"></span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=C:\\Program Files\mysql-5.7.43-winx64\data</span><br><span class="line"></span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections=200</span><br><span class="line"></span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br></pre></td></tr></table></figure>
+
+<p>从 MySQL 5.7.6 开始，ZIP存档的MySQL不再包含 <code>data</code>目录，这个目录需要我们自己创建和通过MySQL初始化。</p>
+<p>如果您想在不同位置使用数据目录，则应将该 <code>data</code>目录的全部内容复制到新位置。例如，如果您想用作 <code>E:\mydata</code>数据目录，则必须做两件事：</p>
+<ol>
+<li>将整个 <code>data</code>目录及其所有内容从默认位置（例如 <code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>）移动到 <code>E:\mydata</code>；</li>
+<li>每次启动服务器时，使用<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_datadir"><code>--datadir</code></a>选项指定新的数据目录位置。</li>
+</ol>
+<h3 id="初始化和安装"><a href="#初始化和安装" class="headerlink" title="初始化和安装"></a>初始化和安装</h3><p>❗以下命令都需要cmd以<strong>管理员身份运行</strong></p>
+<ol>
+<li>初始化数据库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 初始化时生成随机密码，且密码将被标记为已过期，在首次登陆后需要进行密码的修改</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize</span><br><span class="line"></span><br><span class="line"># 初始化时不会生成随机密码，在第一次登陆时使用回车确认即可</span><br><span class="line">C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld --initialize-insecure</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动服务器&#x2F;停止服务器</li>
+</ol>
+<ul>
+<li>启动服务器</li>
+</ul>
+<blockquote>
+<p>C:\Program Files\mysql-5.7.43-winx64\bin&gt;mysqld –console</p>
+<p>或 mysqld，因为已经配置了环境变量所以这里可以简写为mysqld</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191136.png" alt="image-20230727230811586"></p>
+<p>如果省略该<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_console"><code>--console</code></a>选项，服务器会将诊断输出写入数据目录中的错误日志（<code>C:\Program Files\MySQL\MySQL Server 5.7\data</code>默认情况下）。错误日志是带有扩展名的文件 <code>.err</code>，可以使用<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/server-options.html#option_mysqld_log-error"><code>--log-error</code></a> 选项进行设置。</p>
+<ol start="3">
+<li>安装为服务</li>
+</ol>
+<ul>
+<li>类型为自动启动，服务名默认MySQL(推荐)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install</span><br><span class="line">Service successfully installed.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类型为手动启动，服务名为MySQLServer57</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqld --install-manual MySQLServer57</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>启动服务</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc start mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 2  START_PENDING</span><br><span class="line">                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x1f40</span><br><span class="line">        PID                : 2192</span><br><span class="line">        FLAGS              :</span><br></pre></td></tr></table></figure>
+
+<p>查看服务状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc query mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 1  STOPPED</span><br><span class="line">        WIN32_EXIT_CODE    : 1077  (0x435)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x0</span><br><span class="line">        WAIT_HINT          : 0x0</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装后配置"><a href="#安装后配置" class="headerlink" title="安装后配置"></a>安装后配置</h3><p>在进行MySQL的初始化操作后，会在MySQL的配置的 <code>datadir</code>目录下生成一个以 <code>主机名.err</code>的日志文件，在日志文件中查找 <code>password</code>关键字来获取MySQL的初始密码。</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191137.png" alt="image-20230728005557780"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;mysql -u root -p</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.43</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2023, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可通过mysql本地客户端工具连接mysql后，修改初始密码。</p>
+<h4 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter user root@localhost identified by &#x27;123456&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="允许远程访问"><a href="#允许远程访问" class="headerlink" title="允许远程访问"></a>允许远程访问</h4><p>用户默认会有登陆的授权访问限制，只有允许的IP才能访问。所以可以通过修改用户的host字段来修改IP访问限制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 打开mysql数据库</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update user set host=&#x27;%&#x27; where user = &#x27;root&#x27;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line"># 刷新权限表</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="番外篇"><a href="#番外篇" class="headerlink" title="番外篇"></a>番外篇</h3><h4 id="卸载MySQL"><a href="#卸载MySQL" class="headerlink" title="卸载MySQL"></a>卸载MySQL</h4><ol>
+<li>停止MySQL</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;mysqladmin shutdown</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>停止服务</li>
+</ol>
+<blockquote>
+<p>可先通过sc query mysql来查询服务状态</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc stop mysql</span><br><span class="line"></span><br><span class="line">SERVICE_NAME: mysql</span><br><span class="line">        TYPE               : 10  WIN32_OWN_PROCESS</span><br><span class="line">        STATE              : 3  STOP_PENDING</span><br><span class="line">                                (STOPPABLE, PAUSABLE, ACCEPTS_SHUTDOWN)</span><br><span class="line">        WIN32_EXIT_CODE    : 0  (0x0)</span><br><span class="line">        SERVICE_EXIT_CODE  : 0  (0x0)</span><br><span class="line">        CHECKPOINT         : 0x1</span><br><span class="line">        WAIT_HINT          : 0x5265c00</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除服务</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\mysql-5.7.43-winx64&gt;sc delete mysql</span><br><span class="line">[SC] DeleteService 成功</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除MySQL相关目录文件及环境变量等信息</li>
+</ol>
+<p>本文中MySQL安装在C:\Program Files\mysql-5.7.43-winx64目录下，那么在做完上述操作后，我只需要将 <code>mysql-5.7.43-winx64</code>目录删除即可。然后再到系统环境变量中删除MySQL的相关环境变量就行。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sc query mysql</td>
+<td align="left">查看服务状态</td>
+</tr>
+<tr>
+<td align="left">sc delete mysql</td>
+<td align="left">删除服务</td>
+</tr>
+<tr>
+<td align="left">sc stop mysql</td>
+<td align="left">停止服务</td>
+</tr>
+<tr>
+<td align="left">sc start mysql</td>
+<td align="left">启动服务</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MySQL是一个跨平台的关系型数据库，以上记录了Windows7下的安装方式，对于Windows10、WindowsServer、CentOS和其他Linux操作系统来说，方法和思路都是类似的。在具体的操作上会略有不同。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html">在 Microsoft Windows 上安装 MySQL</a></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MySQL/">MySQL</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

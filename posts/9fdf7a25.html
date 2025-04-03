@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于SSH服务“Permission denied, please try again.”问题的解决方案 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="关于SSH服务“Permission denied, please try again.”问题的解决方案"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>关于SSH服务“Permission denied, please try again.”问题的解决方案</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/9fdf7a25.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-09-08T22:06:33.000Z">
+          2023-09-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<p>通过SSH远程登陆时，告知被禁止登陆。经过排查和查询网络资料。因为这个问题遇到的概率比较低。所以在这里把解决过程记录以下。</p>
+<span id="more"></span>
+
+<p>通过SSH终端工具连接时报以下问题：</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191022.png" alt="image-20230908200743172"></p>
+<p>这里说一下情况，服务器是云主机，托管于私有云供应商。然后通过堡垒机进行统一管理和运维。然后由于前一段时间的等级保护安全测评工作，服务器已经做了安全加固，也对SSH的版本进行了升级，跟远程登陆有关的安全措施如下：</p>
+<ol>
+<li>设置口令复杂度；</li>
+<li>设置口令重复使用次数限制；</li>
+<li>设置密码过期时间</li>
+<li>限制本地登陆和远程登陆次数；</li>
+<li>禁用root远程SSH登陆；</li>
+<li>升级OpenSSH；</li>
+</ol>
+<p>本次登陆使用的是普通账号，报的是 <code>userauth failed</code>。而不是密码错误的信息。</p>
+<p>而且云管账户下的机器为统一口令，不会出现个别机器口令不一样的情况，而且这个主机和其他主机安全策略完全一样，其他主机可以正常登陆。</p>
+<p>通过其他终端访问该服务器，并通过问题机器的VNC查看SSH日志，情况是这样的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191023.png" alt="image-20230908202026877"></p>
+<blockquote>
+<p>通过 <code>tail -100f /var/log/auth.log</code>查看认证日志</p>
+</blockquote>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191024.png" alt="image-20230908202134973"></p>
+<p>发现是SSH可以验证成功的，但是客户端的登陆被禁止。</p>
+<p>此时问题陷入了僵局。后来在同事的提醒下，通过VNC的终端查看了问题机器的错误登陆次数：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pam_tally2 --user wsupport</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191025.png" alt="image-20230908202445787"></p>
+<p>发现登陆错误次数达到了124次，然后尝试对错误登陆次数进行重置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pam_tally2 --user wsupport  --reset</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191026.png" alt="image-20230908202644624"></p>
+<p>重新尝试SSH登陆后，发现可以正常登陆。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Linux/">Linux</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

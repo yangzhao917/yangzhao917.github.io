@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>达梦查询分页排序问题 | 阿钊的写字板 | 公众号：阿钊的写字板</title>
+
+  
+  <meta name="author" content="阿钊的写字板">
+  
+
+  
+  <meta name="description" content="专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。">
+  
+
+  
+  <meta name="keywords" content="阿钊的写字板, Java, 分布式">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="达梦查询分页排序问题"/>
+
+  <meta property="og:site_name" content="阿钊的写字板"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="阿钊的写字板" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">阿钊的写字板</a>
+    </h1>
+    <p class="site-description">专注于 Java 技术栈与分布式系统实践，分享技术难题攻克、系统优化实战与信创项目开发经验。</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于我</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>达梦查询分页排序问题</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/posts/e057bf2e.html" rel="bookmark">
+        <time class="entry-date published" datetime="2023-06-08T14:00:55.000Z">
+          2023-06-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <meta name="referrer" content="no-referrer" />
+
+<span id="more"></span>
+
+<h2 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h2><ul>
+<li>环境：达梦7</li>
+</ul>
+<p>查询SQL如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">id,</span><br><span class="line">duty_date,</span><br><span class="line">duty_leader,</span><br><span class="line">duty_leader_id,</span><br><span class="line">duty_week,</span><br><span class="line">day_people,</span><br><span class="line">day_people_id,</span><br><span class="line">night_people,</span><br><span class="line">night_people_id,</span><br><span class="line">driver_people,</span><br><span class="line">is_work,</span><br><span class="line">ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">duty_date <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+
+<p>发现数据库的查询结果数据是正确的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191114.png"></p>
+<p>但页面返回的数据排序是有问题的</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191117.png"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>通过跟踪和调试，发现处理的逻辑拼接了以下代码</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191122.png"></p>
+<p>那么拼接后的SQL就是这样</p>
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191125.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		rownum rn,</span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">		duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) template </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	template.rn<span class="operator">&gt;</span> <span class="number">0</span> </span><br><span class="line">	<span class="keyword">AND</span> template.rn<span class="operator">&lt;=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191129.png"></p>
+<p>也就是查询后的数据的<strong>ROWNUM</strong>的值并没有被重新排序，那么由根据ROWNUM进行分页，数据的排序自然就不对了。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	ROWNUM rn,tmp.<span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		id,</span><br><span class="line">		duty_date,</span><br><span class="line">		duty_leader,</span><br><span class="line">		duty_leader_id,</span><br><span class="line">		duty_week,</span><br><span class="line">		day_people,</span><br><span class="line">		day_people_id,</span><br><span class="line">		night_people,</span><br><span class="line">		night_people_id,</span><br><span class="line">		driver_people,</span><br><span class="line">		is_work,</span><br><span class="line">		ISNULL( ( <span class="keyword">SELECT</span> <span class="built_in">COUNT</span> ( id ) <span class="keyword">FROM</span> T_OA_DUTY_PRINT_LOG <span class="keyword">WHERE</span> is_print <span class="operator">=</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">AND</span> duty_id <span class="operator">=</span> t1.id <span class="keyword">AND</span> created_by <span class="operator">=</span> <span class="string">&#x27;a5051dc718b942eb876e967836ec2953&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> duty_id ), <span class="number">0</span> ) <span class="keyword">AS</span> PRINT_COUNT </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		T_OA_DUTY_PRINT <span class="keyword">AS</span> t1 </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		<span class="number">1</span> <span class="operator">=</span> <span class="number">1</span> </span><br><span class="line">	<span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">		SUBSTR ( t1.duty_date, <span class="number">0</span>, <span class="number">7</span> ) <span class="keyword">DESC</span>,</span><br><span class="line">	duty_date <span class="keyword">ASC</span> </span><br><span class="line">	) <span class="keyword">AS</span> tmp</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu-image.gotojava.cn/blog/2023-12-15-191131.png" alt="image.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_34013496/article/details/74938788"><code>Oracle数据库中分页排序 </code></a></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/开发者笔记/">开发者笔记</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/达梦数据库/">达梦数据库</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 阿钊的写字板
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>
